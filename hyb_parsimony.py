@@ -39,14 +39,11 @@ class HybridParsimony:
         self.particles = [Particle(f, D, alpha, beta, lower_bounds, upper_bounds)
                           for _ in range(num_particles)]
 
-
-
-        # self.global_best_pos = min(self.particles, key=lambda p: p.
-        # self.global_best_f = f(self.global_best_pos)
-
-        # initialize the global best value among the particles
+        # initialize the current global best value among the particles
         self.global_best_pos = self.particles[0].best_pos
         self.global_best_f = self.particles[0].best_f
+        # self.global_best_pos = self.particles[0].pos
+        # self.global_best_f = self.particles[0].current_f
         for particle in self.particles:
             self.update_global_best(particle)
 
@@ -63,6 +60,10 @@ class HybridParsimony:
         if particle.best_f < self.global_best_f:
             self.global_best_pos = particle.best_pos
             self.global_best_f = particle.best_f
+        #
+        # if particle.current_f < self.global_best_f:
+        #     self.global_best_pos = particle.pos
+        #     self.global_best_f = particle.current_f
 
 
     def single_run(self):
@@ -91,14 +92,33 @@ class HybridParsimony:
         """
 
         found_optima = []  # for the f(x) from each trial
+
         for _ in range(num_trials):
             # For each trial, we find a solution and add it to the list
             (x_best, f_best) = self.single_run()
             found_optima.append(f_best)
+            self.reset()
 
+        # calculate statistics
         mean = np.mean(found_optima)
         std = np.std(found_optima)
         return mean, std
+
+
+    def reset(self):
+        """
+        Resets this algorithm's particles to their initial random states.
+
+        :return: None
+        """
+
+        self.particles = [Particle(self.f, self.D, self.alpha, self.beta,
+                                   self.lower_bounds, self.upper_bounds)
+                          for _ in range(self.num_particles)]
+        self.global_best_pos = self.particles[0].pos
+        self.global_best_f = self.particles[0].current_f
+        for particle in self.particles:
+            self.update_global_best(particle)
 
 
 class Particle:
@@ -133,6 +153,8 @@ class Particle:
         self.pos = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds).flatten()
         self.velocity = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds).flatten()
 
+        self.current_f = f(self.pos)
+
         # initialize the personal best values
         self.best_pos = self.pos
         self.best_f = f(self.best_pos)
@@ -162,8 +184,10 @@ class Particle:
 
         # then update this particle's best, as needed
         f_pos = self.f(self.pos)
+        self.current_f = f_pos
         if f_pos < self.best_f:
-            self.best_f = f_pos
+        # if self.current_f < self.best_f:
+            self.best_f = self.current_f
             self.best_pos = self.pos
 
 

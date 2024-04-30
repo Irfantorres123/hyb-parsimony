@@ -5,6 +5,7 @@
 import numpy as np
 from hyb_parsimony import HybridParsimony
 from benchmark_functions import easom
+from benchmark_functions import rosenbrock
 
 
 ####################
@@ -44,6 +45,7 @@ def f(x):
     """
 
     return easom(x, D)
+    # return rosenbrock(x, D)
 
 
 def main():
@@ -60,7 +62,7 @@ def main():
     # best_pos, best_f = hyb_parsimony.single_run()
     mean, std = hyb_parsimony.solve(num_trials)
 
-    print(f"Mean optima found over {num_trials} trials: {mean}")
+    print(f"Mean optima found over {num_trials} trials: {mean:.20f}")
     print(f"Standard deviation: {std}")
 
 
