@@ -39,11 +39,16 @@ class HybridParsimony:
         self.particles = [Particle(f, D, alpha, beta, lower_bounds, upper_bounds)
                           for _ in range(num_particles)]
 
-        # initialize the current global best value among the particles
-        self.global_best_pos = min(self.particles, key=lambda p: p.pos).pos
-        self.global_best_f = f(self.global_best_pos)
 
-        # todo one more line
+
+        # self.global_best_pos = min(self.particles, key=lambda p: p.
+        # self.global_best_f = f(self.global_best_pos)
+
+        # initialize the global best value among the particles
+        self.global_best_pos = self.particles[0].best_pos
+        self.global_best_f = self.particles[0].best_f
+        for particle in self.particles:
+            self.update_global_best(particle)
 
 
     def update_global_best(self, particle):
@@ -58,6 +63,42 @@ class HybridParsimony:
         if particle.best_f < self.global_best_f:
             self.global_best_pos = particle.best_pos
             self.global_best_f = particle.best_f
+
+
+    def single_run(self):
+        """
+        Runs a single instance of the HYB-PARSIMONY algorithm to optimize the
+        given objective function over the given dimensions using the given
+        number of iterations.
+
+        :return: The best position and f value found.
+        """
+
+        for _ in range(self.max_iterations):  # run for this number of iterations
+            # Idea: update each particle, and then update the global best
+            for particle in self.particles:
+                particle.update(self.global_best_pos)
+                self.update_global_best(particle)
+
+        return self.global_best_pos, self.global_best_f
+
+
+    def solve(self, num_trials):
+        """
+        Runs the HYB-PARSIMONY algorithm for the given number of trials.
+
+        :return: the mean and standard deviation of the best f values found.
+        """
+
+        found_optima = []  # for the f(x) from each trial
+        for _ in range(num_trials):
+            # For each trial, we find a solution and add it to the list
+            (x_best, f_best) = self.single_run()
+            found_optima.append(f_best)
+
+        mean = np.mean(found_optima)
+        std = np.std(found_optima)
+        return mean, std
 
 
 class Particle:
@@ -88,16 +129,17 @@ class Particle:
         self.upper_bounds = upper_bounds
 
         # initialize the position and velocity from a latin hypercube sample
-        self.pos = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds)
-        self.velocity = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds)
+        # also make sure that the arrays are flattened, i.e. [x, y] instead of [[x, y]]
+        self.pos = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds).flatten()
+        self.velocity = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds).flatten()
 
         # initialize the personal best values
         self.best_pos = self.pos
         self.best_f = f(self.best_pos)
 
         # TODO: keep track of the most parsimonious model within tolerance
-        self.best_complexity_pos = self.pos
-        self.best_complexity_f = f(self.best_complexity_pos)
+        # self.best_complexity_pos = self.pos
+        # self.best_complexity_f = f(self.best_complexity_pos)
 
 
     def update(self, global_best_pos):
@@ -131,39 +173,39 @@ class Particle:
 ####################
 #  Hyperparameters
 ####################
-
-# each individual is composed of the algorithm's training hyperparameters and
-# the input features to the model
-num_hyperparameters = 5
-"""The number of training hyperparameters for the algorithm."""
-num_features = 5
-"""The number of input features to the model."""
-
-# min and max values for the hyperparameters, can be individual for each
-lower_bounds = np.array([0]*10)  # Adjust this based on the actual range
-"""
-The minimum values for the hyperparameters. Each hyperparameter can have a
-different minimum value.
-"""
-upper_bounds = np.array([1]*10)  # Adjust this as well
-"""
-The maximum values for the hyperparameters. Each hyperparameter can have a
-different maximum value.
-"""
-
-elite_size = 10
-
-population_size = 50
-
-num_generations = 30
-"""The number of iterations to run the algorithm for."""
-
-tournament_size = 5
-
-mutation_rate = 0.01
-
-
-# ############################
+#
+# # each individual is composed of the algorithm's training hyperparameters and
+# # the input features to the model
+# num_hyperparameters = 5
+# """The number of training hyperparameters for the algorithm."""
+# num_features = 5
+# """The number of input features to the model."""
+#
+# # min and max values for the hyperparameters, can be individual for each
+# lower_bounds = np.array([0]*10)  # Adjust this based on the actual range
+# """
+# The minimum values for the hyperparameters. Each hyperparameter can have a
+# different minimum value.
+# """
+# upper_bounds = np.array([1]*10)  # Adjust this as well
+# """
+# The maximum values for the hyperparameters. Each hyperparameter can have a
+# different maximum value.
+# """
+#
+# elite_size = 10
+#
+# population_size = 50
+#
+# num_generations = 30
+# """The number of iterations to run the algorithm for."""
+#
+# tournament_size = 5
+#
+# mutation_rate = 0.01
+#
+#
+# # ############################
 # #  HYB-PARSIMONY algorithm
 # ############################
 #
@@ -235,19 +277,3 @@ mutation_rate = 0.01
 #     # 19. end main loop
 #     # 20. Return X_hat_hat
 
-
-
-
-###################
-#  Run everything
-###################
-
-def main():
-    """
-    Main function, calls everything.
-    """
-    pass
-
-
-if __name__ == '__main__':
-    main()
