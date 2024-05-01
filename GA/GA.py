@@ -33,10 +33,9 @@ def get_individual(length):
 def create_population(population_size, length):
     return [get_individual(length) for _ in range(population_size)]
 
-
-def tournament_selection(soln_space, tournament_size):
+def tournament_selection(f, soln_space, tournament_size):
     sample = random.sample(soln_space, tournament_size)
-    sample.sort(key=lambda x: easom_function(x))
+    sample.sort(key=lambda x: f(x))
     return sample[0]
 
 # Crossover between two parents to create two children
@@ -53,11 +52,11 @@ def mutate(individual, mutation_rate=0.01):
             individual[i] = random.random()
     return individual
 
-def create_generation(population_size, current_generation, tournament_size, mutation_rate):
+def create_generation(f, population_size, current_generation, tournament_size, mutation_rate):
     next_generation = []
     while len(next_generation) < population_size:
-        parent1 = tournament_selection(current_generation, tournament_size)
-        parent2 = tournament_selection(current_generation, tournament_size)
+        parent1 = tournament_selection(f, current_generation, tournament_size)
+        parent2 = tournament_selection(f, current_generation, tournament_size)
         child1, child2 = crossover(parent1, parent2)
         next_generation.append(mutate(child1, mutation_rate))
         if len(next_generation) < population_size:
@@ -65,19 +64,23 @@ def create_generation(population_size, current_generation, tournament_size, muta
     
     return next_generation
     
-def genetic_algorithm(generations, population_size, length, tournament_size, mutation_rate):
+def genetic_algorithm(f, generations, population_size, length, tournament_size, mutation_rate):
     soln_space = create_population(population_size, length)
     for generation in range(generations):
-        soln_space = create_generation(population_size, soln_space, tournament_size, mutation_rate)
-        best_fitness = min(easom_function(ind) for ind in soln_space)
+        soln_space = create_generation(f, population_size, soln_space, tournament_size, mutation_rate)
+        best_fitness = min(f(ind) for ind in soln_space)
         print(f"Generation {generation}: Best Fitness = {best_fitness}")
      
-    best_individual = min(soln_space, key=lambda x:easom_function(x))
+    best_individual = min(soln_space, key=lambda x:f(x))
     return best_individual
 
 # Example usage of the genetic algorithm
 if __name__ == "__main__":
-    best_solution = genetic_algorithm(generations, population_size, length, tournament_size, mutation_rate)
+    best_solution = genetic_algorithm(rosenbrock, generations, population_size, length, tournament_size, mutation_rate)
+    print("Best Solution:", best_solution)
+    print("Fitness of Best Solution:", fitness(best_solution))
+    
+    best_solution = genetic_algorithm(easom_function, generations, population_size, length, tournament_size, mutation_rate)
     print("Best Solution:", best_solution)
     print("Fitness of Best Solution:", fitness(best_solution))
 
