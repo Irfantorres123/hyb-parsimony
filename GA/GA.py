@@ -12,8 +12,8 @@ length = 2 #The number of elements (genes) in each individual -- dimensions
 tournament_size = 5
 mutation_rate = 0.05
 
-def easom_function(x):
-    # Calculate the value of the easom_function's function
+def rosenbrock(x):
+    # Calculate the value of the rosenbrock's function
     x1 = x[0]
     x2 = x[1]
     return (x1 - 1) ** 2 + 100 * (x2 - x1 ** 2) ** 2
