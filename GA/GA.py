@@ -1,3 +1,4 @@
+Ga.py
 import numpy as np
 import random
 
@@ -5,12 +6,21 @@ seed = 1990 #123 #1234 #69
 np.random.seed(seed)
 
 # Configurations
-num_trials = 5
+num_trials = 30
 generations = 30
 population_size = 50
-length = 10 #The number of elements (genes) in each individual -- dimensions
+length = 2 #The number of elements (genes) in each individual -- dimensions
 tournament_size = 5
 mutation_rate = 0.05
+
+def rosenbrock(x):
+    # Calculate the value of the Rosenbrock's function
+    x1 = x[0]
+    x2 = x[1]
+    return (x1 - 1) ** 2 + 100 * (x2 - x1 ** 2) ** 2
+
+def fitness(individual):
+    return sum(individual)
 
 def get_individual(length):
     return [random.random() for _ in range(length)]
@@ -18,12 +28,10 @@ def get_individual(length):
 def create_population(population_size, length):
     return [get_individual(length) for _ in range(population_size)]
 
-def fitness(individual):
-    return sum(individual)
 
 def tournament_selection(soln_space, tournament_size):
     sample = random.sample(soln_space, tournament_size)
-    sample.sort(key=lambda x: fitness(x))
+    sample.sort(key=lambda x: rosenbrock(x))
     return sample[0]
 
 # Crossover between two parents to create two children
@@ -56,10 +64,10 @@ def genetic_algorithm(generations, population_size, length, tournament_size, mut
     soln_space = create_population(population_size, length)
     for generation in range(generations):
         soln_space = create_generation(population_size, soln_space, tournament_size, mutation_rate)
-        best_fitness = min(fitness(ind) for ind in soln_space)
+        best_fitness = min(rosenbrock(ind) for ind in soln_space)
         print(f"Generation {generation}: Best Fitness = {best_fitness}")
      
-    best_individual = min(soln_space, key=lambda x:fitness(x))
+    best_individual = min(soln_space, key=lambda x:rosenbrock(x))
     return best_individual
 
 # Example usage of the genetic algorithm
@@ -67,6 +75,7 @@ if __name__ == "__main__":
     best_solution = genetic_algorithm(generations, population_size, length, tournament_size, mutation_rate)
     print("Best Solution:", best_solution)
     print("Fitness of Best Solution:", fitness(best_solution))
+
 
 
 
