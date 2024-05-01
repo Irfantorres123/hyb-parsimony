@@ -1,8 +1,6 @@
 import random
 import numpy as np
 from pyDOE import lhs
-from sklearn.datasets import load_iris
-from sklearn.datasets import load_digits
 from sklearn import svm
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import f1_score, roc_auc_score, log_loss
@@ -140,36 +138,35 @@ def crossover(parent1, parent2):
     
 
 def mutation_features(features, mutation_rate):
-    '''Assumption that features are binary encoded'''
-    for i in range(len(features)):
-        if random.random() < mutation_rate:
-            if features[i] == 0:
-                features[i] = 1
-            else:
-                features[i] = 0
-    
+    # Vectorized mutation for binary features
+    mutation_mask = np.random.rand(len(features)) < mutation_rate
+    features[mutation_mask] = 1 - features[mutation_mask]
     return features
 
-def mutation_hyperparameters(hyperparameters, mutation_rate):
+def mutation_hyperparameters(hyperparameters, mutation_rate, hyperparameter_ranges):
     '''Assumption that hyperparameter values are continuous values'''
-    for key in hyperparameters.keys():
+    for key, value in enumerate(hyperparameters):
         if random.random() < mutation_rate:
-            perturbation = normal_distribution(mean = 0, std=0.01*hyperparameters[key])
-            hyperparameters[key]+=perturbation
-    
+            min_val, max_val = hyperparameter_ranges[key]
+            range_val = max_val - min_val
+            std_dev = 0.01 * range_val
+            perturbation = np.random.normal(0, std_dev)
+            new_value = value + perturbation
+            hyperparameters[key] = np.clip(new_value, min_val, max_val)
     return hyperparameters
-     
-def mutation(Individual, mutation_rate):
-    Individual.features = mutation_features(Individual.features, mutation_rate)
-    Individual.hyperparameters = mutation_features(Individual.hyperparameters, mutation_rate)
-    return Individual
+
+def mutation(individual, mutation_rate, hyperparameter_ranges):
+    individual.features = mutation_features(individual.features, mutation_rate)
+    individual.hyperparameters = mutation_hyperparameters(individual.hyperparameters, mutation_rate, hyperparameter_ranges)
+    return individual
+
 
 def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=5, population_size=10, elite_population_count=5, 
                       mutation_rate=0.01):
     population = initialize_population(population_size, data_features, hyperparameter_ranges)
-    print("------------------")
+    #print("------------------")
     for generation in range(generations):
-        print(f"Generation {generation+1}")
+        #print(f"Generation {generation+1}")
         for individual in population:
             individual.fitness, individual.complexity = train_and_validate(individual, data_features, target)
             #print(f"Individual with features {individual.features} has fitness: {individual.fitness:.2f}, complexity: {individual.complexity:.2f}")
@@ -196,41 +193,9 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
             cnt += 1
             
         for i in range(len(new_population)):
-            ind = mutation(new_population[i], mutation_rate)
+            ind = mutation(new_population[i], mutation_rate, hyperparameter_ranges)
             new_population[i] = ind
     
         population = new_population
             
     return population
-
-    
-    
-# HyperParameters and other settings
-generations = 10
-population_size = 10  # Not just 'population'
-elite_population_count = 5
-mutation_rate = 0.01
-# Load the Iris dataset
-iris = load_iris()
-X = iris.data
-y = iris.target
-'''print('Iris DataSet')
-# Define hyperparameter ranges for the model
-hyperparameter_ranges = [(0.01, 1.0), (2, 10)] 
-
-# Call the genetic algorithm function correctly
-genetic_algorithm(data_features=X, target=y, hyperparameter_ranges=hyperparameter_ranges, generations=generations, population_size=population_size, 
-                 elite_population_count=elite_population_count, mutation_rate=mutation_rate)'''
-
-    
-print('Digits DataSet')
-digits = load_digits()
-X = digits.data
-y = digits.target
-# Example hyperparameter ranges for a logistic regression model
-hyperparameter_ranges = [(0.01, 1.0), (2, 10)]  # C: regularization strength, max_depth: dummy example
-# Call the genetic algorithm function correctly
-genetic_algorithm(data_features=X, target=y, hyperparameter_ranges=hyperparameter_ranges, generations=generations, population_size=population_size, 
-                 elite_population_count=elite_population_count, mutation_rate=mutation_rate)
-
-
