@@ -1,8 +1,10 @@
 import genetic_algorithm from geneticParisomnyAlgo
 from sklearn.datasets import load_digits
 
-print("-------------")
-
+generations = 10
+population_size = 10  # Not just 'population'
+elite_population_count = 5
+mutation_rate = 0.01
 print('Digits DataSet')
 digits = load_digits()
 X = digits.data
