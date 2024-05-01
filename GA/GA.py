@@ -1,4 +1,3 @@
-Ga.py
 import numpy as np
 import random
 
@@ -13,11 +12,17 @@ length = 2 #The number of elements (genes) in each individual -- dimensions
 tournament_size = 5
 mutation_rate = 0.05
 
-def rosenbrock(x):
-    # Calculate the value of the Rosenbrock's function
+def easom_function(x):
+    # Calculate the value of the easom_function's function
     x1 = x[0]
     x2 = x[1]
     return (x1 - 1) ** 2 + 100 * (x2 - x1 ** 2) ** 2
+
+def easom_function(x):
+    # Compute Easom function value
+    x1 = x[0]
+    x2 = x[1]
+    return -np.cos(x1) * np.cos(x2) * np.exp(-(x1 - np.pi)**2 - (x1 - np.pi)**2)
 
 def fitness(individual):
     return sum(individual)
@@ -31,7 +36,7 @@ def create_population(population_size, length):
 
 def tournament_selection(soln_space, tournament_size):
     sample = random.sample(soln_space, tournament_size)
-    sample.sort(key=lambda x: rosenbrock(x))
+    sample.sort(key=lambda x: easom_function(x))
     return sample[0]
 
 # Crossover between two parents to create two children
@@ -64,10 +69,10 @@ def genetic_algorithm(generations, population_size, length, tournament_size, mut
     soln_space = create_population(population_size, length)
     for generation in range(generations):
         soln_space = create_generation(population_size, soln_space, tournament_size, mutation_rate)
-        best_fitness = min(rosenbrock(ind) for ind in soln_space)
+        best_fitness = min(easom_function(ind) for ind in soln_space)
         print(f"Generation {generation}: Best Fitness = {best_fitness}")
      
-    best_individual = min(soln_space, key=lambda x:rosenbrock(x))
+    best_individual = min(soln_space, key=lambda x:easom_function(x))
     return best_individual
 
 # Example usage of the genetic algorithm
