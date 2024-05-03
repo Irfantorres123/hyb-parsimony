@@ -23,7 +23,10 @@ if not os.path.exists(base_path):
     os.makedirs(base_path)
 
 def res_datasets_exists(path):
-    # Check if the datasets CSV file exists at the specified path
+    """
+    Check if a dataset CSV file exists at a specified path.
+    Returns True if the file exists, False if not.
+    """
     try:
         pd.read_csv(path)
         return True

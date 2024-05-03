@@ -1,7 +1,12 @@
 import os
+import sys
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
+
+# Path where the geneticParsimonyAlgo module is located
+module_path = '/Users/poonampawar/hyb-parsimony/GA'
+sys.path.append(module_path)
 from geneticParsimonyAlgo import genetic_algorithm  # Ensure this import is correctly set up
 
 # Update the path as per your file structure
@@ -58,25 +63,25 @@ def main():
         # Assume CSV filename convention is "{name_ds}.csv", adjust if different
         dataset_filename = f"{row['name_ds']}.csv"
         X, y = load_and_process_dataset(dataset_filename, nrows=row['nrows'])
+        if X is not None and y is not None:
+            # Split the dataset into training and testing
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        # Split the dataset into training and testing
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+            # HyperParameters and other settings for the genetic algorithm
+            generations = 10
+            population_size = 10
+            elite_population_count = 5
+            mutation_rate = 0.01
 
-        # HyperParameters and other settings for the genetic algorithm
-        generations = 10
-        population_size = 10
-        elite_population_count = 5
-        mutation_rate = 0.01
+            # Define hyperparameter ranges for the model, adjust based on needs
+            hyperparameter_ranges = [(0.01, 1.0), (2, 10)]  # Example ranges
 
-        # Define hyperparameter ranges for the model, adjust based on needs
-        hyperparameter_ranges = [(0.01, 1.0), (2, 10)]  # Example ranges
+            # Call the genetic algorithm function
+            genetic_algorithm(data_features=X_train, target=y_train, hyperparameter_ranges=hyperparameter_ranges,
+                            generations=generations, population_size=population_size,
+                            elite_population_count=elite_population_count, mutation_rate=mutation_rate)
 
-        # Call the genetic algorithm function
-        genetic_algorithm(data_features=X_train, target=y_train, hyperparameter_ranges=hyperparameter_ranges,
-                          generations=generations, population_size=population_size,
-                          elite_population_count=elite_population_count, mutation_rate=mutation_rate)
-
-        print(f'{row["name_ds"]} Dataset Loaded and Algorithm Executed')
+            print(f'{row["name_ds"]} Dataset Loaded and Algorithm Executed')
 
 if __name__ == '__main__':
     main()
