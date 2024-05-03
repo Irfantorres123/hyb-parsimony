@@ -1,0 +1,167 @@
+Processing dataset: kr-vs-kp
+Actual Rows in dataset- 3196
+Error: The file kr-vs-kp.csv does not exist.
+Nothing to process
+Processing dataset: letter
+Actual Rows in dataset- 20000
+new candidate solution found with max,abs corrcoef = 0.6248588879818919
+new candidate solution found with max,abs corrcoef = 1.0
+Generation 1:
+Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 1 0 0] has fitness: 1.00, complexity: 7.17
+------------------
+Generation 2:
+Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 0 1 1] has fitness: 1.00, complexity: 2.98
+------------------
+Generation 3:
+Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 0 1 1] has fitness: 1.00, complexity: 2.98
+------------------
+Generation 4:
+Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 0 1 1] has fitness: 1.00, complexity: 2.98
+------------------
+Generation 5:
+Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 0 1 1] has fitness: 1.00, complexity: 2.98
+------------------
+Generation 6:
+Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 0 1 1] has fitness: 1.00, complexity: 2.98
+------------------
+Stopping early after 6 generations.
+letter Dataset Loaded and Algorithm Executed
+Processing dataset: mushroom
+Actual Rows in dataset- 8124
+new candidate solution found with max,abs corrcoef = 0.2998366572829612
+new candidate solution found with max,abs corrcoef = 1.0
+Generation 1:
+Best Individual with features [1 0 0 0 1 1 0 0 0 1 1 1 0 1 0 0 1 0 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 0 0 0 0
+ 1 0 0 0 1 1 1 0 0 0 0 0 0 0 1 1 0 0 1 0 0 1 0 0 1 1 0 1 0 0 0 0 1 1 1 0 1
+ 1 1 1 1 0 1 0 1 1 1 0 1 1 0 0 0 0 0 1 0 0 0 1 1 0 0 1 0 1 0 0 1 0 0 0 0 0
+ 0 1 0 0 1 0 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 1.37
+------------------
+Generation 2:
+Best Individual with features [1 1 0 1 0 0 0 1 0 0 0 0 0 1 0 0 1 1 1 1 0 0 0 1 1 0 1 1 1 0 1 0 0 1 0 0 1
+ 1 0 0 0 0 0 0 0 0 0 0 0 1 1 1 0 1 1 0 0 0 0 1 0 1 1 1 0 0 1 1 1 1 0 1 1 0
+ 1 0 0 1 1 0 1 0 0 1 0 0 1 0 1 1 1 0 0 1 0 0 0 1 1 0 1 0 1 0 0 0 0 1 1 0 0
+ 0 1 0 0 1 0 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 1.00
+------------------
+Generation 3:
+Best Individual with features [1 0 0 0 1 1 0 0 0 1 1 1 0 1 0 0 1 0 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 0 0 0 0
+ 1 0 0 0 1 1 1 0 0 0 0 0 1 1 1 0 1 1 0 0 0 0 1 0 1 1 1 0 0 1 1 1 1 0 1 1 0
+ 1 0 0 1 1 0 1 0 0 1 0 0 1 0 1 1 1 0 0 1 0 0 0 1 1 0 1 0 1 0 0 0 0 1 1 0 0
+ 0 1 0 0 1 0 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 1.37
+------------------
+Generation 4:
+Best Individual with features [1 0 0 0 1 1 0 0 0 1 1 1 0 1 0 0 1 1 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 0 0 0 0
+ 1 0 0 0 1 1 1 0 0 1 0 0 1 1 1 0 1 1 0 0 0 0 1 0 1 1 1 0 0 1 1 1 1 0 1 1 0
+ 1 0 0 1 1 0 1 0 0 1 0 0 1 0 1 1 1 0 0 1 0 0 0 1 1 0 1 0 1 0 0 0 0 1 1 0 1
+ 0 1 0 0 1 0 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 1.36
+------------------
+Generation 5:
+Best Individual with features [1 0 0 0 1 1 0 0 0 1 1 1 0 1 0 0 1 1 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 0 0 0 0
+ 1 0 0 0 1 1 1 0 0 1 0 0 1 1 1 0 1 1 0 0 0 0 1 0 1 1 1 0 0 1 1 1 1 0 1 1 1
+ 1 0 0 1 1 0 1 0 0 1 0 0 1 0 1 1 1 0 0 1 0 0 0 1 1 0 1 0 1 0 0 0 0 1 1 0 0
+ 0 1 0 0 1 0 1 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 1.36
+------------------
+Generation 6:
+Best Individual with features [1 0 0 0 1 1 0 0 0 1 1 1 0 1 0 0 1 1 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 0 0 0 0
+ 1 0 0 0 1 1 1 0 0 0 0 0 1 1 1 0 1 1 0 0 0 0 1 0 1 1 0 0 0 1 1 1 1 0 1 1 0
+ 1 0 0 1 1 0 1 0 0 1 0 0 1 0 1 1 1 0 1 1 0 0 0 1 1 0 0 0 1 0 0 0 0 1 1 0 0
+ 0 1 0 0 1 0 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 0.82
+------------------
+Stopping early after 6 generations.
+mushroom Dataset Loaded and Algorithm Executed
+Processing dataset: optdigits
+Actual Rows in dataset- 5620
+new candidate solution found with max,abs corrcoef = 0.3336619453283062
+new candidate solution found with max,abs corrcoef = 1.0
+Generation 1:
+Best Individual with features [1 1 0 1 1 0 1 0 1 0 1 0 1 0 0 0 1 1 0 0 1 1 0 0 1 0 0 0 0 0 1 0 1 1 0 1 0
+ 0 1 1 0 1 0 1 0 1 1 0 0 0 0 1 1 0 0 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 2.40
+------------------
+Generation 2:
+Best Individual with features [1 0 1 0 0 1 1 0 0 0 0 0 1 0 0 0 0 1 1 1 0 0 0 0 0 1 1 0 0 1 0 0 1 0 1 1 1
+ 0 1 1 0 1 0 1 0 1 1 0 0 0 0 1 1 0 0 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 1.69
+------------------
+Generation 3:
+Best Individual with features [0 1 1 1 0 1 0 1 1 0 1 1 0 0 0 1 0 1 0 0 1 0 1 1 1 1 1 0 1 0 1 1 1 1 0 1 1
+ 1 1 1 0 1 0 1 0 1 1 0 0 0 0 1 0 0 1 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 1.68
+------------------
+Generation 4:
+Best Individual with features [0 1 1 1 0 1 0 1 1 0 1 1 0 0 0 1 0 1 0 0 1 0 1 1 1 1 1 0 1 0 1 1 1 1 0 1 1
+ 1 1 1 0 1 0 1 0 1 1 0 0 1 0 1 0 0 1 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 1.68
+------------------
+Generation 5:
+Best Individual with features [0 1 1 1 0 1 0 1 1 0 1 1 0 0 0 1 0 1 0 0 1 0 1 1 1 1 1 0 1 0 1 1 1 1 0 1 1
+ 1 0 0 1 1 1 0 0 1 1 1 0 1 0 1 1 0 0 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 1.68
+------------------
+Generation 6:
+Best Individual with features [0 1 1 1 0 1 0 1 1 0 0 1 1 1 0 0 0 1 0 0 1 0 0 1 0 1 1 0 1 0 1 1 1 1 0 1 1
+ 1 1 1 0 1 0 1 0 1 1 0 0 1 0 1 0 0 1 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 1.68
+------------------
+Stopping early after 6 generations.
+optdigits Dataset Loaded and Algorithm Executed
+Processing dataset: page-blocks
+Actual Rows in dataset- 5473
+Error: The file page-blocks.csv does not exist.
+Nothing to process
+Processing dataset: pendigits
+Actual Rows in dataset- 10992
+new candidate solution found with max,abs corrcoef = 0.8145866231383104
+new candidate solution found with max,abs corrcoef = 1.0
+Generation 1:
+Best Individual with features [1 1 1 1 1 1 1 0 1 0 0 0 1 1 0 0] has fitness: 1.00, complexity: 4.37
+------------------
+Generation 2:
+Best Individual with features [1 1 1 1 1 1 1 0 1 0 0 0 1 1 0 0] has fitness: 1.00, complexity: 3.11
+------------------
+Generation 3:
+Best Individual with features [1 1 1 1 1 1 1 0 1 1 1 1 0 0 0 0] has fitness: 1.00, complexity: 5.00
+------------------
+Generation 4:
+Best Individual with features [1 1 1 1 1 1 1 1 0 0 1 1 1 0 1 1] has fitness: 1.00, complexity: 5.81
+------------------
+Generation 5:
+Best Individual with features [1 1 1 1 1 1 1 1 0 1 1 1 1 0 0 0] has fitness: 1.00, complexity: 5.00
+------------------
+Generation 6:
+Best Individual with features [1 1 1 1 1 1 1 1 0 1 1 1 1 0 0 0] has fitness: 1.00, complexity: 5.00
+------------------
+Generation 7:
+Best Individual with features [1 1 1 1 1 1 1 1 0 1 1 1 1 0 0 0] has fitness: 1.00, complexity: 5.00
+------------------
+Generation 8:
+Best Individual with features [1 1 1 1 1 1 1 1 0 1 1 1 1 0 0 0] has fitness: 1.00, complexity: 5.00
+------------------
+Generation 9:
+Best Individual with features [1 1 1 1 1 1 1 1 0 1 1 1 1 0 0 0] has fitness: 1.00, complexity: 5.00
+------------------
+Stopping early after 9 generations.
+pendigits Dataset Loaded and Algorithm Executed
+Processing dataset: segment
+Actual Rows in dataset- 2310
+new candidate solution found with max,abs corrcoef = 0.5548048460651575
+new candidate solution found with max,abs corrcoef = 1.0
+Generation 1:
+Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 0 1 0 0 1 1 0] has fitness: 1.00, complexity: 6.17
+------------------
+Generation 2:
+Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 2.90
+------------------
+Generation 3:
+Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 1 0 1 0 1 1 0] has fitness: 1.00, complexity: 6.16
+------------------
+Generation 4:
+Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 0 1 0 0 1 1 1] has fitness: 1.00, complexity: 6.16
+------------------
+Generation 5:
+Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 0 1 0 0 1 1 1] has fitness: 1.00, complexity: 6.16
+------------------
+Generation 6:
+Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 0 1 0 0 1 1 1] has fitness: 1.00, complexity: 6.16
+------------------
+Generation 7:
+Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 1 0 1 0 1 1 0] has fitness: 1.00, complexity: 6.16
+------------------
+Generation 8:
+Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 6.15
+------------------
+Stopping early after 8 generations.
+segment Dataset Loaded and Algorithm Executed
