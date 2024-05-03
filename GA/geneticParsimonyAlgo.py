@@ -6,13 +6,25 @@ from sklearn.model_selection import cross_val_score
 from sklearn.metrics import f1_score, roc_auc_score, log_loss
 
 class Individual:
+    """
+    Represents an individual in the genetic algorithm population.
+
+    Each individual comprises a set of binary-encoded features and associated hyperparameters.
+    Fitness and complexity attributes are used to evaluate the performance and efficiency of the individual.
+
+    Attributes:
+    - features (np.array): Binary array indicating the presence (1) or absence (0) of each feature.
+    - hyperparameters (dict): Dictionary of model hyperparameters.
+    - fitness (float): Evaluation metric score of the individual, initialized to None.
+    - complexity (float): Measure of model complexity, initialized to None.
+    """
     def __init__(self, features, hyperparameters):
         self.features = features
         self.hyperparameters = hyperparameters
         self.fitness = None  # Initialize fitness
         self.complexity = None  # Initialize complexity
 
-    
+
 def initialize_features(num_individuals, num_features):
     """ Generate Latin Hypercube Samples for features.
         Features are binary, indicating whether a feature is included (1) or excluded (0). """
@@ -36,6 +48,21 @@ def initialize_hyperparameters(num_individuals, hyperparameter_ranges):
     return hyperparameters
 
 def initialize_population(num_individuals, dataset_features, hyperparameter_ranges):
+    """
+    Initializes a population of individuals with binary-encoded features and scaled hyperparameters.
+    
+    This function generates a population where each individual is defined by a binary feature set
+    and a set of hyperparameters. The features are initialized via Latin Hypercube Sampling to
+    ensure even distribution, and hyperparameters are scaled based on provided ranges.
+    
+    Parameters:
+    - num_individuals (int): Number of individuals in the population.
+    - dataset_features (np.array): Dataset to determine the number of features.
+    - hyperparameter_ranges (list of tuples): Min and max values for each hyperparameter.
+    
+    Returns:
+    - population (list of Individual objects): Initialized population of individuals.
+    """
     num_features = dataset_features.shape[1]  # Determine the number of features from the dataset
     features = initialize_features(num_individuals, num_features)
     hyperparameters = initialize_hyperparameters(num_individuals, hyperparameter_ranges)
@@ -138,12 +165,33 @@ def crossover(parent1, parent2):
     
 
 def mutation_features(features, mutation_rate):
+    """
+    Mutates binary features of an individual based on a given mutation rate.
+
+    Parameters:
+    - features (np.array): Binary array of features to mutate.
+    - mutation_rate (float): Probability of each feature being mutated.
+
+    Returns:
+    - features (np.array): Mutated array of features.
+    """
     # Vectorized mutation for binary features
     mutation_mask = np.random.rand(len(features)) < mutation_rate
     features[mutation_mask] = 1 - features[mutation_mask]
     return features
 
 def mutation_hyperparameters(hyperparameters, mutation_rate, hyperparameter_ranges):
+    """
+    Mutates hyperparameters of an individual within given ranges based on a mutation rate.
+
+    Parameters:
+    - hyperparameters (list): List of hyperparameter values to mutate.
+    - mutation_rate (float): Probability of each hyperparameter being mutated.
+    - hyperparameter_ranges (list of tuples): Each tuple contains min and max values for a hyperparameter.
+
+    Returns:
+    - hyperparameters (list): List of mutated hyperparameter values.
+    """
     '''Assumption that hyperparameter values are continuous values'''
     for key, value in enumerate(hyperparameters):
         if random.random() < mutation_rate:
@@ -156,6 +204,17 @@ def mutation_hyperparameters(hyperparameters, mutation_rate, hyperparameter_rang
     return hyperparameters
 
 def mutation(individual, mutation_rate, hyperparameter_ranges):
+    """
+    Applies mutation to the features and hyperparameters of an individual.
+
+    Parameters:
+    - individual (Individual): The individual to mutate.
+    - mutation_rate (float): Mutation rate to apply.
+    - hyperparameter_ranges (list of tuples): Ranges for mutating hyperparameters.
+
+    Returns:
+    - individual (Individual): The mutated individual.
+    """
     individual.features = mutation_features(individual.features, mutation_rate)
     individual.hyperparameters = mutation_hyperparameters(individual.hyperparameters, mutation_rate, hyperparameter_ranges)
     return individual
@@ -163,8 +222,30 @@ def mutation(individual, mutation_rate, hyperparameter_ranges):
 
 def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=5, population_size=10, elite_population_count=5, 
                       mutation_rate=0.01):
+    """
+    Runs a genetic algorithm for feature selection and hyperparameter optimization.
+
+    Initializes a population of individuals with selected features and hyperparameters,
+    evolving over several generations through training, selection, crossover, and mutation.
+    Includes early stopping if no improvement is seen for half the total generations.
+
+    Parameters:
+    - data_features (np.array): Dataset input features.
+    - target (np.array): Dataset target variable.
+    - hyperparameter_ranges (list of tuples): Min and max values for each hyperparameter.
+    - generations (int): Total number of generations to run.
+    - population_size (int): Number of individuals in each generation.
+    - elite_population_count (int): Number of top individuals selected for reproduction.
+    - mutation_rate (float): Probability of mutating an individual.
+
+    Returns:
+    - best_individual (Individual): The best individual from the last generation or upon early stopping.
+    """
     population = initialize_population(population_size, data_features, hyperparameter_ranges)
-    #print("------------------")
+    best_score = float('-inf')
+    no_improvement_count = 0
+    patience = generations/2
+    
     for generation in range(generations):
         #print(f"Generation {generation+1}")
         for individual in population:
@@ -178,24 +259,29 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
         print(f"Best Individual with features {best_individual.features} has fitness: {best_individual.fitness:.2f}, complexity: {best_individual.complexity:.2f}")
         print("------------------")
         
-        # To do: Promote individuals with best 𝑀𝑐 between those with similar 𝐽
-        # To do: early stopping
-        elitist_population = population[: elite_population_count]
-        # Cross over 𝑃𝑒 to create a new generation 𝐗𝑡+1
+        # Early stopping check
+        if best_individual.fitness > best_score:
+            best_score = best_individual.fitness
+            no_improvement_count = 0
+        else:
+            no_improvement_count += 1
+        
+        if no_improvement_count >= patience:
+            print(f"Stopping early after {generation+1} generations.")
+            return best_individual
+
+       # Elitism and reproduction
+        elitist_population = population[:elite_population_count]
         new_population = []
-        cnt = 0
-        while cnt < elite_population_count:
-            p1 = random.randint(0, elite_population_count-1)
-            p2 = random.randint(0, elite_population_count-1)
-            offspring1, offspring2 = crossover(elitist_population[p1], elitist_population[p2])
-            new_population.append(offspring1)
-            new_population.append(offspring2)
-            cnt += 1
-            
+        while len(new_population) < population_size:
+            p1, p2 = random.sample(elitist_population, 2)
+            offspring1, offspring2 = crossover(p1, p2)
+            new_population.extend([offspring1, offspring2])
+        
+        # Mutation
         for i in range(len(new_population)):
-            ind = mutation(new_population[i], mutation_rate, hyperparameter_ranges)
-            new_population[i] = ind
-    
+            new_population[i] = mutation(new_population[i], mutation_rate, hyperparameter_ranges)
+        
         population = new_population
-            
+     
     return population

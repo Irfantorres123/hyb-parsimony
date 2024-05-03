@@ -1,0 +1,8 @@
+id_ds,name_ds,nrows,len_y,type_y,num_classes,target_name,name_file,type_prob,NFs
+3,kr,3196,3196,category,2,class,kr.csv,binary,74
+6,letter,20000,20000,category,26,class,letter.csv,multiclass,16
+24,mushroom,8124,8124,category,2,class,mushroom.csv,binary,125
+28,optdigits,5620,5620,category,10,class,optdigits.csv,multiclass,64
+30,page-blocks,5473,5473,category,5,class,page.csv,multiclass,10
+32,pendigits,10992,10992,category,10,class,pendigits.csv,multiclass,16
+36,segment,2310,2310,category,7,class,segment.csv,multiclass,19
