@@ -62,7 +62,12 @@ def main():
         
         # Assume CSV filename convention is "{name_ds}.csv", adjust if different
         dataset_filename = f"{row['name_ds']}.csv"
-        X, y = load_and_process_dataset(dataset_filename, nrows=row['nrows'])
+        rows = row['nrows']
+        print("Actual Rows in dataset-",rows)
+        if rows > 5000:
+            rows = 5000
+            
+        X, y = load_and_process_dataset(dataset_filename, nrows=rows)
         if X is not None and y is not None:
             # Split the dataset into training and testing
             X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -82,6 +87,8 @@ def main():
                             elite_population_count=elite_population_count, mutation_rate=mutation_rate)
 
             print(f'{row["name_ds"]} Dataset Loaded and Algorithm Executed')
+        else:
+            print('Nothing to process')
 
 if __name__ == '__main__':
     main()

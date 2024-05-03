@@ -241,47 +241,51 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
     Returns:
     - best_individual (Individual): The best individual from the last generation or upon early stopping.
     """
-    population = initialize_population(population_size, data_features, hyperparameter_ranges)
-    best_score = float('-inf')
-    no_improvement_count = 0
-    patience = generations/2
-    
-    for generation in range(generations):
-        #print(f"Generation {generation+1}")
-        for individual in population:
-            individual.fitness, individual.complexity = train_and_validate(individual, data_features, target)
-            #print(f"Individual with features {individual.features} has fitness: {individual.fitness:.2f}, complexity: {individual.complexity:.2f}")
+    try:
+        population = initialize_population(population_size, data_features, hyperparameter_ranges)
+        best_score = float('-inf')
+        no_improvement_count = 0
+        patience = generations/2
         
-        # Sort the population by fitness (descending) and by complexity (ascending) to break ties
-        population.sort(key=lambda x: (-x.fitness, x.complexity))
-        best_individual = population[0]
-        print(f"Generation {generation + 1}:")
-        print(f"Best Individual with features {best_individual.features} has fitness: {best_individual.fitness:.2f}, complexity: {best_individual.complexity:.2f}")
-        print("------------------")
-        
-        # Early stopping check
-        if best_individual.fitness > best_score:
-            best_score = best_individual.fitness
-            no_improvement_count = 0
-        else:
-            no_improvement_count += 1
-        
-        if no_improvement_count >= patience:
-            print(f"Stopping early after {generation+1} generations.")
-            return best_individual
+        for generation in range(generations):
+            #print(f"Generation {generation+1}")
+            for individual in population:
+                individual.fitness, individual.complexity = train_and_validate(individual, data_features, target)
+                #print(f"Individual with features {individual.features} has fitness: {individual.fitness:.2f}, complexity: {individual.complexity:.2f}")
+            
+            # Sort the population by fitness (descending) and by complexity (ascending) to break ties
+            population.sort(key=lambda x: (-x.fitness, x.complexity))
+            best_individual = population[0]
+            print(f"Generation {generation + 1}:")
+            print(f"Best Individual with features {best_individual.features} has fitness: {best_individual.fitness:.2f}, complexity: {best_individual.complexity:.2f}")
+            print("------------------")
+            
+            # Early stopping check
+            if best_individual.fitness > best_score:
+                best_score = best_individual.fitness
+                no_improvement_count = 0
+            else:
+                no_improvement_count += 1
+            
+            if no_improvement_count >= patience:
+                print(f"Stopping early after {generation+1} generations.")
+                return best_individual
 
-       # Elitism and reproduction
-        elitist_population = population[:elite_population_count]
-        new_population = []
-        while len(new_population) < population_size:
-            p1, p2 = random.sample(elitist_population, 2)
-            offspring1, offspring2 = crossover(p1, p2)
-            new_population.extend([offspring1, offspring2])
+        # Elitism and reproduction
+            elitist_population = population[:elite_population_count]
+            new_population = []
+            while len(new_population) < population_size:
+                p1, p2 = random.sample(elitist_population, 2)
+                offspring1, offspring2 = crossover(p1, p2)
+                new_population.extend([offspring1, offspring2])
+            
+            # Mutation
+            for i in range(len(new_population)):
+                new_population[i] = mutation(new_population[i], mutation_rate, hyperparameter_ranges)
+            
+            population = new_population
         
-        # Mutation
-        for i in range(len(new_population)):
-            new_population[i] = mutation(new_population[i], mutation_rate, hyperparameter_ranges)
-        
-        population = new_population
-     
-    return population
+        return population
+    except Exception as e:
+        print(f"Error during execution of algorithm: {e}")
+        return None
