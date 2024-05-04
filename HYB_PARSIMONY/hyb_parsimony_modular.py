@@ -234,8 +234,11 @@ class HybridParsimony:
         # randomly select which hyperparameters to mutate
         num_hyp_to_mutate = int(np.round(self.p_mutation * self.num_hyperparameters))
         # make sure we're mutating at least one hyperparameter
-        if num_hyp_to_mutate < 1:
-            num_hyp_to_mutate = 1
+        # if num_hyp_to_mutate < 1:
+        #     num_hyp_to_mutate = 1
+
+        # if num_hyp_to_mutate < 1:  # don't mutate hyperparameters
+        #     num_hyp_to_mutate = 0
 
         # choose the indices of the hyperparameters to mutate, then mutate them
         hyperparameters_indices = np.random.choice(self.num_hyperparameters, num_hyp_to_mutate, replace=False)
@@ -245,8 +248,11 @@ class HybridParsimony:
         # randomly select which features to mutate
         num_fea_to_mutate = int(np.round(self.feat_mut_threshold * num_features))
         # make sure we're mutating at least one feature
-        if num_fea_to_mutate < 1:
-            num_fea_to_mutate = 1
+        # if num_fea_to_mutate < 1:
+        #     num_fea_to_mutate = 1
+
+        # if num_fea_to_mutate < 1:  # don't mutate features
+        #     num_fea_to_mutate = 0
 
         # select indices as before, then mutate features
         features_indices = np.random.choice(num_features, num_fea_to_mutate, replace=False)
@@ -261,12 +267,18 @@ class HybridParsimony:
 
     def mutate_particles(self):
         """
+        Performs an in-place mutation of all particles in the population, except
+        for the top few particles.
 
-
-        :return:
+        :return: None
         """
 
-        # first mutate p_mutation percentage of hyperparameters
+        # sort the particles by their current function values
+        self.particles.sort(key=lambda p: p.current_f, reverse=False)
+
+        # don't mutate the top few particles
+        for particle in self.particles[self.not_muted:]:
+            self.mutate_particle(particle)
 
 
     def single_run(self):
@@ -287,9 +299,7 @@ class HybridParsimony:
             # Genetic algorithm stuff:
             # Perform crossover and mutation
             self.replace_bad_particles(t)  # crossover
-
-            # TODO: another function call to mutate_particles - this will do mutation
-
+            self.mutate_particles()  # mutation
 
         return self.global_best_val, self.global_best_f
 
