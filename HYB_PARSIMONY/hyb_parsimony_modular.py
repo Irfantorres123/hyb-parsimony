@@ -83,14 +83,25 @@ class HybridParsimony:
         function values. The number of elite particles is determined by the
         elite_count parameter of the class.
 
+        This function performs an in-place sort of the current particles based
+        on their current fitness values, in ascending order. This means that the
+        particles with the best (lowest) fitness values are at the start of the
+        list, and those with the worst values are at the end.
+
         :return: the elite particles
         """
 
         # Sort the particles by their function values in descending order
-        self.particles.sort(key=lambda p: p.current_f, reverse=True)
+        # self.particles.sort(key=lambda p: p.current_f, reverse=True)
+
+        # Sort the particles by their function values in ascending order
+        self.particles.sort(key=lambda p: p.current_f, reverse=False)
 
         # Return the elite particles
-        return self.particles[:self.elite_count]
+        # return self.particles[self.elite_count:]  # for descending
+        return self.particles[:self.elite_count]  # for ascending
+
+        # return self.particles[:self.elite_count]
 
 
     def crossover_two(self, parent1, parent2):
@@ -134,7 +145,6 @@ class HybridParsimony:
         # Randomly select which offspring to return
         # I don't want to return two particles, because what if we need to
         # replace an odd number of them? Then it wouldn't quite work out.
-
         if np.random.rand() < 0.5:
             chosen_offspring_val = np.concatenate((offspring1_hyperparameters, offspring1_features))
         else:
@@ -147,30 +157,53 @@ class HybridParsimony:
         return new_particle
 
 
-    def replace_bad_particles(self):
+    def replace_bad_particles(self, t):
         """
         Performs the crossover step, using the elite particles to replace a
         worst-performing percentage of the population.
 
+        :param t: the current iteration number (this matters for the crossover
+            probability)
         :return: None
         """
 
-        # 3 May 2024 10:41pm - repeatedly call crossover_two to generate a new
-        # particle, use this to replace the worst p_crossover percent of the
-        # population
-
-
-
-
-        # simplifications: just cross the positions, keep the velocities the same
+        # simplifications: just cross the positions, velocities will be random
 
         # npart = number of particles
         # [hyperparameters, features]
-        # "heuristic blending for hyperparameters and random swapping for features"
-        # just cross them over normally and see what happens
 
-        # elitist_population = self.select_elite()
-        # p_crossover = max(0.8 * math.exp(-self.gamma * t), 0.1)
+        # could try crossing the velocities if this doesn't work well enough
+
+        elitist_population = self.select_elite()
+        p_crossover = max(0.8 * math.exp(-self.gamma * t), 0.1)
+
+        # calculate how many particles to replace (using np.round)
+        num_to_replace = int(np.round(p_crossover * self.num_particles))
+
+        # randomly sample two particles from the elitist population
+        # no
+
+        replacements = []
+        for _ in range(num_to_replace):
+            # randomly sample two particles from the elitist population
+            # use them to generate a new offspring
+            # add that offspring to replacements
+
+            parent1, parent2 = np.random.choice(elitist_population, size=2, replace=False)
+
+            # low chance to select a random particle for increased diversity
+            if np.random.rand() < 0.1:
+                parent2 = np.random.choice(self.particles)
+
+            offspring = self.crossover_two(parent1, parent2)
+            replacements.append(offspring)
+
+        # at the end, replace the bottom p_crossover of the population with
+        # the replacements
+        # particles should already be sorted here from the call to select_elite
+
+        # self.particles = self.particles[:self.num_particles - num_to_replace] + replacements
+        self.particles[-num_to_replace:] = replacements
 
 
     def mutate_particles(self):
@@ -203,6 +236,11 @@ class HybridParsimony:
             # Perform crossover and mutation
 
             # TODO: function call to replace_bad_particles - this will do crossover
+
+            # self.select_elite()
+
+            self.replace_bad_particles(t)
+
             # TODO: another function call to mutate_particles - this will do mutation
 
 

@@ -42,9 +42,14 @@ L = 0.7  # inertia weight
 # L = 0.3  # inertia weight
 # L = 0.001 # inertia weight
 
-gamma = 0.3  # from Figure 3 in the paper
+gamma = 0.2  # from Figure 3 in the paper
+# gamma = 0.4  # from Figure 3 in the paper
+# gamma = 0.9  # from Figure 3 in the paper
+# gamma = 0.99  # from Figure 3 in the paper
 
 max_iterations = 100
+# max_iterations = 50
+
 # num_trials = 30
 num_trials = 10
 # num_trials = 5
