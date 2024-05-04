@@ -2,12 +2,13 @@ from sklearn.svm import SVC
 import numpy as np
 from concurrent.futures import ThreadPoolExecutor
 from typing import List
+from sklearn.model_selection import train_test_split
 
 def FunctionModelWrapper(f):
     """
     Wrapper to convert a function to a model object with fit and score methods
     """
-    
+    pass
 
 
 
@@ -77,8 +78,9 @@ class Evaluator:
         features = self.dataset.columns[features]
         X = self.dataset[features].values
         y = self.dataset.iloc[:,-1].values
-        model.fit(X,y)
-        return model.score(X,y)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        model.fit(X_train,y_train)
+        return model.score(X_test,y_test)
 
     def execute(self,agents:List[np.array],max_workers:int=4):
         """
@@ -86,7 +88,7 @@ class Evaluator:
         params:
         agents: List of numpy arrays containing the parameters to be used
         max_workers: Number of threads to use for execution
-        
+
         """
         thread_pool = ThreadPoolExecutor(max_workers=max_workers)
         results = []
