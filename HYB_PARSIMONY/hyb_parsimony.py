@@ -1,5 +1,6 @@
 import numpy as np
 from pyDOE2 import lhs
+import math
 
 
 class HybridParsimony:
@@ -36,8 +37,8 @@ class HybridParsimony:
         self.upper_bounds = upper_bounds
 
         # create the particles
-        self.particles = [Particle(f, D, alpha, beta, lower_bounds, upper_bounds)
-                          for _ in range(num_particles)]
+        self.particles = [Particle(self.f, self.D, self.alpha, self.beta, self.lower_bounds, self.upper_bounds)
+                          for _ in range(self.num_particles)]
 
         # initialize the current global best value among the particles
         self.global_best_pos = self.particles[0].best_pos
@@ -79,33 +80,35 @@ class HybridParsimony:
             # Idea: update each particle, and then update the global best
             for particle in self.particles:
                 particle.update(self.global_best_pos)
-                # self.update_global_best(particle)
-
-            for particle in self.particles:
                 self.update_global_best(particle)
+
+            # for particle in self.particles:
+            #     self.update_global_best(particle)
 
         return self.global_best_pos, self.global_best_f
 
 
-    def solve(self, num_trials):
+    def solve(self, num_trials=1):
         """
         Runs the HYB-PARSIMONY algorithm for the given number of trials.
 
         :return: the mean and standard deviation of the best f values found.
         """
 
-        found_optima = []  # for the f(x) from each trial
+        # found_optima = []  # for the f(x) from each trial
+        #
+        # for _ in range(num_trials):
+        #     # For each trial, we find a solution and add it to the list
+        #     (x_best, f_best) = self.single_run()
+        #     found_optima.append(f_best)
+        #     self.reset()
+        #
+        # # calculate statistics
+        # mean = np.mean(found_optima)
+        # std = np.std(found_optima)
+        # return mean, std
 
-        for _ in range(num_trials):
-            # For each trial, we find a solution and add it to the list
-            (x_best, f_best) = self.single_run()
-            found_optima.append(f_best)
-            self.reset()
-
-        # calculate statistics
-        mean = np.mean(found_optima)
-        std = np.std(found_optima)
-        return mean, std
+        return self.single_run()
 
 
     def reset(self):
@@ -115,13 +118,24 @@ class HybridParsimony:
         :return: None
         """
 
-        self.particles = [Particle(self.f, self.D, self.alpha, self.beta,
-                                   self.lower_bounds, self.upper_bounds)
-                          for _ in range(self.num_particles)]
-        self.global_best_pos = self.particles[0].pos
-        self.global_best_f = self.particles[0].current_f
         for particle in self.particles:
-            self.update_global_best(particle)
+            particle.pos = (lhs(self.D, samples=1) * (self.upper_bounds - self.lower_bounds) + self.lower_bounds).flatten()
+            particle.velocity = (lhs(self.D, samples=1) * (self.upper_bounds - self.lower_bounds) + self.lower_bounds).flatten()
+            particle.current_f = self.f(particle.pos)
+            particle.best_pos = particle.pos
+            particle.best_f = particle.current_f
+
+        self.global_best_pos = self.particles[0].best_pos
+        self.global_best_f = self.particles[0].best_f
+
+
+        # self.particles = [Particle(self.f, self.D, self.alpha, self.beta,
+        #                            self.lower_bounds, self.upper_bounds)
+        #                   for _ in range(self.num_particles)]
+        # self.global_best_pos = self.particles[0].pos
+        # self.global_best_f = self.particles[0].current_f
+        # for particle in self.particles:
+        #     self.update_global_best(particle)
 
 
 class Particle:
@@ -156,7 +170,7 @@ class Particle:
         self.pos = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds).flatten()
         self.velocity = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds).flatten()
 
-        self.current_f = f(self.pos)
+        # self.current_f = f(self.pos)
 
         # initialize the personal best values
         self.best_pos = self.pos
@@ -190,10 +204,11 @@ class Particle:
 
         # then update this particle's best, as needed
         f_pos = self.f(self.pos)
-        self.current_f = f_pos
+        # self.current_f = f_pos
         if f_pos < self.best_f:
         # if self.current_f < self.best_f:
-            self.best_f = self.current_f
+        #     self.best_f = self.current_f
+            self.best_f = f_pos
             self.best_pos = self.pos
 
 
@@ -308,55 +323,75 @@ class Particle:
 #     # 20. Return X_hat_hat
 
 
+# class Particle:
+#     def __init__(self, features, hyperparameters):
+#         self.features = features
+#         self.hyperparameters = hyperparameters
+#         self.fitness = None
+#         self.complexity = None
 
-def hyb_parsimony(f, D, n, alpha, beta, L, gamma, max_iterations, lower_bounds, upper_bounds):
+
+def hyb_parsimony(f, D, n, alpha, beta, L, gamma, max_iterations, elite_count,
+                  lower_bounds, upper_bounds):
     """
-    Implements the hybrid parsimony algorithm.
+    Implements the hybrid parsimony algorithm from Algorithm 3 of
+    https://doi.org/10.1016/j.neucom.2023.126840
 
     :param f: the objective function to optimize
     :param D: the number of dimensions to optimize this function in
     :param n: the population size, number of particles
     :param alpha: learning parameter #1 (alpha is close to beta is close to 2)
     :param beta: learning parameter #2 (alpha is close to beta is close to 2)
+    :param L: inertia weight for velocity
+    :param gamma: regulates the number of particles to be substituted by
+        crossover. Smaller values cause more particles to be substituted.
     :param max_iterations: the maximum number of iterations that the algorithm
         should run for (this is the stopping criterion)
+    :param elite_count: the number of elite particles to keep in the population
     :param lower_bound: minimum value for xi
     :param upper_bound: maximum value for xi
     :return: x_best and f_best, the best solution found and its evaluation
     """
 
-    # initialize locations xi and vi of n particles
-    # x = np.random.uniform(low=lower_bound, high=upper_bound, size=(n, D))
-    # v = np.zeros(shape=(n, D))
-
+    # Initialization of positions X^0 using a random and uniformly
+    # distributed Latin hypercube within the ranges of feasible values for each
+    # input parameter.
     x = (lhs(D, samples=n, random_state=1234) * (upper_bounds - lower_bounds) + lower_bounds)
+
+    # Initialization of velocities according to V^0 = (random_LHS(s, D) - X^0) / 2
     v = ((lhs(D, samples=n, random_state=1234) * (upper_bounds - lower_bounds) + lower_bounds) - x) / 2
 
     g_star = min(x, key=f)  # best particle at time t
     x_bests = {i: x[i] for i in range(n)}  # current best for particle i (i:x_best)
-    t = 0  # time, # of iterations
+    xp_bests = {i: x[i] for i in range(n)}  # current best for particle i, but with parsimony (i:xp_best)
 
-    while t < max_iterations:
-        # for loop over all n particles and all d dimensions
-        for i in range(n):
+    for t in range(1, max_iterations + 1):
+        for i in range(n):  # for each particle, do stuff
             e1 = np.random.uniform(size=D)
             e2 = np.random.uniform(size=D)
 
-            # generate new velocity vi using equation (7.1)
+            # generate new velocity
             v[i] = L * v[i] + alpha * e1 * (g_star - x[i]) + beta * e2 * (x_bests[i] - x[i])
 
             # calculate new locations xi = xi + vi
             x[i] = x[i] + v[i]
             x[i] = np.clip(x[i], a_min=lower_bounds, a_max=upper_bounds)
 
-            # evaluate objective function at new location for x[i] and update
-            # the current best for this particle
+            # update the current best for this particle
             if f(x[i]) < f(x_bests[i]):
                 x_bests[i] = x[i]
 
+            # TODO: update the parsimonious best for particle i
+
+
+            # calculate pcrossover from equation (3)
+            pcrossover = max(0.8 * math.exp(-gamma * t), 0.1)
+
+            # TODO: crossover P_e to substitute P_w with new individuals
+
+
         # find the current global best g*
         g_star = min(x_bests.values(), key=f)
-        t += 1
 
     # output the final results xi* and g*  (x_best, f_best?)
     return g_star, f(g_star)
