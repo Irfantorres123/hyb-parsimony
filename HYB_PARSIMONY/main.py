@@ -4,12 +4,12 @@
 import math
 
 import numpy as np
-# from hyb_parsimony import HybridParsimony
-from hyb_parsimony import hyb_parsimony
-from hyb_parsimony_modular import HybridParsimony
+from hyb_parsimony import HybridParsimony
+# from hyb_parsimony import hyb_parsimony
+# from hyb_parsimony_modular import HybridParsimony
 from benchmark_functions import easom
 from benchmark_functions import rosenbrock
-from tsb3342_PSO import particle_swarm_optimization
+# from tsb3342_PSO import particle_swarm_optimization
 
 
 ####################
@@ -95,13 +95,13 @@ def main():
     # print(f"Best position: {x_best}, optima found: {f_best:.20f}")
 
 
-    hyb_parsimony_modular = HybridParsimony(f, D, num_particles, max_iterations,
+    hyb_parsimony = HybridParsimony(f, D, num_particles, max_iterations,
                                             lower_bounds, upper_bounds, alpha,
                                             beta, gamma, L, elite_count,
                                             num_hyperparameters)
     # optima = hyb_parsimony_modular.solve()
     # print(f"Optima found: {optima}, value = {f(optima)}")
-    x_best, f_best = hyb_parsimony_modular.solve()
+    x_best, f_best = hyb_parsimony.solve()
     print(f"Best position: {x_best}, optima found: {f_best:.20f}")
 
 
