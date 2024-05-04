@@ -1,6 +1,7 @@
 ####################
 #  Runs everything
 ####################
+import math
 
 import numpy as np
 # from hyb_parsimony import HybridParsimony
@@ -21,6 +22,7 @@ from tsb3342_PSO import particle_swarm_optimization
 # np.random.seed(seed)
 
 D = 2
+num_hyperparameters = 1
 
 # lower_bound = -100.0
 # upper_bound = 100.0
@@ -50,7 +52,7 @@ num_trials = 10
 
 # end Easom function hyperparameters
 
-elite_count = 5
+elite_count = math.ceil(num_particles / 10)
 ############################################################################
 
 def f(x):
@@ -90,7 +92,8 @@ def main():
 
     hyb_parsimony_modular = HybridParsimony(f, D, num_particles, max_iterations,
                                             lower_bounds, upper_bounds, alpha,
-                                            beta, gamma, L, elite_count)
+                                            beta, gamma, L, elite_count,
+                                            num_hyperparameters)
     # optima = hyb_parsimony_modular.solve()
     # print(f"Optima found: {optima}, value = {f(optima)}")
     x_best, f_best = hyb_parsimony_modular.solve()

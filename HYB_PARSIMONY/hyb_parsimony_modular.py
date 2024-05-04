@@ -1,4 +1,5 @@
 import numpy as np
+import math
 from pyDOE2 import lhs
 from benchmark_functions import easom
 
@@ -8,7 +9,9 @@ class HybridParsimony:
     swarm optimization, but makes use of mutation and crossover from genetic
     algorithms.
     """
-    def __init__(self, f, D, num_particles, max_iterations, lower_bounds, upper_bounds, alpha, beta, gamma, L, elite_count) -> None:
+    def __init__(self, f, D, num_particles, max_iterations, lower_bounds,
+                 upper_bounds, alpha, beta, gamma, L, elite_count,
+                 num_hyperparameters) -> None:
         """
         Initializes an instance of the HYB-PARSIMONY algorithm using the given
         parameters.
@@ -23,8 +26,10 @@ class HybridParsimony:
         :param beta: controls the influence of each particle's personal best value
         :param gamma: regulates the number of particles to be substituted by
             crossover. Smaller values cause more particles to be replaced.
-        :param elite_count: the number of elite particles to keep in the population
         :param L: the inertia weight for velocity updates
+        :param elite_count: the number of elite particles to keep in the population
+        :param num_hyperparameters: the number of hyperparameters in the
+            solution vectors. The vectors are [[hyperparameters] + [features]].
         """
 
         # Initialize the parameters
@@ -34,6 +39,7 @@ class HybridParsimony:
         self.max_iterations = max_iterations
         self.lower_bounds = lower_bounds
         self.upper_bounds = upper_bounds
+        self.num_hyperparameters = num_hyperparameters
 
         # Tunable hyperparameters
         self.alpha = alpha  # Controls the influence of the global best value
@@ -73,10 +79,102 @@ class HybridParsimony:
 
     def select_elite(self):
         """
-        Selects the elite particles from the population.
+        Selects the elite particles from the population based on their current
+        function values. The number of elite particles is determined by the
+        elite_count parameter of the class.
 
         :return: the elite particles
         """
+
+        # Sort the particles by their function values in descending order
+        self.particles.sort(key=lambda p: p.current_f, reverse=True)
+
+        # Return the elite particles
+        return self.particles[:self.elite_count]
+
+
+    def crossover_two(self, parent1, parent2):
+        """
+        Performs the crossover operation between two particles. Single-point
+        crossover is carried out for both the features and the hyperparameters,
+        using a random point to split the vectors.
+
+        Particles are made up of [hyperparameters, features] in a single vector.
+
+        :param parent1: the first parent particle
+        :param parent2: the second parent particle
+        :return: a new child particle
+        """
+
+        # retrieve hyperparameters and features
+        parent1_hyperparameters = parent1.get_val()[:self.num_hyperparameters]
+        parent1_features = parent1.get_val()[self.num_hyperparameters:]
+
+        parent2_hyperparameters = parent2.get_val()[:self.num_hyperparameters]
+        parent2_features = parent2.get_val()[self.num_hyperparameters:]
+
+        # select crossover point
+        features_len = len(parent1_features)
+        features_crossover_point = np.random.randint(0, features_len)
+        hyperparameters_len = len(parent1_hyperparameters)
+        hyperparameters_crossover_point = np.random.randint(0, hyperparameters_len)
+
+        # perform crossover for hyperparameters
+        offspring1_hyperparameters = np.concatenate((parent1_hyperparameters[:hyperparameters_crossover_point],
+                                                        parent2_hyperparameters[hyperparameters_crossover_point:]))
+        offspring2_hyperparameters = np.concatenate((parent2_hyperparameters[:hyperparameters_crossover_point],
+                                                        parent1_hyperparameters[hyperparameters_crossover_point:]))
+
+        # now perform crossover for features
+        offspring1_features = np.concatenate((parent1_features[:features_crossover_point],
+                                              parent2_features[features_crossover_point:]))
+        offspring2_features = np.concatenate((parent2_features[:features_crossover_point],
+                                              parent1_features[features_crossover_point:]))
+
+        # Randomly select which offspring to return
+        # I don't want to return two particles, because what if we need to
+        # replace an odd number of them? Then it wouldn't quite work out.
+
+        if np.random.rand() < 0.5:
+            chosen_offspring_val = np.concatenate((offspring1_hyperparameters, offspring1_features))
+        else:
+            chosen_offspring_val = np.concatenate((offspring2_hyperparameters, offspring2_features))
+
+        # Build up the new particle
+        new_particle = Particle(self.f, self.D, self.lower_bounds,
+                                self.upper_bounds, self.alpha, self.beta,
+                                self.L, val=chosen_offspring_val)
+        return new_particle
+
+
+    def replace_bad_particles(self):
+        """
+        Performs the crossover step, using the elite particles to replace a
+        worst-performing percentage of the population.
+
+        :return: None
+        """
+
+        # 3 May 2024 10:41pm - repeatedly call crossover_two to generate a new
+        # particle, use this to replace the worst p_crossover percent of the
+        # population
+
+
+
+
+        # simplifications: just cross the positions, keep the velocities the same
+
+        # npart = number of particles
+        # [hyperparameters, features]
+        # "heuristic blending for hyperparameters and random swapping for features"
+        # just cross them over normally and see what happens
+
+        # elitist_population = self.select_elite()
+        # p_crossover = max(0.8 * math.exp(-self.gamma * t), 0.1)
+
+
+    def mutate_particles(self):
+        """"""
 
 
     def single_run(self):
@@ -85,18 +183,28 @@ class HybridParsimony:
         given objective function over the given dimensions using the given
         number of iterations.
 
-        :return: The best position and f value found.
+        :return: the best position and f value found.
         """
         for t in range(1, self.max_iterations + 1):  # run for this number of iterations
             # Idea: update each particle's position and velocity, and then
-            # update the global best
+            # update the global best (normal PSO stuff)
             for particle in self.particles:
                 particle.update(self.global_best_val)
                 self.update_global_best(particle)
 
-            # Now select the elitist population for reproduction, and then
-            # perform crossover and mutation
-            # TODO: function call here
+            # Genetic algorithm stuff:
+
+            # Now select the elitist population for reproduction, calculate the
+            # crossover probability (p_crossover), and then finally perform
+            # crossover and mutation.
+            # elitist_population = self.select_elite()
+            # p_crossover = max(0.8 * math.exp(-self.gamma * t), 0.1)
+
+            # Perform crossover and mutation
+
+            # TODO: function call to replace_bad_particles - this will do crossover
+            # TODO: another function call to mutate_particles - this will do mutation
+
 
         return self.global_best_val, self.global_best_f
 
@@ -111,8 +219,11 @@ class Particle:
     Represents a particle in the HYB-PARSIMONY algorithm. Each particle has a
     position, velocity, and personal best value. Additionally, each particle has
     an objective function to optimize, plus bounds for its position.
+
+    For the purposes of the HYB-PARSIMONY algorithm, particles are made up of
+    [hyperparameters, features] in a single vector.
     """
-    def __init__(self, f, D, lower_bounds, upper_bounds, alpha, beta, L) -> None:
+    def __init__(self, f, D, lower_bounds, upper_bounds, alpha, beta, L, val=None) -> None:
         """
         Initializes a single particle.
 
@@ -139,7 +250,11 @@ class Particle:
         # self.val = np.random.uniform(lower_bounds, upper_bounds, size=D)
         # self.velocity = np.random.uniform(-1, 1, size=D)
         # Initialize the position and velocity from a latin hypercube sample
-        self.val = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds).flatten()
+        if val is None:
+            self.val = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds).flatten()
+        else:
+            self.val = val
+
         self.velocity = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds).flatten()
 
         self.best_val = self.val
