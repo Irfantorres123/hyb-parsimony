@@ -1,7 +1,7 @@
 import numpy as np
 import math
 from pyDOE2 import lhs
-from benchmark_functions import easom
+
 
 class HybridParsimony:
     """
@@ -172,21 +172,11 @@ class HybridParsimony:
         :return: None
         """
 
-        # simplifications: just cross the positions, velocities will be random
-
-        # npart = number of particles
-        # [hyperparameters, features]
-
-        # could try crossing the velocities if this doesn't work well enough
-
         elitist_population = self.select_elite()
         p_crossover = max(0.8 * math.exp(-self.gamma * t), 0.1)
 
         # calculate how many particles to replace (using np.round)
         num_to_replace = int(np.round(p_crossover * self.num_particles))
-
-        # randomly sample two particles from the elitist population
-        # no
 
         replacements = []
         for _ in range(num_to_replace):
@@ -203,11 +193,9 @@ class HybridParsimony:
             offspring = self.crossover_two(parent1, parent2)
             replacements.append(offspring)
 
-        # at the end, replace the bottom p_crossover of the population with
-        # the replacements
-        # particles should already be sorted here from the call to select_elite
-
-        # self.particles = self.particles[:self.num_particles - num_to_replace] + replacements
+        # At the end, replace the bottom p_crossover of the population with
+        # their replacements.
+        # Particles should already be sorted here from the call to select_elite.
         self.particles[-num_to_replace:] = replacements
 
 
@@ -396,13 +384,6 @@ class Particle:
 
         # stay within bounds
         self.val=np.clip(self.val,self.lower_bound,self.upper_bound)
-
-        # # Then update this particle's best, as needed
-        # function_val = self.f(self.val)  # evaluate the function at the new position
-        # self.current_f = function_val  # keep track of the current function value, so we don't have to re-compute it later on
-        # if function_val < self.best_f:  # if the function value at the new position is better than the best function value so far replace it
-        #     self.best_f = function_val
-        #     self.best_val = self.val
 
         self.update_bests_and_current()
 

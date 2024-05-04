@@ -1,15 +1,13 @@
 ####################
 #  Runs everything
+#  (tests hybrid implementation)
 ####################
 import math
 
 import numpy as np
 from hyb_parsimony import HybridParsimony
-# from hyb_parsimony import hyb_parsimony
-# from hyb_parsimony_modular import HybridParsimony
 from benchmark_functions import easom
 from benchmark_functions import rosenbrock
-# from tsb3342_PSO import particle_swarm_optimization
 
 
 ####################
@@ -77,33 +75,13 @@ def main():
     Main function, calls everything.
     """
 
-    # create the HYB-PARSIMONY algorithm
-    # hyb_parsimony = HybridParsimony(f, D, num_particles, alpha, beta,
-    #                                 max_iterations,
-    #                                 lower_bounds, upper_bounds)
-    # run the algorithm
-    # best_pos, best_f = hyb_parsimony.solve()
-    # print(f"Best position: {best_pos}, optima found: {best_f:.20f}")
-    # mean, std = hyb_parsimony.solve(num_trials)
-    # print(f"Mean optima found over {num_trials} trials: {mean:.20f}")
-    # print(f"Standard deviation: {std}")
-
-
-
-    # print(particle_swarm_optimization(f, D, num_particles, alpha, beta, max_iterations, lower_bounds, upper_bounds))
-    # x_best, f_best = hyb_parsimony(f, D, num_particles, alpha, beta, L, gamma, max_iterations, elite_count, lower_bounds, upper_bounds)
-    # print(f"Best position: {x_best}, optima found: {f_best:.20f}")
-
-
     hyb_parsimony = HybridParsimony(f, D, num_particles, max_iterations,
                                             lower_bounds, upper_bounds, alpha,
                                             beta, gamma, L, elite_count,
                                             num_hyperparameters)
-    # optima = hyb_parsimony_modular.solve()
-    # print(f"Optima found: {optima}, value = {f(optima)}")
+
     x_best, f_best = hyb_parsimony.solve()
     print(f"Best position: {x_best}, optima found: {f_best:.20f}")
-
 
 
 if __name__ == '__main__':
