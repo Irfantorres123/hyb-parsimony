@@ -11,7 +11,8 @@ class HybridParsimony:
     """
     def __init__(self, f, D, num_particles, max_iterations, lower_bounds,
                  upper_bounds, alpha, beta, gamma, L, elite_count,
-                 num_hyperparameters) -> None:
+                 num_hyperparameters, p_mutation=0.1, feat_mut_threshold=0.1,
+                 not_muted=3) -> None:
         """
         Initializes an instance of the HYB-PARSIMONY algorithm using the given
         parameters.
@@ -47,6 +48,10 @@ class HybridParsimony:
         self.L = L  # inertia weight
         self.gamma = gamma
         self.elite_count = elite_count
+
+        self.p_mutation = p_mutation
+        self.feat_mut_threshold = feat_mut_threshold
+        self.not_muted = not_muted
 
         # Create the particles
         self.particles=[Particle(self.f, self.D, self.lower_bounds,
@@ -206,8 +211,62 @@ class HybridParsimony:
         self.particles[-num_to_replace:] = replacements
 
 
+    def mutate_particle(self, particle):
+        """
+        Mutates the hyperparameters and features (position) of a single
+        particle. p_mutation represents the percentage of the hyperparameters to
+        be mutated, feat_mut_threshold represents the probability of selecting a
+        feature when mutating, and not_muted is the number of top best
+        individuals that will not be mutated.
+
+        The particle is mutated in place.
+
+        :param particle: the particle to perform mutation on
+        :return: the mutated particle
+        """
+
+        num_features = self.D - self.num_hyperparameters
+
+        # break up the hyperparameters and features
+        hyperparameters = particle.get_val()[:self.num_hyperparameters]
+        features = particle.get_val()[self.num_hyperparameters:]
+
+        # randomly select which hyperparameters to mutate
+        num_hyp_to_mutate = int(np.round(self.p_mutation * self.num_hyperparameters))
+        # make sure we're mutating at least one hyperparameter
+        if num_hyp_to_mutate < 1:
+            num_hyp_to_mutate = 1
+
+        # choose the indices of the hyperparameters to mutate, then mutate them
+        hyperparameters_indices = np.random.choice(self.num_hyperparameters, num_hyp_to_mutate, replace=False)
+        for i in hyperparameters_indices:
+            hyperparameters[i] = np.random.uniform(self.lower_bounds[i], self.upper_bounds[i])
+
+        # randomly select which features to mutate
+        num_fea_to_mutate = int(np.round(self.feat_mut_threshold * num_features))
+        # make sure we're mutating at least one feature
+        if num_fea_to_mutate < 1:
+            num_fea_to_mutate = 1
+
+        # select indices as before, then mutate features
+        features_indices = np.random.choice(num_features, num_fea_to_mutate, replace=False)
+        for i in features_indices:
+            features[i + self.num_hyperparameters] = np.random.uniform(self.lower_bounds[i + self.num_hyperparameters],
+                                                                      self.upper_bounds[i + self.num_hyperparameters])
+
+        # update the particle and then force an update of its current and best values
+        particle.val = np.concatenate((hyperparameters, features))
+        particle.update_bests_and_current()
+
+
     def mutate_particles(self):
-        """"""
+        """
+
+
+        :return:
+        """
+
+        # first mutate p_mutation percentage of hyperparameters
 
 
     def single_run(self):
@@ -226,20 +285,8 @@ class HybridParsimony:
                 self.update_global_best(particle)
 
             # Genetic algorithm stuff:
-
-            # Now select the elitist population for reproduction, calculate the
-            # crossover probability (p_crossover), and then finally perform
-            # crossover and mutation.
-            # elitist_population = self.select_elite()
-            # p_crossover = max(0.8 * math.exp(-self.gamma * t), 0.1)
-
             # Perform crossover and mutation
-
-            # TODO: function call to replace_bad_particles - this will do crossover
-
-            # self.select_elite()
-
-            self.replace_bad_particles(t)
+            self.replace_bad_particles(t)  # crossover
 
             # TODO: another function call to mutate_particles - this will do mutation
 
@@ -300,6 +347,22 @@ class Particle:
         self.current_f = self.best_f
 
 
+    def update_bests_and_current(self):
+        """
+        Forces an update of this particle's best position and best function
+        value, as well as the current function value. This is useful when
+        creating new particles, such as during crossover.
+
+        :return: None
+        """
+
+        function_val = self.f(self.val)  # evaluate the function at this position
+        self.current_f = function_val  # keep track of the current function value, so we don't have to re-compute it later on
+        if function_val < self.best_f:  # replace if better
+            self.best_f = function_val
+            self.best_val = self.val
+
+
     def update(self,global_best_val):
         """
         Updates this particle's velocity and position. This is done once per
@@ -324,12 +387,14 @@ class Particle:
         # stay within bounds
         self.val=np.clip(self.val,self.lower_bound,self.upper_bound)
 
-        # Then update this particle's best, as needed
-        function_val = self.f(self.val)  # evaluate the function at the new position
-        self.current_f = function_val  # keep track of the current function value, so we don't have to re-compute it later on
-        if function_val < self.best_f:  # if the function value at the new position is better than the best function value so far replace it
-            self.best_f = function_val
-            self.best_val = self.val
+        # # Then update this particle's best, as needed
+        # function_val = self.f(self.val)  # evaluate the function at the new position
+        # self.current_f = function_val  # keep track of the current function value, so we don't have to re-compute it later on
+        # if function_val < self.best_f:  # if the function value at the new position is better than the best function value so far replace it
+        #     self.best_f = function_val
+        #     self.best_val = self.val
+
+        self.update_bests_and_current()
 
 
     def get_val(self):
