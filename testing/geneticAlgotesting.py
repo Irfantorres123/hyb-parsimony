@@ -67,6 +67,11 @@ def main():
         if rows > 5000:
             rows = 5000
             
+        '''If the number of features < 20:
+            rows = 10000
+        else
+           rows = 5000'''
+            
         X, y = load_and_process_dataset(dataset_filename, nrows=rows)
         if X is not None and y is not None:
             # Split the dataset into training and testing
