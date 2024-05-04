@@ -3,6 +3,7 @@ import numpy as np
 from concurrent.futures import ThreadPoolExecutor
 from typing import List
 from sklearn.model_selection import train_test_split
+import pandas as pd
 
 def FunctionModelWrapper(f):
     """
@@ -29,7 +30,7 @@ class Evaluator:
         self.template = template
         self.num_features = num_features
         self.num_hyperparameters = len(template) - num_features
-        self.model=model
+        self.model =model
         self.dataset = dataset
         for tmp in template:
             if 'discreteValues' in tmp:
@@ -94,4 +95,4 @@ class Evaluator:
         results = []
         for agent in agents:
             results.append(thread_pool.submit(self.execute_agent,agent))
-        return results
+        return [result.result() for result in results]
