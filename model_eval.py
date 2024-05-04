@@ -1,6 +1,7 @@
 from sklearn.svm import SVC
 import numpy as np
 from concurrent.futures import ThreadPoolExecutor
+from typing import List
 
 def FunctionModelWrapper(f):
     """
@@ -79,11 +80,13 @@ class Evaluator:
         model.fit(X,y)
         return model.score(X,y)
 
-    def execute(self,agents:np.array,max_workers:int=4):
+    def execute(self,agents:List[np.array],max_workers:int=4):
         """
         Execute the model with the given parameters and return the score
         params:
-        parameters: Numpy array containing the parameters to be used
+        agents: List of numpy arrays containing the parameters to be used
+        max_workers: Number of threads to use for execution
+        
         """
         thread_pool = ThreadPoolExecutor(max_workers=max_workers)
         results = []
