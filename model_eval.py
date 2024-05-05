@@ -61,7 +61,7 @@ class Evaluator:
                     parameters[i] = template['lower_bound']
                 elif parameters[i] > template['upper_bound']:
                     parameters[i] = template['upper_bound']
-            if template['type']=='int':
+            if template.get('type')=='int':
                 parameters[i] = round(parameters[i])
         return parameters
     
