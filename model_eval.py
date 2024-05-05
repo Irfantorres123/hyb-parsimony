@@ -5,11 +5,18 @@ from typing import List
 from sklearn.model_selection import train_test_split
 import pandas as pd
 
-def FunctionModelWrapper(f):
-    """
-    Wrapper to convert a function to a model object with fit and score methods
-    """
-    pass
+# def FunctionModelWrapper(f):
+#     """
+#     Wrapper to convert a function to a model object with fit and score methods
+#     """
+#     class Model:
+#         def __init__(self,**kwargs):
+#             pass
+#         def fit(self,X,y):
+#             pass
+#         def score(self,X,y):
+#             return f(X)
+#     return Model
 
 
 
@@ -18,7 +25,7 @@ class Evaluator:
         """
         params:
         template: List of dictionaries containing info about that param including lower_bound, upper_bound,
-                  name and discreteValues. discreteValues is a list of possible values for the param.
+                  name,type and discreteValues. discreteValues is a list of possible values for the param.
         num_features: Number of features in the dataset
         model: Model to be used for evaluation. can be any scikit learn model
         dataset: DataFrame. Dataset to be used for evaluation
@@ -54,7 +61,8 @@ class Evaluator:
                     parameters[i] = template['lower_bound']
                 elif parameters[i] > template['upper_bound']:
                     parameters[i] = template['upper_bound']
-
+            if template['type']=='int':
+                parameters[i] = round(parameters[i])
         return parameters
     
     def execute_agent(self,parameters:np.array):
