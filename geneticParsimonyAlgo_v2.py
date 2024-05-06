@@ -51,7 +51,8 @@ class Individual:
         self.features = features
         self.hyperparameters = hyperparameters
         self.fitness = None  # Initialize fitness
-        self.complexity = None  # Initialize complexity
+        self.accuracy = None
+        self.num_features = None
     
     def getVector(self):
         return np.concatenate([self.features, np.array(list(self.hyperparameters.values()))])
@@ -294,16 +295,17 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
                 
             agents = [individual.getVector() for individual in population]
             results = evaluator.execute(agents)
-            for i, (score, num_features) in enumerate(results):
-                population[i].fitness = score
-                population[i].complexity = 1/num_features if num_features > 0 else float('inf')
+            for i, (fitness,accuracy,num_features) in enumerate(results):
+                population[i].fitness = fitness
+                population[i].accuracy = accuracy
+                population[i].num_features = num_features
             
             
             # Sort the population by fitness (descending) and by complexity (ascending) to break ties
-            population.sort(key=lambda x: (-x.fitness, x.complexity))
+            population.sort(key=lambda x: x.fitness, reverse=True)
             best_individual = population[0]
             print(f"Generation {generation + 1}:")
-            print(f"Best Individual with features {best_individual.features} has fitness: {best_individual.fitness:.2f}, complexity: {best_individual.complexity:.2f}")
+            print(f"Best Individual with features {best_individual.features} has fitness: {best_individual.fitness:.2f}, accuracy: {best_individual.accuracy:.2f}, features: {best_individual.features}")
             print("------------------")
             
             # Early stopping check

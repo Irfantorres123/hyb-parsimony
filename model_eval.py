@@ -64,7 +64,18 @@ class Evaluator:
             if template.get('type')=='int':
                 parameters[i] = round(parameters[i])
         return parameters
-    
+
+    def get_fitness(self,score,num_features,total_features):
+        """
+        Calculate the fitness of the model based on the score and number of features. Fitness is to be maximized.
+        Score is supposed to be maximized and number of features is supposed to be minimized.
+        params:
+        score: Score of the model
+        num_features: Number of features used in the model
+        """
+        ratio = num_features/total_features
+        return score - 0.1*ratio
+
     def execute_agent(self,parameters:np.array):
         """
         Execute the model with the given parameters and return the score
@@ -86,12 +97,13 @@ class Evaluator:
         features = np.where(features)[0]
         features = self.dataset.columns[features]
         if len(features) == 0:
-            return 0,0
+            return 0,0,0
         X = self.dataset[features].values
         y = self.dataset.iloc[:,-1].values
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         model.fit(X_train,y_train)
-        return model.score(X_test,y_test), len(features)
+        score,num_features=model.score(X_test,y_test), len(features)
+        return (self.get_fitness(score,num_features,self.num_features),score,num_features)
 
     def execute(self,agents:List[np.array],max_workers:int=4):
         """
