@@ -9,7 +9,7 @@ from sklearn.datasets import load_iris
 import pandas as pd
 
 # HyperParameters and other settings
-generations = 1
+generations = 10
 population_size = 10  # Not just 'population'
 elite_population_count = 5
 mutation_rate = 0.01
@@ -27,7 +27,7 @@ template = [{'lower_bound': 0, 'upper_bound': 100},{'lower_bound': 0, 'upper_bou
 y_reshaped = y.reshape(-1, 1)
 data = np.concatenate([X, y_reshaped], axis=1)
 iris_df = pd.DataFrame(data= data, columns=iris.feature_names+["label"])
-print(iris_df)
+
 
 #{'name':'max_depth','lower_bound': 2, 'upper_bound': 10, 'type':'int'}
 evaluator = Evaluator(template, X.shape[1], svm.SVC, iris_df)
@@ -63,7 +63,7 @@ class Individual:
 def initialize_features(num_individuals, num_features):
     """ Generate Latin Hypercube Samples for features.
         Features are binary, indicating whether a feature is included (1) or excluded (0). """
-    lhs_features = lhs(num_features, samples=num_individuals, criterion='corr')
+    lhs_features = lhs(num_features, samples=num_individuals)
     features = np.round(lhs_features)
     return features.astype(int)
 
@@ -73,9 +73,9 @@ def initialize_hyperparameters(num_individuals, hyperparameter_ranges):
         - Index 0: 'C' (regularization strength) for logistic regression,
         - Index 1: 'max_depth' (maximum depth of the tree) for decision trees. """
     num_hyperparameters = len(hyperparameter_ranges)
-    print(num_hyperparameters)
-    lhs_hyperparameters = lhs(num_hyperparameters, samples=num_individuals, criterion='corr')
-    print(lhs_hyperparameters)
+    #print(num_hyperparameters)
+    lhs_hyperparameters = lhs(num_hyperparameters, samples=num_individuals)
+    #print(lhs_hyperparameters)
     hyperparameters = []
     for i in range(num_individuals):
         hp = {}
@@ -294,11 +294,13 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
                 
             agents = [individual.getVector() for individual in population]
             results = evaluator.execute(agents)
-            print(results)
+            for i, (score, num_features) in enumerate(results):
+                population[i].fitness = score
+                population[i].complexity = 1/num_features if num_features > 0 else float('inf')
             
             
             # Sort the population by fitness (descending) and by complexity (ascending) to break ties
-            '''population.sort(key=lambda x: (-x.fitness, x.complexity))
+            population.sort(key=lambda x: (-x.fitness, x.complexity))
             best_individual = population[0]
             print(f"Generation {generation + 1}:")
             print(f"Best Individual with features {best_individual.features} has fitness: {best_individual.fitness:.2f}, complexity: {best_individual.complexity:.2f}")
@@ -327,7 +329,7 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
             for i in range(len(new_population)):
                 new_population[i] = mutation(new_population[i], mutation_rate, hyperparameter_ranges)
             
-            population = new_population'''
+            population = new_population
         
         return population
     except Exception as e:
