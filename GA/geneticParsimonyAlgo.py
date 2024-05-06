@@ -58,7 +58,7 @@ def initialize_hyperparameters(num_individuals, hyperparameter_ranges):
         hyperparameters.append(hp)
     return hyperparameters
 
-def initialize_population(num_individuals, dataset_features, hyperparameter_ranges):
+def initialize_population(num_individuals, num_features, hyperparameter_ranges):
     """
     Initializes a population of individuals with binary-encoded features and scaled hyperparameters.
     
@@ -68,13 +68,12 @@ def initialize_population(num_individuals, dataset_features, hyperparameter_rang
     
     Parameters:
     - num_individuals (int): Number of individuals in the population.
-    - dataset_features (np.array): Dataset to determine the number of features.
+    - num_features (int): Number of features in the dataset.
     - hyperparameter_ranges (list of tuples): Min and max values for each hyperparameter.
     
     Returns:
     - population (list of Individual objects): Initialized population of individuals.
     """
-    num_features = dataset_features.shape[1]  # Determine the number of features from the dataset
     features = initialize_features(num_individuals, num_features)
     hyperparameters = initialize_hyperparameters(num_individuals, hyperparameter_ranges)
     population = []
@@ -183,7 +182,7 @@ def mutation(individual, mutation_rate, hyperparameter_ranges):
     return individual
 
 
-def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=5, population_size=10, elite_population_count=5, 
+def genetic_algorithm(num_features, hyperparameter_ranges, generations=5, population_size=10, elite_population_count=5, 
                       mutation_rate=0.01, evaluator=evaluator):
     """
     Runs a genetic algorithm for feature selection and hyperparameter optimization.
@@ -193,8 +192,7 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
     Includes early stopping if no improvement is seen for half the total generations.
 
     Parameters:
-    - data_features (np.array): Dataset input features.
-    - target (np.array): Dataset target variable.
+    - num_features (int): Number of features in the dataset.
     - hyperparameter_ranges (list of tuples): Min and max values for each hyperparameter.
     - generations (int): Total number of generations to run.
     - population_size (int): Number of individuals in each generation.
@@ -205,7 +203,7 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
     - best_individual (Individual): The best individual from the last generation or upon early stopping.
     """
     try:
-        population = initialize_population(population_size, data_features, hyperparameter_ranges)
+        population = initialize_population(population_size, num_features, hyperparameter_ranges)
         best_score = float('-inf')
         no_improvement_count = 0
         patience = generations/2
@@ -223,7 +221,7 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
             population.sort(key=lambda x: x.fitness, reverse=True)
             best_individual = population[0]
             print(f"Generation {generation + 1}:")
-            print(f"Best Individual with features {best_individual.features} has fitness: {best_individual.fitness:.2f}, accuracy: {best_individual.accuracy:.2f}, features: {best_individual.features}")
+            print(f"Best Individual with features {best_individual.features} has fitness: {best_individual.fitness:.7f}, accuracy: {best_individual.accuracy:.7f}, num_features: {best_individual.num_features}")
             print("------------------")
             
             # Early stopping check
