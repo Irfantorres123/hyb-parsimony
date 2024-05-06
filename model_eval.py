@@ -21,30 +21,46 @@ import pandas as pd
 
 
 class Evaluator:
-    def __init__(self,template,num_features,model,dataset):
+    def __init__(self, template=None, num_features=None, model=None, dataset=None):
         """
-        params:
-        template: List of dictionaries containing info about that param including lower_bound, upper_bound,
-                  name,type and discreteValues. discreteValues is a list of possible values for the param.
-        num_features: Number of features in the dataset
-        model: Model to be used for evaluation. can be any scikit learn model
-        dataset: DataFrame. Dataset to be used for evaluation
-        if discreteValues is provided, then name is needed however lower_bound and upper_bound are not needed.
-        Example:
-        template:[{'lower_bound': 0, 'upper_bound': 1.0},{name:'C','discreteValues': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]}]
+        Initializes the evaluator with optional parameters. If parameters are not provided
+        during initialization, they must be set later before evaluation functions are used.
         
+        Parameters:
+        - template (list): Specifications for each parameter, including bounds or discrete values.
+        - num_features (int): Number of features in the dataset.
+        - model (object): Machine learning model that follows scikit-learn's interface.
+        - dataset (DataFrame): The dataset used for training and evaluation.
         """
         self.template = template
         self.num_features = num_features
-        self.num_hyperparameters = len(template) - num_features
-        self.model =model
+        self.num_hyperparameters = len(template) - num_features if template and num_features else None
+        self.model = model
         self.dataset = dataset
-        for tmp in template:
-            if 'discreteValues' in tmp:
-                assert 'name' in tmp
-                tmp['discreteValues'] = np.array(tmp['discreteValues'])
-            
+        self.validate_template()
+        
+    def validate_template(self):
+        if self.template:
+            for tmp in self.template:
+                if 'discreteValues' in tmp:
+                    assert 'name' in tmp, "If 'discreteValues' are provided, 'name' must also be specified."
+                    tmp['discreteValues'] = np.array(tmp['discreteValues'])
+    
+    def set_template(self, template):
+        self.template = template
+        self.num_hyperparameters = len(template) - self.num_features if self.num_features else None
+        self.validate_template()
 
+    def set_num_features(self, num_features):
+        self.num_features = num_features
+        self.num_hyperparameters = len(self.template) - num_features if self.template else None
+
+    def set_model(self, model):
+        self.model = model
+        
+    def set_dataset(self, dataset):
+        self.dataset = dataset
+        
     def clip(self,parameters:np.array):
         """
         Clip the parameters to their respective bounds and return them

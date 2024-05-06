@@ -2,47 +2,41 @@ import os
 import sys
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
+from sklearn import svm
+import numpy as np
 
 # Path where the geneticParsimonyAlgo module is located
-module_path = '/Users/poonampawar/hyb-parsimony/GA'
+module_path = '/Users/poonampawar/hyb-parsimony/'
 sys.path.append(module_path)
-from geneticParsimonyAlgo import genetic_algorithm  # Ensure this import is correctly set up
+from geneticParsimonyAlgo_v2 import genetic_algorithm 
+from model_eval import Evaluator
 
 # Update the path as per your file structure
 base_path = os.path.join('datasets') 
 
 def load_and_process_dataset(filename, nrows=None):
-    """
-    Loads and preprocesses a dataset from a CSV file.
-
-    Parameters:
-    - filename (str): Name of the CSV file to load.
-    - nrows (int, optional): Number of rows to read from the file.
-
-    Returns:
-    - X_scaled (np.array): Scaled feature data.
-    - y (np.array): Target variable data.
-    
-    If the file is not found, returns None for both X_scaled and y.
-    """
     file_path = os.path.join(base_path, filename)
     try:
-        # Load the dataset
         df = pd.read_csv(file_path, nrows=nrows)
-        # Assume the last column is the target variable
+        # Assuming the last column is the target
         X = df.iloc[:, :-1].values
         y = df.iloc[:, -1].values
 
-        # Preprocess data: scale features
+        # Standard scaling of features
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(X)
 
-        return X_scaled, y
-    
+        # Create a new DataFrame combining scaled features and target for evaluation purposes
+        columns = df.columns[:-1].tolist() + ["label"]
+        df_data = pd.DataFrame(data=np.column_stack([X_scaled, y]), columns=columns)
+
+        # Returning additional items to aid further processing
+        column_bounds = [(df[col].min(), df[col].max()) for col in df.columns[:-1]]
+        return X_scaled, y, df_data, column_bounds, len(df.columns)
+
     except FileNotFoundError:
         print(f"Error: The file {filename} does not exist.")
-        return None, None
+        return None, None, None, None, None
  
 def main():
     """
@@ -63,33 +57,39 @@ def main():
         # Assume CSV filename convention is "{name_ds}.csv", adjust if different
         dataset_filename = f"{row['name_ds']}.csv"
         rows = row['nrows']
-        print("Actual Rows in dataset-",rows)
-        if rows > 5000:
-            rows = 5000
-            
-        '''If the number of features < 20:
-            rows = 10000
-        else
-           rows = 5000'''
-            
-        X, y = load_and_process_dataset(dataset_filename, nrows=rows)
-        if X is not None and y is not None:
-            # Split the dataset into training and testing
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+        X, y, df_data, column_bounds, no_features = load_and_process_dataset(dataset_filename, nrows=rows)
 
+        if X is not None and y is not None:
+            print("Actual Rows in dataset-",rows)
+            if no_features > 15:
+                rows = 1000
+                X = X[:rows]  # Slicing to first 1000 entries if more than that
+                y = y[:rows]
+            
+            print("Rows processing-",rows)
             # HyperParameters and other settings for the genetic algorithm
             generations = 10
             population_size = 10
             elite_population_count = 5
             mutation_rate = 0.01
+            hyperparameter_ranges = [(0.01, 1.0),[0.001,1]]
+            
+            template = []
+            for i in range(len(column_bounds)):
+                template.append({'lower_bound': column_bounds[i][0], 'upper_bound': column_bounds[i][1]})
+            
+            template.append({'name':'C','lower_bound': 0.01, 'upper_bound': 1})
+            template.append({'name':'gamma','lower_bound': 0.001, 'upper_bound': 1})
+            
+            evaluator = Evaluator(template, no_features, svm.SVC, df_data)
+            
+            genetic_algorithm(data_features=X, target=y, 
+                              hyperparameter_ranges=hyperparameter_ranges, 
+                              generations=generations, population_size=population_size, 
+                 elite_population_count=elite_population_count, 
+                 mutation_rate=mutation_rate,evaluator=evaluator)
 
-            # Define hyperparameter ranges for the model, adjust based on needs
-            hyperparameter_ranges = [(0.01, 1.0), (2, 10)]  # Example ranges
-
-            # Call the genetic algorithm function
-            genetic_algorithm(data_features=X_train, target=y_train, hyperparameter_ranges=hyperparameter_ranges,
-                            generations=generations, population_size=population_size,
-                            elite_population_count=elite_population_count, mutation_rate=mutation_rate)
 
             print(f'{row["name_ds"]} Dataset Loaded and Algorithm Executed')
         else:

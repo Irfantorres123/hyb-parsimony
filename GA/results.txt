@@ -1,167 +1,257 @@
+(myenv) poonampawar@Poonams-MacBook-Air-2 hyb-parsimony % python /Users/poonampawar/hyb-parsimony/testing/geneticAlgotesting.py
 Processing dataset: kr-vs-kp
-Actual Rows in dataset- 3196
 Error: The file kr-vs-kp.csv does not exist.
 Nothing to process
 Processing dataset: letter
 Actual Rows in dataset- 20000
-new candidate solution found with max,abs corrcoef = 0.6248588879818919
-new candidate solution found with max,abs corrcoef = 1.0
+Rows processing- 1000
 Generation 1:
-Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 1 0 0] has fitness: 1.00, complexity: 7.17
+Best Individual with features [0 0 0 0 1 1 1 0 0 0 1 0 0 0 1 1] has fitness: 0.96, accuracy: 1.00, features: [0 0 0 0 1 1 1 0 0 0 1 0 0 0 1 1]
 ------------------
 Generation 2:
-Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 0 1 1] has fitness: 1.00, complexity: 2.98
+Best Individual with features [0 0 1 1 1 0 0 0 0 0 1 0 1 1 0 1] has fitness: 0.95, accuracy: 1.00, features: [0 0 1 1 1 0 0 0 0 0 1 0 1 1 0 1]
 ------------------
 Generation 3:
-Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 0 1 1] has fitness: 1.00, complexity: 2.98
+Best Individual with features [0 1 1 0 0 1 0 0 0 0 1 0 1 1 0 0] has fitness: 0.96, accuracy: 1.00, features: [0 1 1 0 0 1 0 0 0 0 1 0 1 1 0 0]
 ------------------
 Generation 4:
-Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 0 1 1] has fitness: 1.00, complexity: 2.98
+Best Individual with features [0 1 1 0 0 1 0 0 0 0 1 0 1 1 0 0] has fitness: 0.96, accuracy: 1.00, features: [0 1 1 0 0 1 0 0 0 0 1 0 1 1 0 0]
 ------------------
 Generation 5:
-Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 0 1 1] has fitness: 1.00, complexity: 2.98
+Best Individual with features [0 1 1 0 0 1 0 0 0 0 1 0 1 1 0 0] has fitness: 0.96, accuracy: 1.00, features: [0 1 1 0 0 1 0 0 0 0 1 0 1 1 0 0]
 ------------------
 Generation 6:
-Best Individual with features [1 1 1 1 1 1 1 1 1 0 0 1 1 0 1 1] has fitness: 1.00, complexity: 2.98
+Best Individual with features [0 1 1 0 0 1 0 0 0 0 1 0 1 1 0 0] has fitness: 0.96, accuracy: 1.00, features: [0 1 1 0 0 1 0 0 0 0 1 0 1 1 0 0]
 ------------------
-Stopping early after 6 generations.
+Generation 7:
+Best Individual with features [0 1 0 0 0 1 0 0 0 0 1 0 1 1 0 0] has fitness: 0.96, accuracy: 1.00, features: [0 1 0 0 0 1 0 0 0 0 1 0 1 1 0 0]
+------------------
+Generation 8:
+Best Individual with features [0 1 0 0 0 1 0 0 0 0 1 0 1 1 0 0] has fitness: 0.96, accuracy: 1.00, features: [0 1 0 0 0 1 0 0 0 0 1 0 1 1 0 0]
+------------------
+Generation 9:
+Best Individual with features [0 1 0 0 0 1 0 0 0 0 1 0 1 1 0 0] has fitness: 0.96, accuracy: 1.00, features: [0 1 0 0 0 1 0 0 0 0 1 0 1 1 0 0]
+------------------
+Generation 10:
+Best Individual with features [0 1 0 0 0 1 0 0 0 0 1 0 1 1 0 0] has fitness: 0.96, accuracy: 1.00, features: [0 1 0 0 0 1 0 0 0 0 1 0 1 1 0 0]
+------------------
 letter Dataset Loaded and Algorithm Executed
 Processing dataset: mushroom
 Actual Rows in dataset- 8124
-new candidate solution found with max,abs corrcoef = 0.2998366572829612
-new candidate solution found with max,abs corrcoef = 1.0
+Rows processing- 1000
 Generation 1:
-Best Individual with features [1 0 0 0 1 1 0 0 0 1 1 1 0 1 0 0 1 0 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 0 0 0 0
- 1 0 0 0 1 1 1 0 0 0 0 0 0 0 1 1 0 0 1 0 0 1 0 0 1 1 0 1 0 0 0 0 1 1 1 0 1
- 1 1 1 1 0 1 0 1 1 1 0 1 1 0 0 0 0 0 1 0 0 0 1 1 0 0 1 0 1 0 0 1 0 0 0 0 0
- 0 1 0 0 1 0 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 1.37
+Best Individual with features [1 1 0 0 0 0 0 0 0 1 1 0 0 1 0 1 0 0 1 0 0 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1
+ 1 0 1 0 0 0 0 0 1 1 1 1 0 0 1 1 0 0 0 0 0 0 1 1 1 0 1 1 0 0 0 0 0 1 1 1 0
+ 0 1 0 0 1 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 0 0 1 0 0 1 0 1 1
+ 0 1 1 1 1 0 1 1 0 0 0 0 1 0] has fitness: 0.96, accuracy: 1.00, features: [1 1 0 0 0 0 0 0 0 1 1 0 0 1 0 1 0 0 1 0 0 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1
+ 1 0 1 0 0 0 0 0 1 1 1 1 0 0 1 1 0 0 0 0 0 0 1 1 1 0 1 1 0 0 0 0 0 1 1 1 0
+ 0 1 0 0 1 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 0 0 1 0 0 1 0 1 1
+ 0 1 1 1 1 0 1 1 0 0 0 0 1 0]
 ------------------
 Generation 2:
-Best Individual with features [1 1 0 1 0 0 0 1 0 0 0 0 0 1 0 0 1 1 1 1 0 0 0 1 1 0 1 1 1 0 1 0 0 1 0 0 1
- 1 0 0 0 0 0 0 0 0 0 0 0 1 1 1 0 1 1 0 0 0 0 1 0 1 1 1 0 0 1 1 1 1 0 1 1 0
- 1 0 0 1 1 0 1 0 0 1 0 0 1 0 1 1 1 0 0 1 0 0 0 1 1 0 1 0 1 0 0 0 0 1 1 0 0
- 0 1 0 0 1 0 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 1.00
+Best Individual with features [1 1 1 1 0 1 1 0 0 1 1 0 1 0 0 1 1 0 1 1 0 1 0 0 1 0 0 0 0 1 1 0 0 0 0 0 1
+ 1 0 0 1 0 0 1 0 1 0 1 0 0 1 0 1 0 0 1 0 0 1 0 0 0 1 1 0 0 1 0 0 0 1 1 1 1
+ 0 0 1 0 1 1 1 1 0 1 1 0 1 0 0 1 1 0 1 1 0 1 0 0 1 0 0 0 1 1 0 0 1 1 1 0 1
+ 0 0 1 0 1 1 0 1 1 0 1 0 1 0] has fitness: 0.95, accuracy: 1.00, features: [1 1 1 1 0 1 1 0 0 1 1 0 1 0 0 1 1 0 1 1 0 1 0 0 1 0 0 0 0 1 1 0 0 0 0 0 1
+ 1 0 0 1 0 0 1 0 1 0 1 0 0 1 0 1 0 0 1 0 0 1 0 0 0 1 1 0 0 1 0 0 0 1 1 1 1
+ 0 0 1 0 1 1 1 1 0 1 1 0 1 0 0 1 1 0 1 1 0 1 0 0 1 0 0 0 1 1 0 0 1 1 1 0 1
+ 0 0 1 0 1 1 0 1 1 0 1 0 1 0]
 ------------------
 Generation 3:
-Best Individual with features [1 0 0 0 1 1 0 0 0 1 1 1 0 1 0 0 1 0 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 0 0 0 0
- 1 0 0 0 1 1 1 0 0 0 0 0 1 1 1 0 1 1 0 0 0 0 1 0 1 1 1 0 0 1 1 1 1 0 1 1 0
- 1 0 0 1 1 0 1 0 0 1 0 0 1 0 1 1 1 0 0 1 0 0 0 1 1 0 1 0 1 0 0 0 0 1 1 0 0
- 0 1 0 0 1 0 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 1.37
+Best Individual with features [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 1 0 0 0 1 0 0 0 1 1 1 0 0 0 1 1 1 0
+ 1 0 0 0 0 0 0 0 0 0 1 0 0 1 1 0 1 1 1 0 0 1 1 1 0 0 0 1 1 0 1 1 0 0 0 0 1
+ 1 1 0 1 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 0 0 1 0 0 1 0 1 1
+ 0 1 1 1 1 0 1 1 0 0 0 0 1 0] has fitness: 0.95, accuracy: 1.00, features: [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 1 0 0 0 1 0 0 0 1 1 1 0 0 0 1 1 1 0
+ 1 0 0 0 0 0 0 0 0 0 1 0 0 1 1 0 1 1 1 0 0 1 1 1 0 0 0 1 1 0 1 1 0 0 0 0 1
+ 1 1 0 1 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 0 0 1 0 0 1 0 1 1
+ 0 1 1 1 1 0 1 1 0 0 0 0 1 0]
 ------------------
 Generation 4:
-Best Individual with features [1 0 0 0 1 1 0 0 0 1 1 1 0 1 0 0 1 1 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 0 0 0 0
- 1 0 0 0 1 1 1 0 0 1 0 0 1 1 1 0 1 1 0 0 0 0 1 0 1 1 1 0 0 1 1 1 1 0 1 1 0
- 1 0 0 1 1 0 1 0 0 1 0 0 1 0 1 1 1 0 0 1 0 0 0 1 1 0 1 0 1 0 0 0 0 1 1 0 1
- 0 1 0 0 1 0 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 1.36
+Best Individual with features [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 1 0 0 0 1 0 0 0 1 1 1 0 1 1 0 1 1 0
+ 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 0 1 0 0 1 1 1 0 0 0 1 1 0 1 1 0 0 0 0 1
+ 1 1 0 1 1 1 0 0 1 0 1 0 1 0 0 0 0 0 1 0 0 0 1 1 1 1 1 1 0 0 1 0 0 1 0 1 1
+ 0 1 1 1 1 0 1 1 0 0 0 0 1 0] has fitness: 0.96, accuracy: 1.00, features: [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 1 0 0 0 1 0 0 0 1 1 1 0 1 1 0 1 1 0
+ 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 0 1 0 0 1 1 1 0 0 0 1 1 0 1 1 0 0 0 0 1
+ 1 1 0 1 1 1 0 0 1 0 1 0 1 0 0 0 0 0 1 0 0 0 1 1 1 1 1 1 0 0 1 0 0 1 0 1 1
+ 0 1 1 1 1 0 1 1 0 0 0 0 1 0]
 ------------------
 Generation 5:
-Best Individual with features [1 0 0 0 1 1 0 0 0 1 1 1 0 1 0 0 1 1 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 0 0 0 0
- 1 0 0 0 1 1 1 0 0 1 0 0 1 1 1 0 1 1 0 0 0 0 1 0 1 1 1 0 0 1 1 1 1 0 1 1 1
- 1 0 0 1 1 0 1 0 0 1 0 0 1 0 1 1 1 0 0 1 0 0 0 1 1 0 1 0 1 0 0 0 0 1 1 0 0
- 0 1 0 0 1 0 1 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 1.36
+Best Individual with features [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 1 0 0 0 1 0 0 0 1 1 1 0 0 1 1 1 1 0
+ 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 0 1 0 0 1 1 1 0 0 0 1 1 0 1 1 0 0 0 0 1
+ 1 1 0 1 1 1 0 0 1 0 1 0 1 0 0 0 0 0 1 0 0 0 1 1 1 1 1 1 0 0 1 0 0 1 0 1 1
+ 0 1 1 1 1 0 1 1 0 0 0 0 1 0] has fitness: 0.96, accuracy: 1.00, features: [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 1 0 0 0 1 0 0 0 1 1 1 0 0 1 1 1 1 0
+ 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 0 1 0 0 1 1 1 0 0 0 1 1 0 1 1 0 0 0 0 1
+ 1 1 0 1 1 1 0 0 1 0 1 0 1 0 0 0 0 0 1 0 0 0 1 1 1 1 1 1 0 0 1 0 0 1 0 1 1
+ 0 1 1 1 1 0 1 1 0 0 0 0 1 0]
 ------------------
 Generation 6:
-Best Individual with features [1 0 0 0 1 1 0 0 0 1 1 1 0 1 0 0 1 1 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 0 0 0 0
- 1 0 0 0 1 1 1 0 0 0 0 0 1 1 1 0 1 1 0 0 0 0 1 0 1 1 0 0 0 1 1 1 1 0 1 1 0
- 1 0 0 1 1 0 1 0 0 1 0 0 1 0 1 1 1 0 1 1 0 0 0 1 1 0 0 0 1 0 0 0 0 1 1 0 0
- 0 1 0 0 1 0 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 0.82
+Best Individual with features [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 1 0 0 0 1 0 0 0 1 1 1 0 0 1 1 1 1 0
+ 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 0 1 0 0 1 1 1 0 0 0 1 1 0 1 1 0 0 0 0 1
+ 1 1 0 1 1 1 0 1 1 0 1 0 1 0 0 0 0 0 1 0 0 0 1 1 1 1 1 1 0 0 1 0 0 1 0 1 1
+ 0 1 1 1 1 0 1 1 0 0 0 0 1 0] has fitness: 0.96, accuracy: 1.00, features: [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 1 0 0 0 1 0 0 0 1 1 1 0 0 1 1 1 1 0
+ 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 0 1 0 0 1 1 1 0 0 0 1 1 0 1 1 0 0 0 0 1
+ 1 1 0 1 1 1 0 1 1 0 1 0 1 0 0 0 0 0 1 0 0 0 1 1 1 1 1 1 0 0 1 0 0 1 0 1 1
+ 0 1 1 1 1 0 1 1 0 0 0 0 1 0]
 ------------------
-Stopping early after 6 generations.
+Generation 7:
+Best Individual with features [0 1 0 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 0 1 0 0 0 1 0 0 0 1 1 1 0 0 1 1 1 0 0
+ 1 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 0 1 0 0 0 0 0 0 0 1 0 1 1 0 0 0 1 1 1 1
+ 0 0 1 0 1 1 1 1 0 1 1 0 0 1 1 0 0 1 1 0 0 0 1 0 1 0 0 1 1 0 1 1 1 1 1 1 1
+ 1 1 0 0 0 0 0 0 0 0 1 1 0 1] has fitness: 0.96, accuracy: 1.00, features: [0 1 0 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 0 1 0 0 0 1 0 0 0 1 1 1 0 0 1 1 1 0 0
+ 1 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 0 1 0 0 0 0 0 0 0 1 0 1 1 0 0 0 1 1 1 1
+ 0 0 1 0 1 1 1 1 0 1 1 0 0 1 1 0 0 1 1 0 0 0 1 0 1 0 0 1 1 0 1 1 1 1 1 1 1
+ 1 1 0 0 0 0 0 0 0 0 1 1 0 1]
+------------------
+Generation 8:
+Best Individual with features [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 0 0 0 0 1 0 0 0 1 1 1 0 1 1 0 1 1 0
+ 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 1 0 0 1 0 0 0 1 1 0 0 1 1 0 0 1 1 1 0
+ 1 0 1 1 1 0 0 0 0 1 1 0 1 1 1 1 0 1 1 0 0 0 1 0 1 0 0 0 1 1 1 1 1 0 1 1 1
+ 1 0 1 0 0 0 0 0 0 0 0 1 0 1] has fitness: 0.96, accuracy: 1.00, features: [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 0 0 0 0 1 0 0 0 1 1 1 0 1 1 0 1 1 0
+ 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 1 0 0 1 0 0 0 1 1 0 0 1 1 0 0 1 1 1 0
+ 1 0 1 1 1 0 0 0 0 1 1 0 1 1 1 1 0 1 1 0 0 0 1 0 1 0 0 0 1 1 1 1 1 0 1 1 1
+ 1 0 1 0 0 0 0 0 0 0 0 1 0 1]
+------------------
+Generation 9:
+Best Individual with features [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 0 0 0 0 1 0 0 0 1 1 1 0 1 1 0 1 1 0
+ 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 1 0 0 1 1 0 0 0 1 1 0
+ 1 0 1 1 1 0 0 0 0 1 1 0 1 1 1 1 0 1 1 0 0 0 1 0 1 0 0 0 1 1 1 1 1 0 1 1 1
+ 1 0 1 0 0 0 0 0 0 0 0 1 0 1] has fitness: 0.96, accuracy: 1.00, features: [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 0 0 0 0 1 0 0 0 1 1 1 0 1 1 0 1 1 0
+ 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 1 0 0 1 1 0 0 0 1 1 0
+ 1 0 1 1 1 0 0 0 0 1 1 0 1 1 1 1 0 1 1 0 0 0 1 0 1 0 0 0 1 1 1 1 1 0 1 1 1
+ 1 0 1 0 0 0 0 0 0 0 0 1 0 1]
+------------------
+Generation 10:
+Best Individual with features [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 0 0 0 0 1 0 0 0 1 1 1 0 1 1 0 1 1 0
+ 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 1 0 0 1 1 0 0 0 1 1 0
+ 1 0 1 1 1 0 0 0 0 1 1 0 1 1 1 1 0 1 1 0 0 0 1 0 1 0 0 0 1 1 1 1 1 0 1 1 1
+ 1 0 1 0 0 0 0 0 0 0 0 1 0 1] has fitness: 0.96, accuracy: 1.00, features: [0 1 1 1 0 0 1 0 1 0 1 1 1 1 1 1 0 1 1 0 0 0 0 1 0 0 0 1 1 1 0 1 1 0 1 1 0
+ 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 1 0 0 1 1 0 0 0 1 1 0
+ 1 0 1 1 1 0 0 0 0 1 1 0 1 1 1 1 0 1 1 0 0 0 1 0 1 0 0 0 1 1 1 1 1 0 1 1 1
+ 1 0 1 0 0 0 0 0 0 0 0 1 0 1]
+------------------
 mushroom Dataset Loaded and Algorithm Executed
 Processing dataset: optdigits
 Actual Rows in dataset- 5620
-new candidate solution found with max,abs corrcoef = 0.3336619453283062
-new candidate solution found with max,abs corrcoef = 1.0
+Rows processing- 1000
 Generation 1:
-Best Individual with features [1 1 0 1 1 0 1 0 1 0 1 0 1 0 0 0 1 1 0 0 1 1 0 0 1 0 0 0 0 0 1 0 1 1 0 1 0
- 0 1 1 0 1 0 1 0 1 1 0 0 0 0 1 1 0 0 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 2.40
+Best Individual with features [0 1 0 1 0 0 1 0 1 1 1 0 1 1 0 1 0 0 1 0 0 1 0 0 0 1 1 1 1 0 1 1 1 0 1 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 1 0 1 0 0 1 1 0 1 0 0 1 0 1 1 0] has fitness: 0.93, accuracy: 0.98, features: [0 1 0 1 0 0 1 0 1 1 1 0 1 1 0 1 0 0 1 0 0 1 0 0 0 1 1 1 1 0 1 1 1 0 1 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 1 0 1 0 0 1 1 0 1 0 0 1 0 1 1 0]
 ------------------
 Generation 2:
-Best Individual with features [1 0 1 0 0 1 1 0 0 0 0 0 1 0 0 0 0 1 1 1 0 0 0 0 0 1 1 0 0 1 0 0 1 0 1 1 1
- 0 1 1 0 1 0 1 0 1 1 0 0 0 0 1 1 0 0 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 1.69
+Best Individual with features [1 1 1 0 1 1 0 1 0 0 0 1 0 0 0 0 0 1 1 0 0 1 1 1 1 0 1 0 0 0 0 0 1 1 0 0 1
+ 0 1 1 0 1 0 0 1 0 0 1 0 0 1 0 0 1 1 0 0 0 1 1 0 0 1 1] has fitness: 0.94, accuracy: 0.98, features: [1 1 1 0 1 1 0 1 0 0 0 1 0 0 0 0 0 1 1 0 0 1 1 1 1 0 1 0 0 0 0 0 1 1 0 0 1
+ 0 1 1 0 1 0 0 1 0 0 1 0 0 1 0 0 1 1 0 0 0 1 1 0 0 1 1]
 ------------------
 Generation 3:
-Best Individual with features [0 1 1 1 0 1 0 1 1 0 1 1 0 0 0 1 0 1 0 0 1 0 1 1 1 1 1 0 1 0 1 1 1 1 0 1 1
- 1 1 1 0 1 0 1 0 1 1 0 0 0 0 1 0 0 1 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 1.68
+Best Individual with features [1 1 1 0 1 1 0 1 0 0 0 1 0 1 1 0 0 1 0 1 0 0 1 0 0 0 0 0 0 1 0 1 0 1 1 1 0
+ 0 1 1 0 1 0 1 0 1 0 0 1 1 0 1 1 0 0 0 1 0 0 0 0 1 1 0] has fitness: 0.95, accuracy: 0.99, features: [1 1 1 0 1 1 0 1 0 0 0 1 0 1 1 0 0 1 0 1 0 0 1 0 0 0 0 0 0 1 0 1 0 1 1 1 0
+ 0 1 1 0 1 0 1 0 1 0 0 1 1 0 1 1 0 0 0 1 0 0 0 0 1 1 0]
 ------------------
 Generation 4:
-Best Individual with features [0 1 1 1 0 1 0 1 1 0 1 1 0 0 0 1 0 1 0 0 1 0 1 1 1 1 1 0 1 0 1 1 1 1 0 1 1
- 1 1 1 0 1 0 1 0 1 1 0 0 1 0 1 0 0 1 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 1.68
+Best Individual with features [1 1 1 0 0 1 0 1 0 0 1 1 0 0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 0 1 1 1 1 1 1 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 1 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0] has fitness: 0.94, accuracy: 0.99, features: [1 1 1 0 0 1 0 1 0 0 1 1 0 0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 0 1 1 1 1 1 1 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 1 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0]
 ------------------
 Generation 5:
-Best Individual with features [0 1 1 1 0 1 0 1 1 0 1 1 0 0 0 1 0 1 0 0 1 0 1 1 1 1 1 0 1 0 1 1 1 1 0 1 1
- 1 0 0 1 1 1 0 0 1 1 1 0 1 0 1 1 0 0 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 1.68
+Best Individual with features [1 1 1 0 0 1 0 1 0 0 1 1 0 0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 0 1 1 1 1 1 1 1 0
+ 1 0 0 0 0 0 1 1 1 0 1 1 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0] has fitness: 0.95, accuracy: 0.99, features: [1 1 1 0 0 1 0 1 0 0 1 1 0 0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 0 1 1 1 1 1 1 1 0
+ 1 0 0 0 0 0 1 1 1 0 1 1 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0]
 ------------------
 Generation 6:
-Best Individual with features [0 1 1 1 0 1 0 1 1 0 0 1 1 1 0 0 0 1 0 0 1 0 0 1 0 1 1 0 1 0 1 1 1 1 0 1 1
- 1 1 1 0 1 0 1 0 1 1 0 0 1 0 1 0 0 1 0 1 0 1 0 1 1 1 0] has fitness: 1.00, complexity: 1.68
+Best Individual with features [1 1 1 0 1 1 0 0 0 0 0 1 0 0 0 0 0 1 1 0 0 1 1 1 1 0 1 0 0 0 1 1 1 0 0 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 0 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0] has fitness: 0.95, accuracy: 1.00, features: [1 1 1 0 1 1 0 0 0 0 0 1 0 0 0 0 0 1 1 0 0 1 1 1 1 0 1 0 0 0 1 1 1 0 0 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 0 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0]
 ------------------
-Stopping early after 6 generations.
+Generation 7:
+Best Individual with features [1 1 1 0 1 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 1 1 1 1 0 1 0 0 0 1 1 1 0 0 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 0 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0] has fitness: 0.95, accuracy: 1.00, features: [1 1 1 0 1 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 1 1 1 1 0 1 0 0 0 1 1 1 0 0 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 0 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0]
+------------------
+Generation 8:
+Best Individual with features [1 1 1 0 1 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 1 1 1 0 0 1 0 0 0 1 1 1 0 0 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 0 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0] has fitness: 0.95, accuracy: 1.00, features: [1 1 1 0 1 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 1 1 1 0 0 1 0 0 0 1 1 1 0 0 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 0 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0]
+------------------
+Generation 9:
+Best Individual with features [1 1 0 0 1 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 1 0 0 1 1 0 0 0 0 0 1 1 1 0 0 1 0
+ 1 0 0 1 1 0 1 1 1 0 1 0 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0] has fitness: 0.95, accuracy: 0.99, features: [1 1 0 0 1 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 1 0 0 1 1 0 0 0 0 0 1 1 1 0 0 1 0
+ 1 0 0 1 1 0 1 1 1 0 1 0 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0]
+------------------
+Generation 10:
+Best Individual with features [1 1 1 0 1 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 1 0 0 1 1 0 0 0 0 0 1 1 1 0 0 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 0 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0] has fitness: 0.96, accuracy: 1.00, features: [1 1 1 0 1 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 1 0 0 1 1 0 0 0 0 0 1 1 1 0 0 1 0
+ 1 0 0 0 1 0 1 1 1 0 1 0 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0]
+------------------
 optdigits Dataset Loaded and Algorithm Executed
 Processing dataset: page-blocks
-Actual Rows in dataset- 5473
 Error: The file page-blocks.csv does not exist.
 Nothing to process
 Processing dataset: pendigits
 Actual Rows in dataset- 10992
-new candidate solution found with max,abs corrcoef = 0.8145866231383104
-new candidate solution found with max,abs corrcoef = 1.0
+Rows processing- 1000
 Generation 1:
-Best Individual with features [1 1 1 1 1 1 1 0 1 0 0 0 1 1 0 0] has fitness: 1.00, complexity: 4.37
+Best Individual with features [0 0 0 0 0 0 1 1 0 1 1 0 1 0 0 1] has fitness: 0.96, accuracy: 1.00, features: [0 0 0 0 0 0 1 1 0 1 1 0 1 0 0 1]
 ------------------
 Generation 2:
-Best Individual with features [1 1 1 1 1 1 1 0 1 0 0 0 1 1 0 0] has fitness: 1.00, complexity: 3.11
+Best Individual with features [0 0 1 0 1 0 1 0 0 1 1 0 0 0 1 0] has fitness: 0.96, accuracy: 1.00, features: [0 0 1 0 1 0 1 0 0 1 1 0 0 0 1 0]
 ------------------
 Generation 3:
-Best Individual with features [1 1 1 1 1 1 1 0 1 1 1 1 0 0 0 0] has fitness: 1.00, complexity: 5.00
+Best Individual with features [0 0 0 0 0 1 0 1 1 1 1 0 1 0 0 1] has fitness: 0.95, accuracy: 1.00, features: [0 0 0 0 0 1 0 1 1 1 1 0 1 0 0 1]
 ------------------
 Generation 4:
-Best Individual with features [1 1 1 1 1 1 1 1 0 0 1 1 1 0 1 1] has fitness: 1.00, complexity: 5.81
+Best Individual with features [0 0 0 0 0 1 0 1 0 0 1 1 0 1 0 1] has fitness: 0.96, accuracy: 1.00, features: [0 0 0 0 0 1 0 1 0 0 1 1 0 1 0 1]
 ------------------
 Generation 5:
-Best Individual with features [1 1 1 1 1 1 1 1 0 1 1 1 1 0 0 0] has fitness: 1.00, complexity: 5.00
+Best Individual with features [0 0 0 0 0 1 0 1 0 0 1 1 0 1 0 1] has fitness: 0.96, accuracy: 1.00, features: [0 0 0 0 0 1 0 1 0 0 1 1 0 1 0 1]
 ------------------
 Generation 6:
-Best Individual with features [1 1 1 1 1 1 1 1 0 1 1 1 1 0 0 0] has fitness: 1.00, complexity: 5.00
+Best Individual with features [0 0 0 0 0 0 1 1 0 0 1 0 1 1 0 0] has fitness: 0.96, accuracy: 1.00, features: [0 0 0 0 0 0 1 1 0 0 1 0 1 1 0 0]
 ------------------
 Generation 7:
-Best Individual with features [1 1 1 1 1 1 1 1 0 1 1 1 1 0 0 0] has fitness: 1.00, complexity: 5.00
+Best Individual with features [0 0 0 0 0 1 0 1 0 0 1 1 0 1 0 0] has fitness: 0.96, accuracy: 1.00, features: [0 0 0 0 0 1 0 1 0 0 1 1 0 1 0 0]
 ------------------
 Generation 8:
-Best Individual with features [1 1 1 1 1 1 1 1 0 1 1 1 1 0 0 0] has fitness: 1.00, complexity: 5.00
+Best Individual with features [0 0 0 0 0 1 0 1 0 0 1 0 0 1 0 0] has fitness: 0.97, accuracy: 1.00, features: [0 0 0 0 0 1 0 1 0 0 1 0 0 1 0 0]
 ------------------
 Generation 9:
-Best Individual with features [1 1 1 1 1 1 1 1 0 1 1 1 1 0 0 0] has fitness: 1.00, complexity: 5.00
+Best Individual with features [0 0 0 0 0 0 0 1 0 0 1 0 0 1 0 0] has fitness: 0.98, accuracy: 1.00, features: [0 0 0 0 0 0 0 1 0 0 1 0 0 1 0 0]
 ------------------
-Stopping early after 9 generations.
+Generation 10:
+Best Individual with features [0 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0] has fitness: 0.98, accuracy: 1.00, features: [0 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0]
+------------------
 pendigits Dataset Loaded and Algorithm Executed
 Processing dataset: segment
 Actual Rows in dataset- 2310
-new candidate solution found with max,abs corrcoef = 0.5548048460651575
-new candidate solution found with max,abs corrcoef = 1.0
+Rows processing- 1000
 Generation 1:
-Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 0 1 0 0 1 1 0] has fitness: 1.00, complexity: 6.17
+Best Individual with features [1 0 1 0 0 0 1 0 0 0 0 1 1 0 0 1 1 0 0] has fitness: 0.96, accuracy: 0.99, features: [1 0 1 0 0 0 1 0 0 0 0 1 1 0 0 1 1 0 0]
 ------------------
 Generation 2:
-Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 2.90
+Best Individual with features [0 1 0 1 1 1 0 1 1 0 0 0 0 1 0 0 0 0 1] has fitness: 0.95, accuracy: 0.99, features: [0 1 0 1 1 1 0 1 1 0 0 0 0 1 0 0 0 0 1]
 ------------------
 Generation 3:
-Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 1 0 1 0 1 1 0] has fitness: 1.00, complexity: 6.16
+Best Individual with features [1 1 0 1 1 0 1 0 0 0 0 0 1 0 0 0 0 0 1] has fitness: 0.95, accuracy: 0.99, features: [1 1 0 1 1 0 1 0 0 0 0 0 1 0 0 0 0 0 1]
 ------------------
 Generation 4:
-Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 0 1 0 0 1 1 1] has fitness: 1.00, complexity: 6.16
+Best Individual with features [0 0 1 0 0 1 1 1 1 0 0 0 0 1 0 0 0 0 1] has fitness: 0.96, accuracy: 0.99, features: [0 0 1 0 0 1 1 1 1 0 0 0 0 1 0 0 0 0 1]
 ------------------
 Generation 5:
-Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 0 1 0 0 1 1 1] has fitness: 1.00, complexity: 6.16
+Best Individual with features [0 0 1 0 0 1 1 1 1 0 0 0 0 1 0 0 0 0 1] has fitness: 0.96, accuracy: 0.99, features: [0 0 1 0 0 1 1 1 1 0 0 0 0 1 0 0 0 0 1]
 ------------------
 Generation 6:
-Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 0 1 0 0 1 1 1] has fitness: 1.00, complexity: 6.16
+Best Individual with features [0 0 1 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 1] has fitness: 0.97, accuracy: 1.00, features: [0 0 1 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 1]
 ------------------
 Generation 7:
-Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 1 0 1 0 1 1 0] has fitness: 1.00, complexity: 6.16
+Best Individual with features [0 0 1 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 1] has fitness: 0.97, accuracy: 1.00, features: [0 0 1 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 1]
 ------------------
 Generation 8:
-Best Individual with features [1 1 0 1 1 1 0 1 0 0 1 0 1 0 1 0 1 1 1] has fitness: 1.00, complexity: 6.15
+Best Individual with features [0 0 1 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 1] has fitness: 0.97, accuracy: 1.00, features: [0 0 1 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 1]
 ------------------
-Stopping early after 8 generations.
+Generation 9:
+Best Individual with features [0 0 1 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 1] has fitness: 0.97, accuracy: 1.00, features: [0 0 1 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 1]
+------------------
+Generation 10:
+Best Individual with features [0 0 1 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 1] has fitness: 0.97, accuracy: 1.00, features: [0 0 1 0 1 0 0 0 0 1 0 0 0 1 0 0 0 0 1]
+------------------
 segment Dataset Loaded and Algorithm Executed
