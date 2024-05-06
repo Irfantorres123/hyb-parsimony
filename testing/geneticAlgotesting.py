@@ -6,9 +6,9 @@ from sklearn import svm
 import numpy as np
 
 # Path where the geneticParsimonyAlgo module is located
-module_path = '/Users/poonampawar/hyb-parsimony/'
+module_path = '/Users/poonampawar/hyb-parsimony/GA'
 sys.path.append(module_path)
-from geneticParsimonyAlgo_v2 import genetic_algorithm 
+from geneticParsimonyAlgo import genetic_algorithm 
 from model_eval import Evaluator
 
 # Update the path as per your file structure

@@ -2,9 +2,13 @@ import random
 import numpy as np
 from pyDOE import lhs
 from sklearn import svm
-from sklearn.model_selection import cross_val_score
-from sklearn.metrics import f1_score, roc_auc_score, log_loss
+import sys
 
+module_path = '/Users/poonampawar/hyb-parsimony/'
+sys.path.append(module_path)
+from model_eval import Evaluator
+
+evaluator = Evaluator() 
 class Individual:
     """
     Represents an individual in the genetic algorithm population.
@@ -22,13 +26,20 @@ class Individual:
         self.features = features
         self.hyperparameters = hyperparameters
         self.fitness = None  # Initialize fitness
-        self.complexity = None  # Initialize complexity
-
-
+        self.accuracy = None
+        self.num_features = None
+    
+    def getVector(self):
+        return np.concatenate([self.features, np.array(list(self.hyperparameters.values()))])
+    
+    def setVector(self,vector):
+        self.features = vector[:len(self.features)]
+        self.hyperparameters = {key:vector[i] for i,key in enumerate(self.hyperparameters.keys())}
+    
 def initialize_features(num_individuals, num_features):
     """ Generate Latin Hypercube Samples for features.
         Features are binary, indicating whether a feature is included (1) or excluded (0). """
-    lhs_features = lhs(num_features, samples=num_individuals, criterion='corr')
+    lhs_features = lhs(num_features, samples=num_individuals)
     features = np.round(lhs_features)
     return features.astype(int)
 
@@ -38,7 +49,7 @@ def initialize_hyperparameters(num_individuals, hyperparameter_ranges):
         - Index 0: 'C' (regularization strength) for logistic regression,
         - Index 1: 'max_depth' (maximum depth of the tree) for decision trees. """
     num_hyperparameters = len(hyperparameter_ranges)
-    lhs_hyperparameters = lhs(num_hyperparameters, samples=num_individuals, criterion='corr')
+    lhs_hyperparameters = lhs(num_hyperparameters, samples=num_individuals)
     hyperparameters = []
     for i in range(num_individuals):
         hp = {}
@@ -72,54 +83,6 @@ def initialize_population(num_individuals, dataset_features, hyperparameter_rang
         population.append(individual)
     return population
 
-def evaluate_fitness(y_true, y_pred, y_proba, method='f1', average='macro'):
-    if method == 'f1':
-        return f1_score(y_true, y_pred, average=average)
-    elif method == 'auc':
-        # AUC can be calculated per class and then averaged if needed
-        return roc_auc_score(y_true, y_proba, multi_class='ovr', average=average)
-    elif method == 'logloss':
-        return -log_loss(y_true, y_proba)  # For log-loss, 'average' is not used
-    else:
-        raise ValueError("Unknown fitness evaluation method")
-
-def evaluate_complexity(individual, hyperparameters):
-    """ Calculate complexity based on number of features and parameter values. Irfan's Code"""
-    num_features_used = np.sum(individual.features == 1)
-    c_penalty = hyperparameters[0]
-    gamma_value = hyperparameters[1]
-    
-    # Example complexity formula
-    feature_complexity = 1 / num_features_used if num_features_used > 0 else float('inf')
-    parameter_complexity = c_penalty * gamma_value  # Simplistic interaction
-    return feature_complexity + parameter_complexity
-
-def train_and_validate(individual, X, y, fitness_method='f1'):
-    # Select features based on individual's feature mask
-    X_selected = X[:, individual.features == 1]
-
-    # Check if selected features array is empty
-    if X_selected.size == 0:
-        print("No features selected, skipping this individual.")
-        return 0, float('inf')  # Return a low score or handle as appropriate
-
-    # Create an SVM model. Assuming hyperparameters are in the order [C, gamma]
-    model = svm.SVC(C=individual.hyperparameters[0], gamma=individual.hyperparameters[1], probability=True)
-
-    # Perform cross-validation and return the average accuracy
-    try:
-        scores = cross_val_score(model, X_selected, y, cv=5)  # Using 5-fold cross-validation
-        model.fit(X_selected, y)
-        y_pred = model.predict(X_selected)
-        y_proba = model.predict_proba(X_selected)[:, 1]
-        fitness = evaluate_fitness(y, y_pred, y_proba, method=fitness_method)
-    except Exception as e:
-        print(f"Error during model training: {e}")
-        return 0, float('inf') # Return a low score or handle as appropriate
-    
-    complexity = evaluate_complexity(individual, (individual.hyperparameters[0], individual.hyperparameters[1]))
-    return fitness, complexity
-
 def crossover(parent1, parent2):
     '''
     Perform crossover between two parent individuals to generate two offsprings.
@@ -137,30 +100,30 @@ def crossover(parent1, parent2):
     #select crossover point 
     features_len = len(parent1.features)
     crossover_point = random.randint(0, features_len-1)
-    
+        
     #Features crossover
     offspring1_features = np.concatenate([parent1.features[:crossover_point], parent2.features[crossover_point:]])
     offspring2_features = np.concatenate([parent2.features[:crossover_point], parent1.features[crossover_point:]])
-    
+        
     hyperparam_keys = list(parent1.hyperparameters.keys())
     hyperparam_len = len(parent1.hyperparameters)
     crossover_point = random.randint(1, hyperparam_len-1)
-    
+        
     offspring1_hyperparameters = {}
     offspring2_hyperparameters = {}
-    
+        
     for key in hyperparam_keys[:crossover_point]:
         offspring1_hyperparameters[key] = parent1.hyperparameters[key]
         offspring2_hyperparameters[key] = parent2.hyperparameters[key]
-        
+            
     for key in hyperparam_keys[crossover_point:]:
         offspring1_hyperparameters[key] = parent2.hyperparameters[key]
         offspring2_hyperparameters[key] = parent1.hyperparameters[key]
-    
-    
+        
+        
     offspring1= Individual(offspring1_features, offspring1_hyperparameters)
     offspring2= Individual(offspring2_features, offspring2_hyperparameters)
-    
+        
     return offspring1, offspring2
     
 
@@ -221,7 +184,7 @@ def mutation(individual, mutation_rate, hyperparameter_ranges):
 
 
 def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=5, population_size=10, elite_population_count=5, 
-                      mutation_rate=0.01):
+                      mutation_rate=0.01, evaluator=evaluator):
     """
     Runs a genetic algorithm for feature selection and hyperparameter optimization.
 
@@ -247,17 +210,20 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
         no_improvement_count = 0
         patience = generations/2
         
-        for generation in range(generations):
-            #print(f"Generation {generation+1}")
-            for individual in population:
-                individual.fitness, individual.complexity = train_and_validate(individual, data_features, target)
-                #print(f"Individual with features {individual.features} has fitness: {individual.fitness:.2f}, complexity: {individual.complexity:.2f}")
+        for generation in range(generations):  
+            agents = [individual.getVector() for individual in population]
+            results = evaluator.execute(agents)
+            for i, (fitness,accuracy,num_features) in enumerate(results):
+                population[i].fitness = fitness
+                population[i].accuracy = accuracy
+                population[i].num_features = num_features
+            
             
             # Sort the population by fitness (descending) and by complexity (ascending) to break ties
-            population.sort(key=lambda x: (-x.fitness, x.complexity))
+            population.sort(key=lambda x: x.fitness, reverse=True)
             best_individual = population[0]
             print(f"Generation {generation + 1}:")
-            print(f"Best Individual with features {best_individual.features} has fitness: {best_individual.fitness:.2f}, complexity: {best_individual.complexity:.2f}")
+            print(f"Best Individual with features {best_individual.features} has fitness: {best_individual.fitness:.2f}, accuracy: {best_individual.accuracy:.2f}, features: {best_individual.features}")
             print("------------------")
             
             # Early stopping check
@@ -270,15 +236,15 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
             if no_improvement_count >= patience:
                 print(f"Stopping early after {generation+1} generations.")
                 return best_individual
-
-        # Elitism and reproduction
+            
+            # Elitism and reproduction
             elitist_population = population[:elite_population_count]
             new_population = []
             while len(new_population) < population_size:
                 p1, p2 = random.sample(elitist_population, 2)
                 offspring1, offspring2 = crossover(p1, p2)
                 new_population.extend([offspring1, offspring2])
-            
+                
             # Mutation
             for i in range(len(new_population)):
                 new_population[i] = mutation(new_population[i], mutation_rate, hyperparameter_ranges)
@@ -287,5 +253,6 @@ def genetic_algorithm(data_features, target, hyperparameter_ranges, generations=
         
         return population
     except Exception as e:
+        raise e
         print(f"Error during execution of algorithm: {e}")
         return None
