@@ -5,6 +5,7 @@ from typing import List
 from sklearn.model_selection import train_test_split
 import pandas as pd
 
+
 # def FunctionModelWrapper(f):
 #     """
 #     Wrapper to convert a function to a model object with fit and score methods
@@ -17,7 +18,6 @@ import pandas as pd
 #         def score(self,X,y):
 #             return f(X)
 #     return Model
-
 
 
 class Evaluator:
@@ -85,6 +85,8 @@ class Evaluator:
         features = features > 0.5
         features = np.where(features)[0]
         features = self.dataset.columns[features]
+        if len(features) == 0:
+            return 0,0
         X = self.dataset[features].values
         y = self.dataset.iloc[:,-1].values
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
