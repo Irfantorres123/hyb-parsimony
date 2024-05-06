@@ -222,8 +222,8 @@ class HybridParsimony:
         # randomly select which hyperparameters to mutate
         num_hyp_to_mutate = int(np.round(self.p_mutation * self.num_hyperparameters))
         # make sure we're mutating at least one hyperparameter
-        # if num_hyp_to_mutate < 1:
-        #     num_hyp_to_mutate = 1
+        if num_hyp_to_mutate < 1:
+            num_hyp_to_mutate = 1
 
         # if num_hyp_to_mutate < 1:  # don't mutate hyperparameters
         #     num_hyp_to_mutate = 0
@@ -236,8 +236,8 @@ class HybridParsimony:
         # randomly select which features to mutate
         num_fea_to_mutate = int(np.round(self.feat_mut_threshold * num_features))
         # make sure we're mutating at least one feature
-        # if num_fea_to_mutate < 1:
-        #     num_fea_to_mutate = 1
+        if num_fea_to_mutate < 1:
+            num_fea_to_mutate = 1
 
         # if num_fea_to_mutate < 1:  # don't mutate features
         #     num_fea_to_mutate = 0
@@ -277,15 +277,13 @@ class HybridParsimony:
 
         :return: the best position and f value found.
         """
-        for t in range(1, self.max_iterations + 1):  # run for this number of iterations
-            # Idea: update each particle's position and velocity, and then
-            # update the global best (normal PSO stuff)
+        for t in range(1, self.max_iterations + 1):
+            # PSO stuff: update each particle's position and velocity
             for particle in self.particles:
                 particle.update(self.global_best_val)
                 self.update_global_best(particle)
 
-            # Genetic algorithm stuff:
-            # Perform crossover and mutation
+            # Genetic algorithm stuff: crossover and mutation
             self.replace_bad_particles(t)  # crossover
             self.mutate_particles()  # mutation
 
