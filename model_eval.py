@@ -6,20 +6,6 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 
 
-# def FunctionModelWrapper(f):
-#     """
-#     Wrapper to convert a function to a model object with fit and score methods
-#     """
-#     class Model:
-#         def __init__(self,**kwargs):
-#             pass
-#         def fit(self,X,y):
-#             pass
-#         def score(self,X,y):
-#             return f(X)
-#     return Model
-
-
 class Evaluator:
     def __init__(self, template=None, num_features=None, model=None, dataset=None):
         """
@@ -142,6 +128,14 @@ class Evaluator:
                 self.best_agent_score = final_results[i][0]
                 self.best_agent_accuracy = final_results[i][1]
         return final_results
+
+    def get_objective_function(self):
+        """
+        Return the objective function to be used for optimization
+        """
+        def objective_function(agents):
+            return self.execute(agents)
+        return objective_function
 
     def print_results(self,original_df:pd.DataFrame):
         """

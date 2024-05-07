@@ -1,7 +1,7 @@
 import numpy as np
 import math
 from pyDOE2 import lhs
-
+from model_eval import Evaluator
 
 class HybridParsimony:
     """
@@ -9,9 +9,8 @@ class HybridParsimony:
     swarm optimization, but makes use of mutation and crossover from genetic
     algorithms.
     """
-    def __init__(self, f, D, num_particles, max_iterations, lower_bounds,
-                 upper_bounds, alpha, beta, gamma, L, elite_count,
-                 num_hyperparameters, p_mutation=0.1, feat_mut_threshold=0.1,
+    def __init__(self, f, D, num_particles, max_iterations, alpha, beta, gamma, L, elite_count,
+                 num_hyperparameters,evaluator:Evaluator, p_mutation=0.1, feat_mut_threshold=0.1,
                  not_muted=3) -> None:
         """
         Initializes an instance of the HYB-PARSIMONY algorithm using the given
@@ -21,8 +20,6 @@ class HybridParsimony:
         :param D: the number of dimensions to optimize this function in
         :param num_particles: the population size
         :param max_iterations: the number of iterations to run the algorithm for
-        :param lower_bounds: the minimum values for each dimension
-        :param upper_bounds: the maximum values for each dimension
         :param alpha: controls the influence of the global best value
         :param beta: controls the influence of each particle's personal best value
         :param gamma: regulates the number of particles to be substituted by
@@ -31,17 +28,16 @@ class HybridParsimony:
         :param elite_count: the number of elite particles to keep in the population
         :param num_hyperparameters: the number of hyperparameters in the
             solution vectors. The vectors are [[hyperparameters] + [features]].
+        :param evaluator: the evaluator object
         """
 
         # Initialize the parameters
-        self.f = f
+        self.f = lambda x: f(self.reverse_params(np.array(x)))
         self.D = D
         self.num_particles = num_particles
         self.max_iterations = max_iterations
-        self.lower_bounds = lower_bounds
-        self.upper_bounds = upper_bounds
         self.num_hyperparameters = num_hyperparameters
-
+        self.evaluator:Evaluator = evaluator
         # Tunable hyperparameters
         self.alpha = alpha  # Controls the influence of the global best value
         self.beta = beta  # Controls the influence of the personal best value
@@ -54,10 +50,10 @@ class HybridParsimony:
         self.not_muted = not_muted
 
         # Create the particles
-        self.particles=[Particle(self.f, self.D, self.lower_bounds,
-                                 self.upper_bounds, self.alpha, self.beta,
-                                 self.L)
-                        for _ in range(self.num_particles)]
+        self.particles=[Particle(self.f, self.D, self.evaluator,
+                                 self.alpha, self.beta,
+                                 self.L,self.num_hyperparameters)
+                        for i in range(self.num_particles)]
 
         # Initialize the current global best value among the particles
         self.global_best_val = self.particles[0].best_val
@@ -67,7 +63,9 @@ class HybridParsimony:
         for particle in self.particles:
             self.update_global_best(particle)
 
-
+    def reverse_params(self, x):
+        return np.hstack((x[:,self.num_hyperparameters:], x[:,:self.num_hyperparameters]))
+    
     def update_global_best(self, particle):
         """
         Updates the global best position if the given particle's best position
@@ -156,9 +154,8 @@ class HybridParsimony:
             chosen_offspring_val = np.concatenate((offspring2_hyperparameters, offspring2_features))
 
         # Build up the new particle
-        new_particle = Particle(self.f, self.D, self.lower_bounds,
-                                self.upper_bounds, self.alpha, self.beta,
-                                self.L, val=chosen_offspring_val)
+        new_particle = Particle(self.f, self.D, self.evaluator, self.alpha, self.beta,
+                                self.L,self.num_hyperparameters, val=chosen_offspring_val)
         return new_particle
 
 
@@ -214,7 +211,6 @@ class HybridParsimony:
         """
 
         num_features = self.D - self.num_hyperparameters
-
         # break up the hyperparameters and features
         hyperparameters = particle.get_val()[:self.num_hyperparameters]
         features = particle.get_val()[self.num_hyperparameters:]
@@ -231,7 +227,7 @@ class HybridParsimony:
         # choose the indices of the hyperparameters to mutate, then mutate them
         hyperparameters_indices = np.random.choice(self.num_hyperparameters, num_hyp_to_mutate, replace=False)
         for i in hyperparameters_indices:
-            hyperparameters[i] = np.random.uniform(self.lower_bounds[i], self.upper_bounds[i])
+            hyperparameters[i] = np.random.uniform(self.evaluator.template[i]['lower_bound'], self.evaluator.template[i]['upper_bound'])
 
         # randomly select which features to mutate
         num_fea_to_mutate = int(np.round(self.feat_mut_threshold * num_features))
@@ -245,12 +241,11 @@ class HybridParsimony:
         # select indices as before, then mutate features
         features_indices = np.random.choice(num_features, num_fea_to_mutate, replace=False)
         for i in features_indices:
-            features[i + self.num_hyperparameters] = np.random.uniform(self.lower_bounds[i + self.num_hyperparameters],
-                                                                      self.upper_bounds[i + self.num_hyperparameters])
+            features[i] = np.random.uniform(self.evaluator.template[i + self.num_hyperparameters]['lower_bound'],
+                                                                      self.evaluator.template[i + self.num_hyperparameters]['upper_bound'])
 
         # update the particle and then force an update of its current and best values
         particle.val = np.concatenate((hyperparameters, features))
-        particle.update_bests_and_current()
 
 
     def mutate_particles(self):
@@ -267,6 +262,11 @@ class HybridParsimony:
         # don't mutate the top few particles
         for particle in self.particles[self.not_muted:]:
             self.mutate_particle(particle)
+            particle.clip()
+        agents = [particle.reverse_params(particle.get_val()) for particle in self.particles]
+        results=self.evaluator.execute(agents)
+        for i,particle in enumerate(self.particles):
+            particle.update_bests_and_current(results[i][0])
 
 
     def single_run(self):
@@ -281,6 +281,10 @@ class HybridParsimony:
             # PSO stuff: update each particle's position and velocity
             for particle in self.particles:
                 particle.update(self.global_best_val)
+            agents = [particle.reverse_params(particle.get_val()) for particle in self.particles]
+            results=self.evaluator.execute(agents)
+            for i,particle in enumerate(self.particles):
+                particle.update_bests_and_current(results[i][0])
                 self.update_global_best(particle)
 
             # Genetic algorithm stuff: crossover and mutation
@@ -304,14 +308,13 @@ class Particle:
     For the purposes of the HYB-PARSIMONY algorithm, particles are made up of
     [hyperparameters, features] in a single vector.
     """
-    def __init__(self, f, D, lower_bounds, upper_bounds, alpha, beta, L, val=None) -> None:
+    def __init__(self, f, D, evaluator:Evaluator, alpha, beta, L,num_hyperparameters, val=None) -> None:
         """
         Initializes a single particle.
 
         :param f: the objective function to optimize
         :param D: the number of dimensions to optimize this function in
-        :param lower_bounds: the minimum values for each dimension
-        :param upper_bounds: the maximum values for each dimension
+        :param evaluator: the evaluator object
         :param alpha: controls the influence of the global best value
         :param beta: controls the influence of each particle's personal best value
         :param L: the inertia weight for velocity updates
@@ -320,9 +323,9 @@ class Particle:
         # Initialize the parameters
         self.f = f
         self.D = D
-        self.lower_bound = lower_bounds
-        self.upper_bound = upper_bounds
-
+        self.evaluator=evaluator
+        self.template=evaluator.template
+        self.num_hyperparameters=num_hyperparameters
         # Tunable hyperparameters
         self.alpha = alpha
         self.beta = beta
@@ -331,19 +334,30 @@ class Particle:
         # self.val = np.random.uniform(lower_bounds, upper_bounds, size=D)
         # self.velocity = np.random.uniform(-1, 1, size=D)
         # Initialize the position and velocity from a latin hypercube sample
+        lower_bounds = np.array([param['lower_bound'] for param in self.template])
+        upper_bounds = np.array([param['upper_bound'] for param in self.template])
         if val is None:
+            
             self.val = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds).flatten()
         else:
             self.val = val
 
         self.velocity = (lhs(D, samples=1) * (upper_bounds - lower_bounds) + lower_bounds).flatten()
-
+        
         self.best_val = self.val
-        self.best_f = f(self.val)
+        self.clip()
+        self.best_f = f([self.val])[0][0]
         self.current_f = self.best_f
 
+    def clip(self):
+        clipped_val=self.evaluator.clip(self.reverse_params(self.val))
+        num_features=self.D-self.num_hyperparameters
+        self.val=np.hstack((clipped_val[num_features:],clipped_val[:num_features]))
 
-    def update_bests_and_current(self):
+    def reverse_params(self, x):
+        return np.hstack((x[self.num_hyperparameters:],x[:self.num_hyperparameters]))
+
+    def update_bests_and_current(self,function_val):
         """
         Forces an update of this particle's best position and best function
         value, as well as the current function value. This is useful when
@@ -351,8 +365,6 @@ class Particle:
 
         :return: None
         """
-
-        function_val = self.f(self.val)  # evaluate the function at this position
         self.current_f = function_val  # keep track of the current function value, so we don't have to re-compute it later on
         if function_val < self.best_f:  # replace if better
             self.best_f = function_val
@@ -381,9 +393,8 @@ class Particle:
         # self.val += self.velocity
 
         # stay within bounds
-        self.val=np.clip(self.val,self.lower_bound,self.upper_bound)
-
-        self.update_bests_and_current()
+        self.clip()
+        # self.update_bests_and_current()
 
 
     def get_val(self):
