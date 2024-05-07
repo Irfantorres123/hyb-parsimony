@@ -2,34 +2,66 @@ import os
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import numpy as np
+from model_eval import Evaluator
+from sklearn import svm
+
 
 base_path = os.path.join('datasets') 
-def load_and_process_dataset(filename, nrows=None):
+def load_and_process_dataset(filename, nrows=None,artificially_inflate=False):
+    """
+    Load and process a dataset from a CSV file.
+
+    Parameters:
+    - filename (str): Name of the CSV file containing the dataset.
+    - nrows (int): Number of rows to read from the dataset. If None, all rows are read.
+    - artificially_inflate (bool): If True, artificially inflate the number of columns in the dataset by filling them with random values.
+
+    """
     file_path = os.path.join(base_path, filename)
     try:
-        df = pd.read_csv(file_path, nrows=nrows)
+        original_df = pd.read_csv(file_path, nrows=nrows)
         # Assuming the last column is the target
-        X = df.iloc[:, :-1].values
-        y = df.iloc[:, -1].values
-
+        X = original_df.iloc[:, :-1].values
+        y = original_df.iloc[:, -1].values
+        num_cols=X.shape[1]
+        num_new_cols = num_cols*0.25 # Add 25% more columns
+        if artificially_inflate:
+            # Artificially inflate the number of columns in the dataset by filling them with random values
+            num_new_cols = int(num_new_cols)
+            new_cols = np.random.rand(X.shape[0], num_new_cols)
+            X = np.hstack((X, new_cols))
+        columns = original_df.columns[:-1].tolist()+[f"rand{i}" for i in range(num_new_cols if artificially_inflate else 0)] + ["label"]
+        original_df = pd.DataFrame(data=np.column_stack([X, y]), columns=columns)
         # Standard scaling of features
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(X)
 
         # Create a new DataFrame combining scaled features and target for evaluation purposes
-        columns = df.columns[:-1].tolist() + ["label"]
-        df_data = pd.DataFrame(data=np.column_stack([X_scaled, y]), columns=columns)
+
+        processed_df = pd.DataFrame(data=np.column_stack([X_scaled, y]), columns=columns)
 
         # Returning additional items to aid further processing
-        column_bounds = [(df[col].min(), df[col].max()) for col in df.columns[:-1]]
-        return X_scaled, y, df_data, column_bounds, len(df.columns)-1
+        column_bounds = [(processed_df[col].min(), processed_df[col].max()) for col in processed_df.columns[:-1]]
+        print("Actual Rows in dataset-",nrows)
+        num_features = len(processed_df.columns) - 1
+        if num_features > 15: # Reducing dataset size if it has more than 15 features
+            nrows = nrows//4
+            processed_df = processed_df.sample(n=nrows, random_state=1)
+        print("Rows processing-",nrows)
+        return processed_df,original_df, column_bounds, num_features
 
     except FileNotFoundError:
         print(f"Error: The file {filename} does not exist.")
-        return None, None, None, None, None
+        return None, None, None
     
+def generate_template(column_bounds,hyperparam_template):
+    template=[]
+    for i in range(len(column_bounds)):
+        template.append({'lower_bound': column_bounds[i][0], 'upper_bound': column_bounds[i][1]})
+    template.extend(hyperparam_template)
+    return template
 
-def datasets():
+def datasets(hyperparam_template,artificially_inflate=False):
     # Load dataset information
     db_path = os.path.join(base_path, 'res_basedata.csv')
     datasets_info =  pd.read_csv(db_path)
@@ -37,16 +69,11 @@ def datasets():
         name=row['name_ds']
         name=name.split("-")[0]
         print(f"Processing dataset: {name}")
-        # Assume CSV filename convention is "{name_ds}.csv", adjust if different
-        dataset_filename = f"{name}.csv"
+        dataset_filename = f"{name}.csv" # Assume CSV filename convention is "{name_ds}.csv", adjust if different
         rows = row['nrows']
         
-        X, y, df_data, column_bounds, num_features = load_and_process_dataset(dataset_filename, nrows=rows)
-        print("Actual Rows in dataset-",rows)
-        if num_features > 15: # Reducing dataset size if it has more than 15 features
-            rows = 1000
-            X = X[:rows]  
-            y = y[:rows]
-        print("Rows processing-",rows)
+        df_data,original_df, column_bounds, num_features = load_and_process_dataset(dataset_filename, nrows=rows,artificially_inflate=artificially_inflate)
 
-        yield df_data, column_bounds, num_features,name
+        template=generate_template(column_bounds,hyperparam_template)
+        evaluator = Evaluator(template, num_features, svm.SVC, df_data)
+        yield name,evaluator, num_features,original_df
