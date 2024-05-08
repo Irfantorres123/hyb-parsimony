@@ -14,16 +14,16 @@ def test():
     - Uses hyperparameter settings and genetic algorithm parameters from predefined settings.
     """
     hyperparam_template=[]
-    hyperparam_template.append({'name':'C','lower_bound': 0.01, 'upper_bound': 1})
-    hyperparam_template.append({'name':'gamma','lower_bound': 0.001, 'upper_bound': 1})
+    hyperparam_template.append({'name':'C','lower_bound': 0.001, 'upper_bound': 1000})
+    hyperparam_template.append({'name':'gamma','lower_bound': 0.001, 'upper_bound': 1000})
     # Loop through each dataset
     for (name,evaluator, num_features,original_df) in datasets(hyperparam_template,artificially_inflate=True):
         # HyperParameters and other settings for the hybrid algorithm
-        population_size = 10
-        alpha=0.5
-        beta=0.4
+        population_size = 100
+        alpha=1.5
+        beta=1
         
-        max_iterations=10
+        max_iterations=20
         pso=ParticleSwarm(evaluator.get_objective_function(),max_iterations,population_size,evaluator,alpha,beta,num_features+len(hyperparam_template))
                                            
         pso.solve()                       

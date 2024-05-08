@@ -79,7 +79,7 @@ class Evaluator:
         num_features: Number of features used in the model
         """
         ratio = num_features/total_features
-        return score - 0.2*ratio
+        return score - 0.3*ratio
 
     def execute_agent(self,parameters:np.array,dataset):
         """

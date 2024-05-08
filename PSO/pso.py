@@ -1,4 +1,5 @@
 import numpy as np
+from model_eval import Evaluator
 from pyDOE import lhs
 class ParticleSwarm:
     """
@@ -8,7 +9,7 @@ class ParticleSwarm:
         self.f=f
         self.max_iter=max_iter
         self.num_particles=num_particles
-        self.evaluator=evaluator
+        self.evaluator:Evaluator=evaluator
         self.D=D
         self.alpha=alpha #Controls the influence of the global best value
         self.beta=beta #Controls the influence of the personal best value
@@ -30,6 +31,7 @@ class ParticleSwarm:
         """
         Run a single instance of the particle swarm optimization algorithm
         """
+        metrics=[]
         for i in range(self.max_iter):
             for particle in self.particles:
                 particle.update(self.global_best_val) # Update each particles position and velocity
@@ -38,6 +40,13 @@ class ParticleSwarm:
             for i,particle in enumerate(self.particles):
                 particle.update_best(results[i][0]) # Update the personal best value
                 self.update_global_best(particle) # Update the global best value
+            metrics.append([self.evaluator.best_agent_accuracy,sum([1 if val>0.5 else 0 for val in self.evaluator.best_agent])])
+
+        for i in range(len(metrics)):
+            print(f"Iteration {i + 1}:")
+            print("Best agent accuracy:", metrics[i][0])
+            print("Best agent num_features:", metrics[i][1])
+            
         return self.global_best_val
     
     def solve(self):

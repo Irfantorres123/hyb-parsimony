@@ -207,7 +207,7 @@ def genetic_algorithm(num_features, hyperparameter_ranges, generations=5, popula
         best_score = float('-inf')
         no_improvement_count = 0
         patience = generations/2
-        
+        metrics=[]
         for generation in range(generations):  
             agents = [individual.getVector() for individual in population]
             results = evaluator.execute(agents)
@@ -216,13 +216,11 @@ def genetic_algorithm(num_features, hyperparameter_ranges, generations=5, popula
                 population[i].accuracy = accuracy
                 population[i].num_features = num_features
             
-            
+            metrics.append([evaluator.best_agent_accuracy,sum([1 if val>0.5 else 0 for val in evaluator.best_agent])])
             # Sort the population by fitness (descending) and by complexity (ascending) to break ties
             population.sort(key=lambda x: x.fitness, reverse=True)
             best_individual = population[0]
-            print(f"Generation {generation + 1}:")
-            print(f"Best Individual with features {best_individual.features} has fitness: {best_individual.fitness:.7f}, accuracy: {best_individual.accuracy:.7f}, num_features: {best_individual.num_features}")
-            print("------------------")
+            
             
             # Early stopping check
             if best_individual.fitness > best_score:
@@ -232,7 +230,6 @@ def genetic_algorithm(num_features, hyperparameter_ranges, generations=5, popula
                 no_improvement_count += 1
             
             if no_improvement_count >= patience:
-                print(f"Stopping early after {generation+1} generations.")
                 return best_individual
             
             # Elitism and reproduction
@@ -249,6 +246,11 @@ def genetic_algorithm(num_features, hyperparameter_ranges, generations=5, popula
             
             population = new_population
         
+        for i in range(len(metrics)):
+            print(f"Iteration {i + 1}:")
+            print("Best agent accuracy:", metrics[i][0])
+            print("Best agent num_features:", metrics[i][1])
+
         return population
     except Exception as e:
         raise e

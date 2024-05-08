@@ -277,6 +277,7 @@ class HybridParsimony:
 
         :return: the best position and f value found.
         """
+        metrics=[]
         for t in range(1, self.max_iterations + 1):
             # PSO stuff: update each particle's position and velocity
             for particle in self.particles:
@@ -290,7 +291,13 @@ class HybridParsimony:
             # Genetic algorithm stuff: crossover and mutation
             self.replace_bad_particles(t)  # crossover
             self.mutate_particles()  # mutation
-
+            metrics.append([self.evaluator.best_agent_accuracy,sum([1 if val>0.5 else 0 for val in self.evaluator.best_agent])])
+            
+        for i in range(len(metrics)):
+            print(f"Iteration {i + 1}:")
+            print("Best agent accuracy:", metrics[i][0])
+            print("Best agent num_features:", metrics[i][1])
+            
         return self.global_best_val, self.global_best_f
 
 
