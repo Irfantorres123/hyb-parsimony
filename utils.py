@@ -1,3 +1,34 @@
+# ---------------------------------------------------------------------------------
+# Data Processing and Model Evaluation Framework
+# ---------------------------------------------------------------------------------
+# 
+# Overview:
+# This script is designed to streamline the process of loading, preprocessing, 
+# and evaluating datasets for machine learning applications. It supports operations
+# such as reading CSV files, optionally inflating datasets with synthetic features, 
+# normalizing data, and setting up structured evaluations using Support Vector Machines (SVM).
+#
+# Features:
+# - Load datasets from specified paths and manage partial dataset reads.
+# - Artificially inflate datasets by adding randomly generated feature columns.
+# - Standardize dataset features using sklearn's StandardScaler.
+# - Generate configuration templates that combine feature range data with user-defined 
+#   hyperparameters for model tuning.
+# - Utilize an evaluation module for assessing the performance of SVM models on processed data.
+#
+# Dependencies:
+# This script depends on several external libraries including pandas for data manipulation,
+# NumPy for numerical operations, sklearn for data preprocessing and machine learning tasks,
+# and a custom 'model_eval' module for setting up and running model evaluations.
+#
+# Usage:
+# This script is intended to be used as a module in larger machine learning projects where
+# dataset processing and model evaluation are required. Users can modify the base path,
+# adjust hyperparameters, and select datasets for processing and evaluation through the 
+# configuration settings defined within the script.
+#
+# ---------------------------------------------------------------------------------
+
 import os
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -55,6 +86,9 @@ def load_and_process_dataset(filename, nrows=None,artificially_inflate=False):
         return None, None, None
     
 def generate_template(column_bounds,hyperparam_template):
+    """
+    Combine feature bounds and hyperparameter template into a single configuration list.
+    """
     template=[]
     for i in range(len(column_bounds)):
         template.append({'lower_bound': column_bounds[i][0], 'upper_bound': column_bounds[i][1]})
@@ -62,6 +96,9 @@ def generate_template(column_bounds,hyperparam_template):
     return template
 
 def datasets(hyperparam_template,artificially_inflate=False):
+    """
+    Generator function to process each dataset described in a CSV file.
+    """
     # Load dataset information
     db_path = os.path.join(base_path, 'res_basedata.csv')
     datasets_info =  pd.read_csv(db_path)

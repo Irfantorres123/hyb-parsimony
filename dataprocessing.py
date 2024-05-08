@@ -1,3 +1,34 @@
+# ---------------------------------------------------------------------------------
+# OpenML Dataset Processing and Selection Tool
+# ---------------------------------------------------------------------------------
+#
+# Overview:
+# This script automates the process of downloading, filtering, and preprocessing datasets
+# from OpenML, a public repository for machine learning data and experiments. It includes
+# functionality to select datasets based on specific criteria, preprocess the data (e.g.,
+# scaling, encoding), and save the results locally for further analysis.
+#
+# Features:
+# - Connects to OpenML to fetch dataset listings and details.
+# - Filters datasets based on size, number of features, and other properties.
+# - Downloads selected datasets and preprocesses them using scaling and encoding.
+# - Saves processed datasets and logs in specified directories for easy access and reproducibility.
+#
+# Dependencies:
+# - os: Standard library for interacting with the operating system.
+# - openml: Library for interacting with the OpenML database.
+# - numpy: Fundamental package for scientific computing with Python.
+# - pandas: Library providing high-performance, easy-to-use data structures and data analysis tools.
+# - tqdm: Library for displaying progress bars in loops.
+# - warnings: Standard library for handling warnings.
+# - sklearn: Tools for data mining and data analysis, including preprocessing modules.
+#
+# Usage:
+# Update the base_path to the desired local directory for storing datasets and logs.
+# Run the script to fetch, process, and store datasets from OpenML based on predefined criteria.
+#
+# ---------------------------------------------------------------------------------
+
 import os
 import openml
 import numpy as np
