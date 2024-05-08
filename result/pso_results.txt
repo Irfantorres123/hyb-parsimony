@@ -1,0 +1,126 @@
+Processing dataset: kr
+Actual Rows in dataset- 3196
+Rows processing- 799
+kr Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.83125
+Best Agent accuracy: 0.93125
+Chosen Features: ['bkblk_t', 'bknwy_t', 'bkona_t', 'bkspr_f', 'bkxbq_t', 'bkxbq_f', 'bkxcr_t', 'bkxwp_f', 'blxwp_t', 'bxqsq_t', 'cntxt_t', 'dsopp_t', 'dwipd_g', 'hdchk_t', 'katri_b', 'katri_w', 'mulch_t', 'r2ar8_f', 'reskd_t', 'reskr_t', 'rimmx_t', 'rkxwp_f', 'rxmsq_t', 'simpl_t', 'skach_t', 'skewr_f', 'skrxp_t', 'spcop_t', 'thrsk_t', 'wkna8_t', 'wknck_f', 'wkovl_t', 'wkovl_f', 'wkpos_f', 'rand1', 'rand3', 'rand4', 'rand6', 'rand8', 'rand9', 'rand10', 'rand11', 'rand12', 'rand13', 'rand15', 'rand16']
+Best Hyperparameters: {'C': 1.0, 'gamma': 0.08374627600910439}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.9421875
+Number of actual columns: 74
+Number of artificial columns: 19
+Fitness: 0.8421875
+Percentage of actual features chosen: 0.4594594594594595
+Percentage of artificial features chosen: 0.631578947368421
+
+
+Processing dataset: letter
+Actual Rows in dataset- 20000
+Rows processing- 5000
+letter Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.7110000000000001
+Best Agent accuracy: 0.811
+Chosen Features: ['x-box', 'y-box', 'width', 'x2bar', 'y2bar', 'xybar', 'x-ege', 'xegvy', 'y-ege', 'yegvx']
+Best Hyperparameters: {'C': 0.5405623112953792, 'gamma': 0.25437425188274687}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.89225
+Number of actual columns: 16
+Number of artificial columns: 5
+Fitness: 0.79225
+Percentage of actual features chosen: 0.625
+Percentage of artificial features chosen: 0.0
+
+
+Processing dataset: mushroom
+Actual Rows in dataset- 8124
+Rows processing- 2031
+mushroom Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.8672021672021671
+Best Agent accuracy: 0.9877149877149877
+Chosen Features: ['cap-shape_b', 'cap-shape_c', 'cap-shape_f', 'cap-shape_k', 'cap-shape_s', 'cap-shape_x', 'cap-surface_g', 'cap-surface_s', 'cap-surface_y', 'cap-color_b', 'cap-color_c', 'cap-color_g', 'cap-color_n', 'cap-color_p', 'cap-color_r', 'cap-color_u', 'cap-color_w', 'cap-color_y', 'bruises%3F_t', 'odor_a', 'odor_c', 'odor_f', 'odor_l', 'odor_m', 'odor_n', 'odor_y', 'gill-attachment_a', 'gill-spacing_w', 'gill-size_n', 'gill-color_e', 'gill-color_g', 'gill-color_h', 'gill-color_k', 'gill-color_n', 'gill-color_o', 'gill-color_p', 'gill-color_r', 'gill-color_w', 'gill-color_y', 'stalk-root_r', 'stalk-surface-above-ring_f', 'stalk-surface-above-ring_y', 'stalk-surface-below-ring_f', 'stalk-surface-below-ring_k', 'stalk-surface-below-ring_s', 'stalk-surface-below-ring_y', 'stalk-color-above-ring_b', 'stalk-color-above-ring_c', 'stalk-color-above-ring_e', 'stalk-color-above-ring_g', 'stalk-color-above-ring_n', 'stalk-color-above-ring_o', 'stalk-color-above-ring_p', 'stalk-color-above-ring_y', 'stalk-color-below-ring_b', 'stalk-color-below-ring_c', 'stalk-color-below-ring_e', 'stalk-color-below-ring_g', 'stalk-color-below-ring_n', 'stalk-color-below-ring_o', 'stalk-color-below-ring_y', 'veil-color_n', 'veil-color_o', 'veil-color_y', 'ring-number_n', 'ring-number_t', 'ring-type_f', 'ring-type_n', 'spore-print-color_b', 'spore-print-color_h', 'spore-print-color_k', 'spore-print-color_o', 'spore-print-color_r', 'spore-print-color_u', 'spore-print-color_y', 'population_c', 'population_n', 'population_s', 'habitat_g', 'habitat_l', 'habitat_m', 'habitat_p', 'habitat_u', 'habitat_w', 'rand5', 'rand14', 'rand16', 'rand18', 'rand19', 'rand22', 'rand26', 'rand27', 'rand28', 'rand30']
+Best Hyperparameters: {'C': 0.445032243813077, 'gamma': 0.001}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.9692307692307692
+Number of actual columns: 125
+Number of artificial columns: 32
+Fitness: 0.8487179487179487
+Percentage of actual features chosen: 0.672
+Percentage of artificial features chosen: 0.3125
+
+
+Processing dataset: optdigits
+Actual Rows in dataset- 5620
+Rows processing- 1405
+optdigits Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.7116814946619217
+Best Agent accuracy: 0.8291814946619217
+Chosen Features: ['input2', 'input5', 'input8', 'input9', 'input10', 'input14', 'input15', 'input16', 'input17', 'input18', 'input20', 'input23', 'input24', 'input25', 'input26', 'input27', 'input31', 'input32', 'input33', 'input34', 'input41', 'input42', 'input43', 'input44', 'input45', 'input47', 'input48', 'input49', 'input50', 'input51', 'input53', 'input55', 'input56', 'input57', 'input58', 'input59', 'input63', 'input64', 'rand0', 'rand1', 'rand3', 'rand6', 'rand7', 'rand10', 'rand11', 'rand12', 'rand14']
+Best Hyperparameters: {'C': 1.0, 'gamma': 0.001}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.8923487544483986
+Number of actual columns: 64
+Number of artificial columns: 17
+Fitness: 0.7748487544483985
+Percentage of actual features chosen: 0.59375
+Percentage of artificial features chosen: 0.5294117647058824
+
+
+Processing dataset: page
+Actual Rows in dataset- 5473
+Rows processing- 5473
+page Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.8210045662100457
+Best Agent accuracy: 0.954337899543379
+Chosen Features: ['height', 'area', 'eccen', 'p_black', 'mean_tr', 'blackpix', 'blackand', 'wb_trans']
+Best Hyperparameters: {'C': 0.17556588472031726, 'gamma': 0.4762617111311982}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.954337899543379
+Number of actual columns: 10
+Number of artificial columns: 3
+Fitness: 0.8210045662100457
+Percentage of actual features chosen: 0.8
+Percentage of artificial features chosen: 0.0
+
+
+Processing dataset: pendigits
+Actual Rows in dataset- 10992
+Rows processing- 2748
+pendigits Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.8254545454545454
+Best Agent accuracy: 0.9254545454545454
+Chosen Features: ['input1', 'input5', 'input6', 'input8', 'input9', 'input10', 'input12', 'input14', 'input16', 'rand1']
+Best Hyperparameters: {'C': 0.5693305718361084, 'gamma': 0.25818509485017616}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.9608913142337426
+Number of actual columns: 16
+Number of artificial columns: 5
+Fitness: 0.8608913142337427
+Percentage of actual features chosen: 0.5625
+Percentage of artificial features chosen: 0.2
+
+
+Processing dataset: segment
+Actual Rows in dataset- 2310
+Rows processing- 577
+segment Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.7580209895052473
+Best Agent accuracy: 0.8275862068965517
+Chosen Features: ['region-centroid-row', 'short-line-density-5', 'vedge-mean', 'vegde-sd', 'hedge-mean', 'hedge-sd', 'rawblue-mean', 'value-mean']
+Best Hyperparameters: {'C': 0.7946991577169812, 'gamma': 0.8591574208404315}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.8722943722943723
+Number of actual columns: 19
+Number of artificial columns: 5
+Fitness: 0.802729154903068
+Percentage of actual features chosen: 0.42105263157894735
+Percentage of artificial features chosen: 0.0
+
+

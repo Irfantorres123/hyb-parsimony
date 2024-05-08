@@ -1,0 +1,409 @@
+Processing dataset: kr
+Actual Rows in dataset- 3196
+Rows processing- 799
+Generation 1:
+Best Individual with features [0 1 0 1 1 1 1 1 0 0 0 0 0 1 0 1 0 1 0 0 1 1 0 1 0 0 1 0 0 1 1 1 0 0 1 0 0
+ 0 0 0 0 1 1 0 0 0 1 0 0 1 1 1 0 0 0 1 0 1 1 1 1 0 1 0 1 0 0 1 1 0 0 0 1 0
+ 0 0 1 1 0 1 1 1 1 0 1 1 1 0 1 1 0 0] has fitness: 0.4388587, accuracy: 0.5062500, num_features: 31
+------------------
+Generation 2:
+Best Individual with features [0 0 0 0 0 1 0 0 1 0 1 0 1 1 1 0 0 0 1 1 0 0 1 1 0 1 1 0 0 0 0 0 0 1 0 0 1
+ 1 1 1 0 0 1 0 1 1 0 0 0 0 0 0 1 1 0 1 1 0 1 0 0 0 1 1 0 0 1 0 1 1 0 1 1 1
+ 1 0 0 1 0 1 0 0 0 1 0 0 0 0 0 0 0 0] has fitness: 0.6432065, accuracy: 0.7062500, num_features: 29
+------------------
+Generation 3:
+Best Individual with features [0 0 0 0 0 1 0 0 1 0 1 0 1 1 1 0 0 0 1 1 0 0 1 1 0 1 1 0 0 0 0 0 0 1 0 0 1
+ 1 1 1 0 0 1 0 1 1 0 0 0 0 0 0 1 1 0 1 1 0 1 0 0 0 1 0 0 0 1 0 1 1 0 1 0 1
+ 1 0 0 1 0 1 0 0 0 1 0 0 0 0 0 0 0 1] has fitness: 0.5516304, accuracy: 0.6125000, num_features: 28
+------------------
+Generation 4:
+Best Individual with features [0 0 0 0 0 1 0 1 1 0 1 0 1 1 1 0 0 0 1 1 0 0 1 0 0 1 1 0 0 0 0 1 0 1 0 0 1
+ 1 1 1 0 0 1 0 1 1 0 0 0 0 0 0 1 1 0 1 1 0 1 0 0 0 1 1 0 0 1 0 1 1 0 1 1 1
+ 1 0 0 1 0 1 0 0 0 1 0 0 0 0 0 0 0 0] has fitness: 0.6472826, accuracy: 0.7125000, num_features: 30
+------------------
+Generation 5:
+Best Individual with features [0 0 0 0 0 1 0 0 1 0 0 0 1 1 0 0 0 0 1 1 0 0 1 0 0 1 1 0 0 0 0 1 0 1 0 0 1
+ 1 1 1 0 0 1 0 1 1 0 0 0 0 0 0 1 1 0 1 1 0 1 0 0 0 1 1 0 0 1 0 1 1 0 1 1 1
+ 1 0 0 1 0 1 0 0 0 1 0 0 0 0 0 0 0 0] has fitness: 0.7078804, accuracy: 0.7687500, num_features: 28
+------------------
+Generation 6:
+Best Individual with features [0 0 0 0 0 1 0 0 1 0 0 0 1 1 0 0 0 1 1 1 0 0 1 0 0 1 1 0 0 0 0 1 0 1 0 0 1
+ 1 1 1 0 0 1 0 1 1 0 0 0 0 0 0 1 1 0 1 0 0 1 0 0 0 1 1 0 0 1 0 1 1 0 1 1 1
+ 1 0 0 1 0 1 0 0 0 1 0 0 0 0 0 0 0 0] has fitness: 0.6994565, accuracy: 0.7625000, num_features: 29
+------------------
+Generation 7:
+Best Individual with features [0 0 1 0 0 1 0 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0 1 0 0 1 1 0 0 0 0 1 0 1 0 0 1
+ 1 1 1 0 0 1 0 1 1 0 0 0 0 0 0 1 1 0 1 1 0 1 0 0 0 1 1 0 0 1 0 1 1 0 1 1 1
+ 1 0 1 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0] has fitness: 0.6788043, accuracy: 0.7375000, num_features: 27
+------------------
+Generation 8:
+Best Individual with features [0 0 0 0 0 1 0 0 0 0 0 0 1 1 0 0 0 0 1 1 1 1 0 1 0 0 0 0 1 0 0 1 1 0 0 1 1
+ 1 1 0 1 0 0 1 0 1 0 0 1 0 0 0 1 1 0 1 0 0 1 0 0 0 1 1 0 0 1 0 1 1 0 1 1 1
+ 1 0 0 1 0 1 0 0 0 1 0 0 0 0 0 0 0 0] has fitness: 0.6788043, accuracy: 0.7375000, num_features: 27
+------------------
+Generation 9:
+Best Individual with features [0 0 1 0 0 1 0 0 0 0 0 0 1 1 0 0 0 0 0 1 1 1 0 1 0 0 0 0 1 0 0 0 1 0 0 1 1
+ 1 1 0 1 0 1 0 1 1 0 0 0 0 0 0 1 0 0 1 1 0 1 0 0 0 1 1 0 0 1 0 1 1 0 1 1 1
+ 1 0 1 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0] has fitness: 0.6915761, accuracy: 0.7437500, num_features: 24
+------------------
+Generation 10:
+Best Individual with features [0 0 1 0 0 1 0 0 0 0 0 0 1 1 0 0 0 0 0 1 1 1 0 1 0 0 0 0 1 0 0 1 1 0 0 0 1
+ 1 1 0 1 0 0 1 0 1 0 0 0 0 1 1 1 1 0 1 1 0 1 0 0 0 1 1 1 0 1 0 1 1 0 1 1 1
+ 1 0 0 1 0 1 0 0 0 1 0 0 0 0 0 0 0 0] has fitness: 0.6997283, accuracy: 0.7562500, num_features: 26
+------------------
+Stopping early after 10 generations.
+kr Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.7078804347826088
+Best Agent accuracy: 0.76875
+Chosen Features: ['bkon8_f', 'bkspr_t', 'bkxcr_t', 'bkxcr_f', 'bxqsq_t', 'bxqsq_f', 'dsopp_t', 'dwipd_l', 'hdchk_t', 'mulch_t', 'qxmsq_t', 'r2ar8_f', 'reskd_t', 'reskd_f', 'reskr_t', 'rimmx_f', 'rkxwp_f', 'rxmsq_t', 'skewr_f', 'skrxp_t', 'spcop_t', 'spcop_f', 'stlmt_f', 'wkcti_f', 'wkna8_t', 'wknck_f', 'wkovl_f', 'wkpos_t', 'wtoeg_n', 'wtoeg_t', 'wtoeg_f', 'rand0', 'rand3', 'rand5', 'rand9']
+Best Hyperparameters: {'C': 0.9078559664109733, 'gamma': 0.30300110886055137}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.8671875
+Number of actual columns: 74
+Number of artificial columns: 19
+Fitness: 0.8063179347826087
+Percentage of actual features chosen: 0.4189189189189189
+Percentage of artificial features chosen: 0.21052631578947367
+
+
+Processing dataset: letter
+Actual Rows in dataset- 20000
+Rows processing- 5000
+Generation 1:
+Best Individual with features [0 1 0 0 1 1 1 0 0 1 0 1 1 1 1 1 0 0 1 0] has fitness: 0.6520000, accuracy: 0.7620000, num_features: 11
+------------------
+Generation 2:
+Best Individual with features [1 0 1 0 1 1 0 0 1 1 1 0 1 0 1 1 0 0 1 0] has fitness: 0.6820000, accuracy: 0.7920000, num_features: 11
+------------------
+Generation 3:
+Best Individual with features [1 1 0 0 1 1 1 0 0 1 0 1 1 1 1 1 0 0 1 0] has fitness: 0.6840000, accuracy: 0.8040000, num_features: 12
+------------------
+Generation 4:
+Best Individual with features [1 0 1 0 1 1 0 0 1 1 0 1 1 1 1 1 0 0 1 0] has fitness: 0.7030000, accuracy: 0.8230000, num_features: 12
+------------------
+Generation 5:
+Best Individual with features [1 0 1 0 1 1 0 0 1 1 0 1 1 1 1 1 0 0 1 0] has fitness: 0.7030000, accuracy: 0.8230000, num_features: 12
+------------------
+Generation 6:
+Best Individual with features [1 0 0 0 1 1 0 0 1 1 0 1 1 1 1 1 0 0 1 0] has fitness: 0.7170000, accuracy: 0.8270000, num_features: 11
+------------------
+Generation 7:
+Best Individual with features [1 0 0 0 1 1 0 1 0 1 0 1 1 1 1 1 0 0 1 0] has fitness: 0.7240000, accuracy: 0.8340000, num_features: 11
+------------------
+Generation 8:
+Best Individual with features [1 0 0 0 1 1 0 1 0 1 0 1 1 1 1 1 0 0 1 0] has fitness: 0.7240000, accuracy: 0.8340000, num_features: 11
+------------------
+Generation 9:
+Best Individual with features [1 0 0 0 1 1 1 0 1 1 0 1 1 1 1 1 0 0 1 0] has fitness: 0.7290000, accuracy: 0.8490000, num_features: 12
+------------------
+Generation 10:
+Best Individual with features [0 0 0 0 1 1 1 0 1 1 0 1 1 1 1 1 0 0 1 0] has fitness: 0.7410000, accuracy: 0.8510000, num_features: 11
+------------------
+letter Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.741
+Best Agent accuracy: 0.851
+Chosen Features: ['onpix', 'x-bar', 'y-bar', 'y2bar', 'xybar', 'xy2br', 'x-ege', 'xegvy', 'y-ege', 'yegvx', 'rand2']
+Best Hyperparameters: {'C': 0.9698446628195523, 'gamma': 0.4123393249456697}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.94075
+Number of actual columns: 16
+Number of artificial columns: 5
+Fitness: 0.83075
+Percentage of actual features chosen: 0.625
+Percentage of artificial features chosen: 0.2
+
+
+Processing dataset: mushroom
+Actual Rows in dataset- 8124
+Rows processing- 2031
+Generation 1:
+Best Individual with features [0 1 0 1 0 1 1 1 0 1 1 1 1 0 1 0 1 0 1 0 1 1 1 1 1 1 1 1 0 0 1 0 1 0 0 1 1
+ 0 0 0 0 1 0 1 1 1 0 0 0 0 0 0 0 1 1 1 0 1 0 0 0 1 0 0 0 1 1 0 0 1 0 1 1 0
+ 0 1 0 1 1 1 0 1 1 1 1 1 1 0 1 0 0 0 1 0 1 1 0 0 0 1 1 0 0 1 0 0 0 0 0 0 0
+ 0 0 0 1 0 1 0 1 1 0 0 1 1 0 1 0 0 1 1 0 1 1 0 0 0 0 0 1 0 1 1 0 1 1 1 0 1
+ 0 0 0 0 1 0 1 0] has fitness: 0.8807724, accuracy: 0.9705160, num_features: 70
+------------------
+Generation 2:
+Best Individual with features [1 0 0 1 0 1 0 1 0 0 0 0 0 1 0 0 1 1 0 0 0 0 1 1 0 1 1 1 0 1 0 1 1 0 1 1 0
+ 1 0 1 0 0 0 0 1 1 1 0 0 0 0 1 1 0 0 1 0 0 1 0 1 1 1 1 0 0 1 1 1 1 1 0 0 1
+ 0 1 0 0 0 1 1 0 1 0 1 0 0 1 0 0 0 1 1 0 1 1 1 1 0 1 0 0 0 1 0 0 0 0 0 0 0
+ 0 0 0 1 0 1 0 1 1 0 0 1 1 0 1 0 0 1 1 0 1 1 0 0 0 0 0 1 0 1 1 0 1 1 1 0 1
+ 0 0 0 0 1 0 1 0] has fitness: 0.8860077, accuracy: 0.9680590, num_features: 64
+------------------
+Generation 3:
+Best Individual with features [0 1 0 1 0 0 1 1 0 0 1 0 0 1 1 1 0 1 0 1 0 0 0 0 0 1 1 1 1 1 0 0 0 1 0 0 0
+ 1 0 1 0 0 1 0 0 0 1 0 1 1 0 1 1 0 1 1 1 0 0 1 1 1 0 1 0 0 0 1 0 0 0 1 1 0
+ 1 0 1 1 0 0 1 0 0 0 0 1 1 0 0 1 1 1 1 0 0 1 0 0 1 0 1 1 0 0 1 1 0 0 1 1 0
+ 1 0 0 1 1 1 0 0 0 0 0 0 0 0 1 1 0 1 1 1 0 1 1 1 1 1 0 0 0 1 0 1 1 0 1 1 1
+ 1 1 0 1 0 1 1 0] has fitness: 0.8377213, accuracy: 0.9287469, num_features: 71
+------------------
+Generation 4:
+Best Individual with features [0 1 0 1 0 0 1 1 0 0 1 0 0 1 1 1 0 1 0 1 0 0 0 0 0 1 1 1 1 1 0 0 1 1 0 0 0
+ 1 0 1 0 0 1 0 0 0 0 0 1 1 0 1 1 0 1 1 1 1 0 1 1 1 0 1 0 0 0 1 0 0 0 1 1 0
+ 1 0 1 1 0 0 1 0 0 0 0 1 1 0 0 1 1 1 1 1 0 1 0 0 1 0 1 1 0 0 1 1 0 0 1 0 0
+ 1 0 0 1 1 1 0 0 0 0 0 0 0 0 1 1 0 1 1 1 0 1 1 1 1 0 0 0 0 1 0 1 1 0 1 0 1
+ 0 0 0 0 1 0 1 0] has fitness: 0.8822686, accuracy: 0.9656020, num_features: 65
+------------------
+Generation 5:
+Best Individual with features [1 0 0 1 0 1 0 1 0 0 0 0 0 1 0 1 1 1 0 0 0 0 1 1 0 1 1 1 0 1 0 1 1 0 1 1 0
+ 1 0 1 0 0 0 0 1 1 1 0 1 0 0 1 1 0 0 1 0 0 1 0 1 1 1 1 0 0 1 1 1 1 1 0 0 1
+ 0 1 1 0 0 1 1 0 0 0 1 0 0 1 0 0 0 1 1 0 1 1 1 1 0 1 0 0 0 1 0 0 0 0 0 0 0
+ 0 0 0 1 0 1 0 1 1 0 0 1 1 0 1 1 0 1 1 0 1 1 0 0 0 0 0 0 0 1 0 1 1 0 1 0 1
+ 0 0 0 0 1 0 1 0] has fitness: 0.8822686, accuracy: 0.9656020, num_features: 65
+------------------
+Generation 6:
+Best Individual with features [0 1 0 1 0 0 1 1 0 0 0 0 0 0 1 0 1 1 1 0 1 0 1 0 0 0 0 0 1 1 0 0 0 1 0 0 0
+ 1 0 1 0 0 1 0 0 0 1 0 1 1 0 1 1 0 1 1 1 0 0 1 1 1 0 1 0 0 0 1 0 0 0 1 1 0
+ 1 0 1 1 0 0 1 0 0 0 1 0 0 1 0 0 0 1 1 0 1 1 1 1 0 1 0 0 0 1 0 0 0 0 0 0 0
+ 0 0 0 1 0 1 0 1 1 0 0 1 1 0 1 1 0 1 1 0 1 1 0 0 0 0 0 0 0 1 0 1 1 0 1 0 1
+ 0 0 0 0 1 0 1 0] has fitness: 0.9132489, accuracy: 0.9901720, num_features: 60
+------------------
+Generation 7:
+Best Individual with features [1 0 0 1 0 1 0 0 0 0 0 0 0 1 0 1 1 1 0 0 0 0 1 1 0 1 1 1 1 1 0 0 1 1 0 0 0
+ 1 0 1 0 0 1 0 0 0 0 0 1 1 0 1 1 0 1 1 1 1 0 1 1 1 0 1 0 0 0 1 0 0 0 1 1 0
+ 1 0 1 1 0 0 1 1 0 0 0 1 1 0 0 1 1 1 1 1 0 1 0 0 1 0 1 1 0 0 1 1 0 0 1 0 0
+ 1 0 0 1 0 1 0 1 1 0 0 1 1 0 1 1 0 1 0 0 1 1 0 0 0 0 0 0 0 1 0 1 1 0 1 0 0
+ 0 0 0 0 1 0 1 0] has fitness: 0.9094028, accuracy: 0.9901720, num_features: 63
+------------------
+Generation 8:
+Best Individual with features [1 0 0 1 0 1 0 1 0 1 0 0 0 0 1 0 1 1 1 0 1 0 1 0 0 0 0 0 1 1 0 0 0 1 0 0 0
+ 1 0 1 0 0 1 0 0 0 0 0 1 1 0 1 1 0 1 1 1 1 0 1 1 1 0 1 0 0 0 1 0 0 0 1 1 0
+ 1 0 1 1 0 0 1 1 0 0 0 1 1 0 0 1 1 1 1 1 0 1 0 0 1 0 1 1 0 0 1 1 0 0 1 0 0
+ 1 0 0 1 0 1 0 1 1 0 0 1 1 0 1 1 0 1 0 0 1 1 0 0 0 0 0 0 0 1 0 1 1 0 1 0 0
+ 0 0 0 0 1 0 1 0] has fitness: 0.9131418, accuracy: 0.9926290, num_features: 62
+------------------
+Generation 9:
+Best Individual with features [1 0 0 1 0 1 0 1 0 1 0 0 0 0 1 0 1 1 1 0 1 0 1 0 0 0 0 0 1 1 0 0 1 1 0 0 0
+ 1 0 1 0 0 1 0 0 0 0 0 1 1 0 1 1 0 1 1 1 1 0 1 1 1 0 1 0 0 0 1 0 0 0 1 1 0
+ 1 0 1 1 0 0 1 1 0 0 0 1 1 0 0 1 1 1 1 1 0 1 0 0 1 0 1 1 0 0 0 0 0 0 1 0 0
+ 1 0 0 1 0 1 0 1 1 0 0 1 1 0 1 1 0 1 0 0 1 1 0 0 0 0 0 0 0 1 0 1 1 0 1 1 0
+ 0 0 0 0 1 0 1 0] has fitness: 0.9193379, accuracy: 0.9975430, num_features: 61
+------------------
+Generation 10:
+Best Individual with features [1 0 0 1 0 1 0 1 0 1 0 0 0 0 1 0 1 1 1 0 1 0 1 0 0 0 0 0 1 1 0 0 0 1 0 0 0
+ 1 0 1 0 0 1 0 0 0 0 0 1 1 0 1 1 0 1 1 1 1 0 1 1 1 0 1 0 0 0 1 1 0 0 1 1 0
+ 1 0 1 1 0 0 1 1 0 0 0 1 1 0 0 1 1 1 1 1 0 1 0 0 1 0 1 1 0 0 1 1 0 0 1 0 0
+ 1 0 0 1 0 1 0 1 1 0 0 1 1 0 1 1 0 1 0 0 1 1 0 0 0 0 0 0 0 1 0 1 1 0 1 0 0
+ 0 0 0 0 1 0 1 0] has fitness: 0.9192308, accuracy: 1.0000000, num_features: 63
+------------------
+mushroom Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.9193378693378693
+Best Agent accuracy: 0.9975429975429976
+Chosen Features: ['cap-shape_b', 'cap-shape_k', 'cap-shape_x', 'cap-surface_g', 'cap-surface_y', 'cap-color_n', 'cap-color_r', 'cap-color_u', 'cap-color_w', 'bruises%3F_f', 'odor_a', 'odor_p', 'odor_s', 'gill-attachment_d', 'gill-attachment_f', 'gill-spacing_w', 'gill-size_n', 'gill-color_g', 'gill-color_r', 'gill-color_u', 'gill-color_y', 'stalk-shape_e', 'stalk-root_b', 'stalk-root_c', 'stalk-root_e', 'stalk-root_r', 'stalk-root_z', 'stalk-surface-above-ring_f', 'stalk-surface-above-ring_k', 'stalk-surface-above-ring_y', 'stalk-surface-below-ring_y', 'stalk-color-above-ring_g', 'stalk-color-above-ring_n', 'stalk-color-above-ring_p', 'stalk-color-above-ring_y', 'stalk-color-below-ring_b', 'stalk-color-below-ring_g', 'stalk-color-below-ring_n', 'stalk-color-below-ring_y', 'veil-type_p', 'veil-color_o', 'veil-color_w', 'veil-color_y', 'ring-number_n', 'ring-number_o', 'ring-type_c', 'ring-type_l', 'ring-type_p', 'ring-type_s', 'spore-print-color_r', 'spore-print-color_y', 'population_n', 'population_v', 'habitat_d', 'habitat_g', 'habitat_p', 'habitat_u', 'rand0', 'rand1', 'rand3', 'rand6', 'rand7', 'rand15', 'rand17', 'rand18', 'rand20', 'rand21', 'rand27', 'rand29']
+Best Hyperparameters: {'C': 0.8103856853986088, 'gamma': 0.10008252342400538}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 1.0
+Number of actual columns: 125
+Number of artificial columns: 32
+Fitness: 0.9217948717948719
+Percentage of actual features chosen: 0.456
+Percentage of artificial features chosen: 0.375
+
+
+Processing dataset: optdigits
+Actual Rows in dataset- 5620
+Rows processing- 1405
+Generation 1:
+Best Individual with features [1 1 1 0 0 1 1 1 1 1 0 1 0 0 0 0 1 1 0 1 1 1 0 0 1 0 0 1 0 1 0 0 0 0 1 0 0
+ 0 1 1 0 1 0 1 0 1 0 1 0 0 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 1 0 1 0 1 1 0 0 1
+ 1 0 1 0 1 0] has fitness: 0.8156495, accuracy: 0.9181495, num_features: 41
+------------------
+Generation 2:
+Best Individual with features [0 1 1 0 1 0 1 1 0 1 0 1 0 0 0 0 1 1 0 1 1 1 0 0 1 0 0 1 0 1 0 0 0 0 1 0 0
+ 0 1 1 0 1 0 1 0 1 0 1 0 0 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 1 0 1 0 1 1 0 0 1
+ 1 0 1 0 1 0] has fitness: 0.8252669, accuracy: 0.9252669, num_features: 40
+------------------
+Generation 3:
+Best Individual with features [0 1 1 0 1 0 1 1 0 1 0 1 0 0 0 0 1 1 0 1 1 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 1
+ 0 0 0 0 0 1 0 1 1 0 1 0 1 1 0 0 1 0 0 1 0 0 0 0 1 0 1 0 0 1 0 1 0 1 1 0 0
+ 1 1 0 0 0 1] has fitness: 0.8342082, accuracy: 0.9217082, num_features: 35
+------------------
+Generation 4:
+Best Individual with features [0 1 1 0 1 0 1 1 0 1 0 1 0 0 0 0 1 1 0 1 1 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 1
+ 0 0 0 0 0 1 0 1 1 0 1 0 1 1 0 0 1 0 0 1 0 0 0 0 1 0 1 0 0 1 0 1 0 1 1 0 0
+ 1 1 0 0 0 1] has fitness: 0.8342082, accuracy: 0.9217082, num_features: 35
+------------------
+Generation 5:
+Best Individual with features [0 1 1 0 1 0 1 1 0 1 0 1 0 0 0 0 1 1 0 1 1 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 1
+ 0 0 0 0 0 1 0 1 1 0 1 0 1 1 0 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 0 1 1 1 0 0 0
+ 1 0 1 0 1 0] has fitness: 0.8402669, accuracy: 0.9252669, num_features: 34
+------------------
+Generation 6:
+Best Individual with features [0 1 1 0 1 0 1 1 0 0 1 1 0 1 1 0 1 1 0 1 1 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 1
+ 0 0 0 0 0 1 0 1 1 0 1 0 1 1 0 0 0 0 0 1 0 0 0 0 1 0 1 0 0 0 0 1 1 1 0 0 0
+ 1 0 1 0 1 0] has fitness: 0.8448843, accuracy: 0.9323843, num_features: 35
+------------------
+Generation 7:
+Best Individual with features [0 1 1 0 1 0 1 1 0 0 1 1 0 1 1 0 1 1 0 1 1 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 1
+ 0 0 0 0 0 1 0 1 1 0 1 0 1 1 0 0 0 0 0 1 0 0 0 0 1 0 1 0 0 0 0 1 1 1 0 0 0
+ 1 0 1 0 1 0] has fitness: 0.8448843, accuracy: 0.9323843, num_features: 35
+------------------
+Generation 8:
+Best Individual with features [0 1 1 0 1 0 1 1 0 0 1 1 0 1 1 0 1 1 0 1 1 1 0 0 1 0 0 1 0 1 0 0 1 0 0 0 1
+ 0 0 0 0 0 1 0 1 1 0 1 0 1 1 0 0 1 0 0 1 0 0 0 0 1 0 1 0 0 1 0 1 1 1 0 0 0
+ 1 0 1 0 1 0] has fitness: 0.8423843, accuracy: 0.9323843, num_features: 36
+------------------
+Generation 9:
+Best Individual with features [0 1 0 0 1 0 1 1 0 0 1 1 0 1 1 0 1 1 0 1 1 1 0 0 1 0 1 0 0 1 0 0 1 0 0 0 1
+ 0 0 0 0 0 1 0 1 1 0 1 0 1 1 0 0 0 0 0 1 0 0 1 1 1 0 1 0 0 0 0 1 1 1 0 0 0
+ 1 0 1 0 1 0] has fitness: 0.8591192, accuracy: 0.9466192, num_features: 35
+------------------
+Generation 10:
+Best Individual with features [0 1 0 0 1 0 1 1 0 0 1 1 0 1 1 0 1 1 0 1 1 1 0 0 1 0 1 0 0 1 0 0 1 0 0 0 1
+ 0 0 0 0 0 1 0 1 1 0 1 0 1 1 0 0 0 0 0 1 0 0 1 1 1 0 1 0 0 0 0 1 1 1 0 0 0
+ 1 0 1 0 0 1] has fitness: 0.8662367, accuracy: 0.9537367, num_features: 35
+------------------
+optdigits Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.8662366548042705
+Best Agent accuracy: 0.9537366548042705
+Chosen Features: ['input2', 'input5', 'input7', 'input8', 'input11', 'input12', 'input14', 'input15', 'input17', 'input18', 'input20', 'input21', 'input22', 'input25', 'input27', 'input30', 'input33', 'input37', 'input43', 'input45', 'input46', 'input48', 'input50', 'input51', 'input57', 'input60', 'input61', 'input62', 'input64', 'rand4', 'rand5', 'rand6', 'rand10', 'rand12', 'rand15']
+Best Hyperparameters: {'C': 0.9949740440770961, 'gamma': 0.01686930885963591}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.9661921708185054
+Number of actual columns: 64
+Number of artificial columns: 17
+Fitness: 0.8786921708185054
+Percentage of actual features chosen: 0.453125
+Percentage of artificial features chosen: 0.35294117647058826
+
+
+Processing dataset: page
+Actual Rows in dataset- 5473
+Rows processing- 5473
+Generation 1:
+Best Individual with features [1 0 1 1 1 0 0 0 0 0 0 0] has fitness: 0.8940639, accuracy: 0.9607306, num_features: 4
+------------------
+Generation 2:
+Best Individual with features [0 0 1 1 1 0 0 0 0 0 0 0] has fitness: 0.9079909, accuracy: 0.9579909, num_features: 3
+------------------
+Generation 3:
+Best Individual with features [0 0 1 1 1 0 0 0 0 0 0 0] has fitness: 0.9079909, accuracy: 0.9579909, num_features: 3
+------------------
+Generation 4:
+Best Individual with features [0 0 1 1 1 0 0 0 0 0 0 0] has fitness: 0.9079909, accuracy: 0.9579909, num_features: 3
+------------------
+Generation 5:
+Best Individual with features [0 0 1 1 1 0 0 0 0 0 0 0] has fitness: 0.9079909, accuracy: 0.9579909, num_features: 3
+------------------
+Generation 6:
+Best Individual with features [0 0 1 1 1 0 0 0 0 0 0 0] has fitness: 0.9079909, accuracy: 0.9579909, num_features: 3
+------------------
+Generation 7:
+Best Individual with features [0 0 1 1 1 0 0 0 0 0 0 0] has fitness: 0.9079909, accuracy: 0.9579909, num_features: 3
+------------------
+Stopping early after 7 generations.
+page Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.9079908675799087
+Best Agent accuracy: 0.9579908675799087
+Chosen Features: ['area', 'eccen', 'p_black']
+Best Hyperparameters: {'C': 0.9845877467661316, 'gamma': 0.1335239340954195}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.9579908675799087
+Number of actual columns: 10
+Number of artificial columns: 3
+Fitness: 0.9079908675799087
+Percentage of actual features chosen: 0.3
+Percentage of artificial features chosen: 0.0
+
+
+Processing dataset: pendigits
+Actual Rows in dataset- 10992
+Rows processing- 2748
+Generation 1:
+Best Individual with features [0 1 0 1 0 1 1 1 1 0 1 1 0 0 1 0 0 0 0 0] has fitness: 0.8681818, accuracy: 0.9581818, num_features: 9
+------------------
+Generation 2:
+Best Individual with features [0 1 0 1 0 1 1 1 1 0 1 1 0 0 1 0 0 0 0 0] has fitness: 0.8681818, accuracy: 0.9581818, num_features: 9
+------------------
+Generation 3:
+Best Individual with features [0 1 0 1 0 1 1 1 1 0 1 1 0 0 1 1 0 0 0 0] has fitness: 0.8727273, accuracy: 0.9727273, num_features: 10
+------------------
+Generation 4:
+Best Individual with features [0 1 0 0 0 1 1 1 1 0 1 1 0 0 1 0 0 0 0 0] has fitness: 0.8727273, accuracy: 0.9527273, num_features: 8
+------------------
+Generation 5:
+Best Individual with features [0 1 0 1 0 0 1 0 1 1 1 1 0 0 1 1 0 0 0 0] has fitness: 0.8881818, accuracy: 0.9781818, num_features: 9
+------------------
+Generation 6:
+Best Individual with features [0 1 0 1 0 0 1 0 1 1 1 0 0 0 1 1 0 0 0 0] has fitness: 0.8890909, accuracy: 0.9690909, num_features: 8
+------------------
+Generation 7:
+Best Individual with features [0 1 0 1 0 0 1 0 1 1 1 0 0 0 1 1 0 0 0 0] has fitness: 0.8890909, accuracy: 0.9690909, num_features: 8
+------------------
+Generation 8:
+Best Individual with features [0 1 0 1 0 0 1 0 1 1 1 0 0 0 1 1 0 0 0 0] has fitness: 0.8890909, accuracy: 0.9690909, num_features: 8
+------------------
+Generation 9:
+Best Individual with features [0 1 0 1 0 0 1 0 1 1 1 0 0 0 1 1 0 0 0 0] has fitness: 0.8890909, accuracy: 0.9690909, num_features: 8
+------------------
+Generation 10:
+Best Individual with features [0 1 0 1 0 0 1 0 1 1 1 0 0 0 1 1 0 0 0 0] has fitness: 0.8890909, accuracy: 0.9690909, num_features: 8
+------------------
+pendigits Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.8890909090909092
+Best Agent accuracy: 0.9690909090909091
+Chosen Features: ['input2', 'input4', 'input7', 'input9', 'input10', 'input11', 'input15', 'input16']
+Best Hyperparameters: {'C': 0.5153570346153864, 'gamma': 0.3728164462640215}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.9749886311959982
+Number of actual columns: 16
+Number of artificial columns: 5
+Fitness: 0.8949886311959983
+Percentage of actual features chosen: 0.5
+Percentage of artificial features chosen: 0.0
+
+
+Processing dataset: segment
+Actual Rows in dataset- 2310
+Rows processing- 577
+Generation 1:
+Best Individual with features [0 1 1 1 0 1 1 0 1 0 1 1 0 0 1 0 0 0 0 0 0 1 0] has fitness: 0.6976012, accuracy: 0.7758621, num_features: 9
+------------------
+Generation 2:
+Best Individual with features [0 1 1 0 0 0 1 0 0 0 1 0 0 0 0 1 0 1 1 0 0 0 0] has fitness: 0.7926537, accuracy: 0.8448276, num_features: 6
+------------------
+Generation 3:
+Best Individual with features [0 1 1 0 0 1 1 0 0 0 1 0 0 0 0 1 0 1 1 0 0 0 0] has fitness: 0.8011994, accuracy: 0.8620690, num_features: 7
+------------------
+Generation 4:
+Best Individual with features [0 1 1 0 0 0 1 0 0 0 1 1 0 0 0 1 0 1 1 0 0 0 0] has fitness: 0.7839580, accuracy: 0.8448276, num_features: 7
+------------------
+Generation 5:
+Best Individual with features [0 1 1 0 0 0 1 0 0 0 1 1 0 0 0 1 0 1 0 0 0 0 0] has fitness: 0.8098951, accuracy: 0.8620690, num_features: 6
+------------------
+Generation 6:
+Best Individual with features [0 1 0 0 0 0 1 0 0 0 1 1 0 0 0 1 0 1 0 0 0 0 0] has fitness: 0.8098951, accuracy: 0.8620690, num_features: 6
+------------------
+Generation 7:
+Best Individual with features [0 1 1 0 0 0 0 0 0 0 1 1 0 0 0 1 0 1 0 0 0 0 0] has fitness: 0.8272114, accuracy: 0.8706897, num_features: 5
+------------------
+Generation 8:
+Best Individual with features [0 1 1 0 0 0 1 0 0 0 0 1 0 0 0 1 0 1 0 0 0 0 0] has fitness: 0.8272114, accuracy: 0.8706897, num_features: 5
+------------------
+Generation 9:
+Best Individual with features [0 1 1 0 0 0 1 0 0 0 0 1 0 0 0 1 0 1 0 0 0 0 0] has fitness: 0.8272114, accuracy: 0.8706897, num_features: 5
+------------------
+Generation 10:
+Best Individual with features [0 1 1 0 0 0 1 0 0 0 0 1 0 0 0 1 0 1 0 0 0 0 0] has fitness: 0.8272114, accuracy: 0.8706897, num_features: 5
+------------------
+segment Dataset Loaded and Algorithm Executed
+Model: <class 'sklearn.svm._classes.SVC'>
+Best Agent fitness: 0.8272113943028486
+Best Agent accuracy: 0.8706896551724138
+Chosen Features: ['region-centroid-row', 'region-pixel-count', 'rawred-mean', 'rawblue-mean', 'exgreen-mean', 'saturation-mean']
+Best Hyperparameters: {'C': 0.8678233004031438, 'gamma': 0.7545008091877059}
+Training new model with best hyperparameters and features and complete data
+Final Model accuracy: 0.9415584415584416
+Number of actual columns: 19
+Number of artificial columns: 5
+Fitness: 0.8980801806888764
+Percentage of actual features chosen: 0.3157894736842105
+Percentage of artificial features chosen: 0.0
+
+
