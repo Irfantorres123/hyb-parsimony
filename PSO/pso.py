@@ -1,3 +1,42 @@
+# ---------------------------------------------------------------------------------
+# Particle Swarm Optimization (PSO) Implementation
+# ---------------------------------------------------------------------------------
+#
+# Description:
+# This script defines and implements the Particle Swarm Optimization algorithm for
+# optimizing a given function over a specified domain. The algorithm simulates a swarm of
+# particles moving through the problem space, adjusting their positions based on both
+# personal and global best known positions.
+#
+# Components:
+# - ParticleSwarm: A class representing the swarm of particles, which coordinates the
+#   optimization process, updates global and individual bests, and handles the iteration
+#   loop for convergence towards the optimum.
+# - Particle: A class representing an individual particle in the swarm, which tracks its
+#   own position, velocity, and best-known position. It adjusts its trajectory towards
+#   its own best and the swarm's global best positions.
+# - Evaluator: A separate module that likely includes functionality for evaluating
+#   the fitness of particles, not defined in this script but expected to provide necessary
+#   interfaces like evaluating accuracy and clipping values to maintain them within bounds.
+#
+# Usage:
+# - Instantiate the ParticleSwarm class with a function to optimize, number of iterations,
+#   number of particles, an evaluator instance, and specific coefficients that influence
+#   the movement of particles.
+# - Call the `solve` method on the ParticleSwarm instance to start the optimization process.
+#
+# Dependencies:
+# - numpy: Utilized for numerical operations and array handling.
+# - model_eval: Contains the Evaluator class with methods for evaluating and managing particle fitness.
+# - pyDOE: Used for generating Latin Hypercube Samples which initializes particle positions within the space.
+#
+# Installation of dependencies:
+# - numpy: pip install numpy
+# - pyDOE: pip install pyDOE
+# - model_eval: This appears to be a custom module, ensure it is available in your environment.
+#
+# ---------------------------------------------------------------------------------
+
 import numpy as np
 from model_eval import Evaluator
 from pyDOE import lhs

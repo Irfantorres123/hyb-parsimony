@@ -1,3 +1,54 @@
+# ---------------------------------------------------------------------------------
+# Hybrid Parsimony Algorithm Implementation
+# ---------------------------------------------------------------------------------
+#
+# Description:
+# This script implements the Hybrid Parsimony (HYB-PARSIMONY) algorithm, which combines
+# the exploration mechanisms of Particle Swarm Optimization (PSO) with the exploitation
+# capabilities of Genetic Algorithms (GA) to perform optimization tasks. The algorithm 
+# is designed to optimize a given objective function by evolving a population of particles 
+# that not only follow the best and personal best strategies from PSO but also undergo 
+# crossover and mutation as in GAs to ensure diversity and avoid premature convergence.
+#
+# Features:
+# - Hybrid Optimization: Utilizes PSO for global exploration with crossover and mutation
+#   from GA for local exploitation.
+# - Dynamic Adaptation: Includes mechanisms to dynamically adjust crossover rates and 
+#   perform selective mutation to maintain diversity in the particle population.
+# - Evaluator Integration: Uses a custom Evaluator class for assessing the fitness of 
+#   particles, which is critical for guiding the optimization process.
+#
+# Key Components:
+# - Particle: Represents a candidate solution in the search space with methods to update
+#   its position based on velocity, personal best, and global best.
+# - HybridParsimony: Orchestrates the optimization process by managing particles, performing
+#   crossover and mutation, and selecting elite candidates for reproduction.
+#
+# Usage:
+# - The script is intended to be used as part of a larger system where the objective function,
+#   dimensionality of the problem, and specific parameters like population size and mutation 
+#   rates are defined externally.
+# - Execute the `solve()` method of the HybridParsimony class to start the optimization process.
+#
+# Dependencies:
+# - numpy: Used for mathematical operations and managing array data.
+# - pyDOE2: Provides tools for generating sampling plans using Latin Hypercube Sampling, which
+#   is crucial for initializing particles in the solution space.
+# - model_eval: A custom module that should define the Evaluator class used to assess the fitness
+#   of solutions.
+#
+# Installation of Dependencies:
+# - numpy: pip install numpy
+# - pyDOE2: pip install pyDOE2
+# - Ensure that the model_eval module is available in your environment as it must be imported.
+#
+# Example:
+# An example usage scenario could involve optimizing hyperparameters for a machine learning model,
+# where each particle represents a set of potential hyperparameters and the fitness is determined
+# by the model's performance on validation data.
+#
+# ---------------------------------------------------------------------------------
+
 import numpy as np
 import math
 from pyDOE2 import lhs

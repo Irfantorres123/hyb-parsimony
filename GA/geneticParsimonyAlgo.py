@@ -1,11 +1,55 @@
+# ---------------------------------------------------------------------------------
+# Genetic Algorithm for Feature Selection and Hyperparameter Optimization
+# ---------------------------------------------------------------------------------
+#
+# Description:
+# This script implements a genetic algorithm (GA) that optimizes feature selection and 
+# hyperparameter tuning for machine learning models. The algorithm evolves a population 
+# of individuals, where each individual represents a potential solution comprising a 
+# binary-encoded feature set and a set of model hyperparameters. Fitness of individuals 
+# is evaluated using a custom evaluation strategy provided by an external evaluator module.
+#
+# Key Components:
+# - Individual: Represents an entity in the genetic algorithm population, characterized by 
+#   binary-encoded features and a dictionary of hyperparameters. Each individual's fitness 
+#   and complexity are evaluated based on its performance and resource efficiency.
+# - Genetic operations: Includes initialization, crossover, and mutation functions that 
+#   manipulate individuals to explore the solution space effectively.
+# - Evaluation: Utilizes an external Evaluator module to assess the performance of individuals
+#   based on predefined metrics such as accuracy and model complexity.
+#
+# Usage:
+# - Configure the genetic algorithm parameters including the number of features, hyperparameter
+#   ranges, population size, and number of generations.
+# - Execute the genetic_algorithm function to run the optimization process, which iteratively
+#   evolves the population towards optimal solutions.
+# - Output includes the best individual from the final generation or upon early stopping if 
+#   no improvement is observed.
+#
+# Dependencies:
+# - numpy: For numerical operations, especially with arrays.
+# - pyDOE: Used for generating Latin Hypercube Sampling to initialize individuals uniformly across
+#   the feature and hyperparameter space.
+# - sklearn: Optionally for SVM or other machine learning models that might be used in evaluation.
+# - sys: To handle exceptions and system-specific parameters.
+# - model_eval: Custom module for evaluating the fitness of solutions within the genetic algorithm.
+#
+# Installation of dependencies:
+# - numpy: pip install numpy
+# - pyDOE: pip install pyDOE
+# - sklearn: pip install scikit-learn
+#
+# Note:
+# - Ensure the 'model_eval' module is correctly installed and configured to interact with the genetic
+#   algorithm script. This module should define the Evaluator class with appropriate methods to assess
+#   individual fitness based on machine learning model performance.
+# ---------------------------------------------------------------------------------
+
 import random
 import numpy as np
 from pyDOE import lhs
 from sklearn import svm
 import sys
-
-module_path = '/Users/poonampawar/hyb-parsimony/'
-sys.path.append(module_path)
 from model_eval import Evaluator
 
 evaluator = Evaluator() 

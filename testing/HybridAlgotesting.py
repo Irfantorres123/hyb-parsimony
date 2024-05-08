@@ -1,8 +1,3 @@
-'''
-Hybird Algorithm testing file 
-It should get the datasets -- processe as required 
-generate results 
-'''
 from utils import datasets
 from HYB_PARSIMONY.hyb_parsimony import HybridParsimony
 

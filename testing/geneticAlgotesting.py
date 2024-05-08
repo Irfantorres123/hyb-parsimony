@@ -1,8 +1,5 @@
 
 from utils import datasets
-# Path where the geneticParsimonyAlgo module is located
-# module_path = '/Users/poonampawar/hyb-parsimony/GA'
-# sys.path.append(module_path)
 from GA.geneticParsimonyAlgo import genetic_algorithm 
 
 def test():
@@ -32,6 +29,5 @@ def test():
         evaluator.print_results(original_df)
         
     
-
 if __name__ == '__main__':
     test()

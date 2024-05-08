@@ -1,3 +1,37 @@
+# ---------------------------------------------------------------------------------
+# Log File Analysis and Visualization Script
+# ---------------------------------------------------------------------------------
+#
+# Description:
+# This script is designed to parse and analyze performance log files from optimization
+# algorithm tests, specifically Genetic Algorithm (GA), Particle Swarm Optimization (PSO),
+# and a Hybrid Algorithm. The script reads data from a specified log file, processes
+# segments related to each algorithm, extracts performance metrics such as accuracy and
+# number of features per iteration, and visualizes these metrics using matplotlib.
+#
+# Functionality:
+# 1. Read and segment a log file based on distinct algorithm test outputs.
+# 2. Parse each segment to extract dataset names, iterations, accuracy, and feature counts.
+# 3. Store extracted data in dictionaries for GA, PSO, and Hybrid Algorithm statistics.
+# 4. Plot the number of features over iterations for each dataset and algorithm to
+#    visually compare their performance.
+#
+# Usage:
+# - Ensure the log file name is correctly specified in the 'file' variable.
+# - Run the script to generate plots for each dataset showing the progression of feature
+#   counts over iterations for each algorithm tested.
+# - Review plots to assess and compare the efficiency and effectiveness of each algorithm.
+#
+# Requirements:
+# - matplotlib: This library is used for creating static, interactive, and animated
+#   visualizations in Python. Install via pip if not already installed:
+#       pip install matplotlib
+#
+# Note:
+# - This script assumes that the log file is formatted in a specific way with clear
+#   delimiters between algorithm test outputs and consistent labeling of data points.
+# ---------------------------------------------------------------------------------
+
 import matplotlib.pyplot as plt
 file="combined1.log"
 
